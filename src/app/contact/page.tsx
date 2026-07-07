@@ -3,6 +3,18 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Zap, MessageSquare, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import emailjs from "@emailjs/browser";
+
+// ─── EmailJS Configuration ────────────────────────────────────────────────────
+// TO ACTIVATE: Follow the 3 steps in the README or ask Antigravity to set it up.
+// 1. Go to https://www.emailjs.com and sign up free
+// 2. Add Gmail Service → connect Admin@cllero.com
+// 3. Create an Email Template with variables: {{from_name}}, {{from_email}}, {{message}}
+// 4. Replace the three values below with your actual IDs:
+const EMAILJS_SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID  || "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY  || "YOUR_PUBLIC_KEY";
+// ─────────────────────────────────────────────────────────────────────────────
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -16,9 +28,7 @@ export default function ContactPage() {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       const form = e.currentTarget.closest("form");
-      if (form) {
-        form.requestSubmit();
-      }
+      if (form) form.requestSubmit();
     }
   };
 
@@ -27,22 +37,26 @@ export default function ContactPage() {
     setStatus({ type: "loading" });
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name:  formData.name,
+          from_email: formData.email,
+          message:    formData.message,
+          reply_to:   formData.email,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
 
-      const data = await res.json();
-      if (res.ok) {
-        setStatus({ type: "success" });
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setStatus({ type: "error", message: data.error || "Something went wrong." });
-      }
-    } catch (err) {
-      console.error(err);
-      setStatus({ type: "error", message: "Failed to connect to the server." });
+      setStatus({ type: "success" });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: any) {
+      console.error("EmailJS error:", err);
+      setStatus({
+        type: "error",
+        message: "Failed to send your message. Please try again or email us directly at Admin@cllero.com",
+      });
     }
   };
 
@@ -79,12 +93,12 @@ export default function ContactPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-12 space-y-4"
             >
-              <div className="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center text-emerald-500 mx-auto mb-2">
+              <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500 mx-auto mb-2">
                 <CheckCircle size={36} />
               </div>
               <h3 className="text-2xl font-black text-slate-900">Inquiry Sent Successfully</h3>
               <p className="text-slate-500 text-sm max-w-md mx-auto">
-                Thank you for reaching out. We have received your details and will get back to you shortly at the email address provided.
+                Thank you for reaching out. We have received your details and will get back to you shortly.
               </p>
               <button
                 type="button"

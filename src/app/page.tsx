@@ -30,6 +30,13 @@ import {
   ScanLine
 } from "lucide-react";
 import { HomeFAQ } from "@/components/home/HomeFAQ";
+import emailjs from "@emailjs/browser";
+
+// ─── EmailJS Configuration ────────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID  || "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY  || "YOUR_PUBLIC_KEY";
+// ─────────────────────────────────────────────────────────────────────────────
 
 // 2D Hero Animation components will be rendered inline
 
@@ -82,22 +89,22 @@ export default function Home() {
     setStatus({ type: "loading" });
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        setStatus({ type: "success" });
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setStatus({ type: "error", message: data.error || "Something went wrong." });
-      }
-    } catch (err) {
-      console.error(err);
-      setStatus({ type: "error", message: "Failed to connect to the server." });
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name:  formData.name,
+          from_email: formData.email,
+          message:    formData.message,
+          reply_to:   formData.email,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setStatus({ type: "success" });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: any) {
+      console.error("EmailJS error:", err);
+      setStatus({ type: "error", message: "Failed to send your message. Please try again or email us directly at Admin@cllero.com" });
     }
   };
 
