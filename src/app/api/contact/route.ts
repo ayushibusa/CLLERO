@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-// To send emails on Vercel without Google security blocks, get a free Access Key
-// from https://web3forms.com (takes 10 seconds) and paste it here or set it as WEB3FORMS_KEY in your env.
-const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY || "";
+// ─────────────────────────────────────────────────────────────────────────────
+// HOW TO SET UP (takes ~2 minutes, completely free):
+// 1. Go to https://resend.com and sign up with Admin@cllero.com
+// 2. Create a free API key from the dashboard
+// 3. Add it to Vercel → Settings → Environment Variables as RESEND_API_KEY
+//    OR paste it directly below for local testing:
+const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
+// ─────────────────────────────────────────────────────────────────────────────
 
 export async function POST(request: Request) {
   try {
@@ -11,81 +16,69 @@ export async function POST(request: Request) {
 
     if (!name || !email || !message) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Please fill in all fields before submitting." },
         { status: 400 }
       );
     }
 
-    // Path 1: If Web3Forms key is configured, use it (recommended for Vercel/production)
-    if (WEB3FORMS_KEY && WEB3FORMS_KEY !== "") {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
+    // If no API key configured yet, return a helpful setup message
+    if (!RESEND_API_KEY) {
+      return NextResponse.json(
+        {
+          error:
+            "Email service not configured yet. Please follow these steps:\n1. Sign up free at https://resend.com\n2. Create an API key\n3. Add RESEND_API_KEY to your Vercel Environment Variables",
         },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          name: name,
-          email: email,
-          message: message,
-          subject: `New Cllero Inquiry from ${name}`,
-          from_name: "Cllero Contact Form",
-          // Send a copy to the user as well
-          replyto: email,
-        }),
-      });
-
-      const resData = await response.json();
-      if (response.ok && resData.success) {
-        return NextResponse.json({ success: true, message: "Email sent successfully via Web3Forms" });
-      } else {
-        throw new Error(resData.message || "Web3Forms submission failed");
-      }
+        { status: 503 }
+      );
     }
 
-    // Path 2: Fallback to direct Gmail SMTP (works on localhost, but blocked by Google on Vercel)
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "Admin@cllero.com",
-        pass: "nzbm kevj idaj pzxn",
-      },
-    });
+    const resend = new Resend(RESEND_API_KEY);
 
-    const mailOptions = {
-      from: `"Cllero Contact Form" <Admin@cllero.com>`,
-      to: `Admin@cllero.com, ${email}`,
+    const { error } = await resend.emails.send({
+      from: "CLLERO Contact Form <onboarding@resend.dev>",
+      to: ["Admin@cllero.com"],
       replyTo: email,
       subject: `New Inquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
-        <div style="font-family: sans-serif; padding: 20px; color: #333; max-width: 600px; border: 1px solid #eee; border-radius: 8px;">
-          <h2 style="color: #06b6d4; border-bottom: 2px solid #f0f9ff; padding-bottom: 10px; margin-top: 0;">New Cllero Inquiry</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-          <div style="margin-top: 20px; padding: 15px; background-color: #f8fafc; border-radius: 6px; border-left: 4px solid #06b6d4;">
-            <p style="margin: 0; white-space: pre-wrap; line-height: 1.6;">${message}</p>
+        <div style="font-family: 'Helvetica Neue', sans-serif; padding: 32px; color: #1e293b; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0;">
+          <div style="border-bottom: 3px solid #06b6d4; padding-bottom: 16px; margin-bottom: 24px;">
+            <h2 style="color: #0f172a; font-size: 22px; margin: 0;">📩 New Cllero Inquiry</h2>
           </div>
-          <p style="font-size: 10px; color: #999; margin-top: 20px;">This is a copy of the inquiry sent to Admin@cllero.com</p>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 8px 0; font-weight: bold; color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; width: 100px;">Name</td>
+              <td style="padding: 8px 0; color: #0f172a; font-size: 15px; font-weight: 600;">${name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; font-weight: bold; color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Email</td>
+              <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #06b6d4; text-decoration: none; font-size: 15px;">${email}</a></td>
+            </tr>
+          </table>
+          <div style="margin-top: 24px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #06b6d4;">
+            <p style="margin: 0; font-size: 13px; font-weight: bold; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">Message</p>
+            <p style="margin: 0; white-space: pre-wrap; line-height: 1.7; color: #334155; font-size: 15px;">${message}</p>
+          </div>
+          <p style="font-size: 11px; color: #94a3b8; margin-top: 28px; text-align: center;">Sent via CLLERO contact form · Reply to this email to respond directly to ${name}</p>
         </div>
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
-
-    return NextResponse.json({ success: true, message: "Email sent successfully via Gmail SMTP" });
-  } catch (error: any) {
-    console.error("Error sending email:", error);
-    
-    let errorMessage = "Failed to send email. Please check your network or try again.";
-    
-    if (error.code === "EAUTH" || (error.message && error.message.includes("534-5.7.9")) || error.message?.toLowerCase().includes("block") || error.message?.toLowerCase().includes("login")) {
-      errorMessage = "Google security blocked this login request as unrecognized (standard Vercel datacenter block). To fix this instantly:\n\n1. Visit https://web3forms.com\n2. Enter Admin@cllero.com to receive a free Access Key\n3. Set WEB3FORMS_KEY in your Vercel project Environment Variables (or paste it directly in src/app/api/contact/route.ts at line 6).";
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json(
+        { error: "Failed to send email. Please try again." },
+        { status: 500 }
+      );
     }
 
+    return NextResponse.json({
+      success: true,
+      message: "Your inquiry has been sent successfully!",
+    });
+  } catch (err: any) {
+    console.error("Contact route error:", err);
     return NextResponse.json(
-      { error: errorMessage, details: error.message },
+      { error: "Something went wrong. Please try again later." },
       { status: 500 }
     );
   }
