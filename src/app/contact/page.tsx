@@ -64,14 +64,6 @@ export default function ContactPage() {
           <p className="text-slate-550 max-w-2xl mx-auto text-lg font-medium">
             Tell us about your gym and we will craft a personalized AI solution for your business.
           </p>
-          <div className="mt-6">
-            <a
-              href="mailto:Admin@cllero.com"
-              className="text-cyan-600 font-mono text-sm hover:underline font-bold"
-            >
-              Admin@cllero.com
-            </a>
-          </div>
         </div>
 
         {/* Contact Form Wrapper Card */}

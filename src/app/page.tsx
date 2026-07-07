@@ -771,9 +771,6 @@ export default function Home() {
           <p className="text-slate-500 mb-4 text-lg font-medium">
             Tell us about your gym and we will craft a personalized AI solution for your business.
           </p>
-          <a href="mailto:Admin@cllero.com" className="text-cyan-600 font-mono text-sm hover:underline font-bold">
-            Admin@cllero.com
-          </a>
         </div>
 
         <div className="max-w-2xl mx-auto neo-card p-8 lg:p-12 bg-white">
