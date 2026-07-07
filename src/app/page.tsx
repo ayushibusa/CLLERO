@@ -23,7 +23,11 @@ import {
   ShieldCheck,
   Loader2,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Calendar,
+  MessageSquare,
+  UtensilsCrossed,
+  ScanLine
 } from "lucide-react";
 import { HomeFAQ } from "@/components/home/HomeFAQ";
 
@@ -312,44 +316,44 @@ export default function Home() {
               Master Feature <span className="text-cyan-500">Ecosystem</span>
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
-              Explore our 21 cutting-edge tools in active deployment, engineered to bridge the accuracy gap and guarantee 20% retention growth.
+              Everything your gym needs — classes, attendance, nutrition, and member communication — unified in one platform.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Absentees */}
+            {/* Attendance */}
             <FeatureCard
-              id="absentees"
-              icon={<Users />}
-              title="Absentees Management"
-              description="Automated direct messaging alerts triggered after 3 consecutive days of absence."
+              id="attendance"
+              icon={<ScanLine />}
+              title="Attendance"
+              description="QR-code check-in marks members present instantly. Live attendance feed, heat-maps, and absence alerts keep you in control every day."
             />
-            {/* CCTV */}
+            {/* Classes */}
             <FeatureCard
-              id="cctv"
-              icon={<Eye />}
-              title="AI CCTV Monitoring"
-              description="33-point skeletal tracking for real-time form analysis and injury alerts."
+              id="classes"
+              icon={<Calendar />}
+              title="Classes"
+              description="Schedule and publish class timetables. Members book slots from the app, trainers are auto-assigned, and cancellations free up waitlists instantly."
             />
-            {/* Churn prediction */}
+            {/* Diet */}
             <FeatureCard
-              id="silent-quit"
-              icon={<AlertTriangle />}
-              title="Silent-Quit Prediction"
-              description="Behavioral AI flags 'at-risk' members before they even miss a session."
+              id="diet"
+              icon={<UtensilsCrossed />}
+              title="Diet"
+              description="Dietitians build macro-specific meal plans and assign them to members. Calorie targets, adherence logs, and diet reminders are fully automated."
             />
-            {/* Financial tracking */}
+            {/* Chat */}
             <FeatureCard
-              id="profit-loss"
-              icon={<TrendingUp />}
-              title="Profit/Loss Intelligence"
-              description="Real-time calculation of operational expenses vs. revenue via 3D graphs."
+              id="chat"
+              icon={<MessageSquare />}
+              title="Chat with Members"
+              description="Trainers and dietitians message members directly inside the platform. Broadcast announcements, push notifications, and private secure threads — no WhatsApp needed."
             />
           </div>
 
           <div className="mt-16 text-center">
             <Link href="/features" className="btn-cyan px-12 py-4 text-base inline-flex items-center gap-2 font-bold font-display uppercase tracking-wider">
-              Explore All 21 Features <ArrowRight size={20} />
+              Explore All Features <ArrowRight size={20} />
             </Link>
           </div>
         </div>
