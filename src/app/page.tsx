@@ -27,7 +27,8 @@ import {
   Calendar,
   MessageSquare,
   UtensilsCrossed,
-  ScanLine
+  ScanLine,
+  BarChart3
 } from "lucide-react";
 import { HomeFAQ } from "@/components/home/HomeFAQ";
 import emailjs from "@emailjs/browser";
@@ -320,48 +321,42 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-black mb-4 text-slate-900 tracking-tight">
-              Master Feature <span className="text-cyan-500">Ecosystem</span>
+              Feature <span className="text-cyan-500">Ecosystem</span>
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
-              Everything your gym needs — classes, attendance, nutrition, and member communication — unified in one platform.
+              Four dedicated panels — each role gets exactly the tools they need, unified in one intelligent platform.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Attendance */}
+            {/* Gym Admin */}
             <FeatureCard
-              id="attendance"
-              icon={<ScanLine />}
-              title="Attendance"
-              description="QR-code check-in marks members present instantly. Live attendance feed, heat-maps, and absence alerts keep you in control every day."
+              id="gym-admin"
+              icon={<BarChart3 />}
+              title="Gym Admin"
+              description="Full business command centre — live revenue dashboard, automated billing, staff shift management, multi-location control, lead tracking, and retention flags all in one view."
             />
-            {/* Classes */}
+            {/* Trainer */}
             <FeatureCard
-              id="classes"
-              icon={<Calendar />}
-              title="Classes"
-              description="Schedule and publish class timetables. Members book slots from the app, trainers are auto-assigned, and cancellations free up waitlists instantly."
+              id="trainer"
+              icon={<Dumbbell />}
+              title="Trainer"
+              description="Build personalised workout plans, schedule PT sessions, track client performance week-over-week, and chat directly with members — no third-party apps needed."
             />
-            {/* Diet */}
+            {/* Dietitian */}
             <FeatureCard
-              id="diet"
+              id="dietitian"
               icon={<UtensilsCrossed />}
-              title="Diet"
-              description="Dietitians build macro-specific meal plans and assign them to members. Calorie targets, adherence logs, and diet reminders are fully automated."
+              title="Dietitian"
+              description="Create macro-specific meal plans, assign them to individual members or cohorts, monitor nutrition adherence, and consult via in-app messaging."
             />
-            {/* Chat */}
+            {/* Member */}
             <FeatureCard
-              id="chat"
-              icon={<MessageSquare />}
-              title="Chat with Members"
-              description="Trainers and dietitians message members directly inside the platform. Broadcast announcements, push notifications, and private secure threads — no WhatsApp needed."
+              id="member"
+              icon={<UserCheck />}
+              title="Member"
+              description="QR check-in, class booking, diet plan viewer, progress tracker, renewal reminders, and direct chat with their trainer — everything a member needs in one app."
             />
-          </div>
-
-          <div className="mt-16 text-center">
-            <Link href="/features" className="btn-cyan px-12 py-4 text-base inline-flex items-center gap-2 font-bold font-display uppercase tracking-wider">
-              Explore All Features <ArrowRight size={20} />
-            </Link>
           </div>
         </div>
       </section>
