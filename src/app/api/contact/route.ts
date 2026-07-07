@@ -1,14 +1,9 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HOW TO SET UP (takes ~2 minutes, completely free):
-// 1. Go to https://resend.com and sign up with Admin@cllero.com
-// 2. Create a free API key from the dashboard
-// 3. Add it to Vercel → Settings → Environment Variables as RESEND_API_KEY
-//    OR paste it directly below for local testing:
-const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
-// ─────────────────────────────────────────────────────────────────────────────
+// Gmail credentials — app password must be WITHOUT spaces
+const GMAIL_USER = process.env.GMAIL_USER || "Admin@cllero.com";
+const GMAIL_PASS = process.env.GMAIL_PASS || "nzbmkevjidajpzxn"; // spaces removed
 
 export async function POST(request: Request) {
   try {
@@ -21,28 +16,30 @@ export async function POST(request: Request) {
       );
     }
 
-    // If no API key configured yet, return a helpful setup message
-    if (!RESEND_API_KEY) {
-      return NextResponse.json(
-        {
-          error:
-            "Email service not configured yet. Please follow these steps:\n1. Sign up free at https://resend.com\n2. Create an API key\n3. Add RESEND_API_KEY to your Vercel Environment Variables",
-        },
-        { status: 503 }
-      );
-    }
+    // Use explicit host/port instead of service:'gmail' — more reliable on Vercel
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // SSL
+      auth: {
+        user: GMAIL_USER,
+        pass: GMAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
 
-    const resend = new Resend(RESEND_API_KEY);
-
-    const { error } = await resend.emails.send({
-      from: "CLLERO Contact Form <onboarding@resend.dev>",
-      to: ["Admin@cllero.com"],
-      replyTo: email,
+    const mailOptions = {
+      from: `"CLLERO Contact Form" <${GMAIL_USER}>`,
+      to: GMAIL_USER, // sends to Admin@cllero.com
+      replyTo: email, // reply goes directly to the person who submitted
       subject: `New Inquiry from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <div style="font-family: 'Helvetica Neue', sans-serif; padding: 32px; color: #1e293b; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0;">
           <div style="border-bottom: 3px solid #06b6d4; padding-bottom: 16px; margin-bottom: 24px;">
-            <h2 style="color: #0f172a; font-size: 22px; margin: 0;">📩 New Cllero Inquiry</h2>
+            <h2 style="color: #0f172a; font-size: 22px; margin: 0;">📩 New CLLERO Inquiry</h2>
           </div>
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
@@ -61,25 +58,28 @@ export async function POST(request: Request) {
           <p style="font-size: 11px; color: #94a3b8; margin-top: 28px; text-align: center;">Sent via CLLERO contact form · Reply to this email to respond directly to ${name}</p>
         </div>
       `,
-    });
+    };
 
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json(
-        { error: "Failed to send email. Please try again." },
-        { status: 500 }
-      );
-    }
+    await transporter.sendMail(mailOptions);
 
     return NextResponse.json({
       success: true,
       message: "Your inquiry has been sent successfully!",
     });
   } catch (err: any) {
-    console.error("Contact route error:", err);
-    return NextResponse.json(
-      { error: "Something went wrong. Please try again later." },
-      { status: 500 }
-    );
+    console.error("Email error:", err?.message || err);
+
+    // Specific error messages for common failures
+    let errorMsg = "Failed to send email. Please try again.";
+
+    if (err.code === "EAUTH" || err.message?.includes("534") || err.message?.includes("535")) {
+      errorMsg =
+        "Gmail authentication failed. To fix this: Go to myaccount.google.com → Security → 2-Step Verification → App Passwords, create a new app password for Mail, and update GMAIL_PASS in Vercel Environment Variables.";
+    } else if (err.code === "ECONNECTION" || err.code === "ETIMEDOUT") {
+      errorMsg =
+        "Could not connect to Gmail servers. Vercel may be blocking outbound SMTP. Contact support or use an email API like Resend.";
+    }
+
+    return NextResponse.json({ error: errorMsg }, { status: 500 });
   }
 }
