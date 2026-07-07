@@ -63,6 +63,16 @@ export default function Home() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      const form = e.currentTarget.closest("form");
+      if (form) {
+        form.requestSubmit();
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus({ type: "loading" });
@@ -803,6 +813,7 @@ export default function Home() {
                   required
                   value={formData.name}
                   onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                   placeholder="John Doe"
                   disabled={status.type === "loading"}
                   className="w-full neo-inset bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 outline-none transition-all font-medium text-slate-800 disabled:opacity-50"
@@ -818,6 +829,7 @@ export default function Home() {
                   required
                   value={formData.email}
                   onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                   placeholder="you@yourgym.com"
                   disabled={status.type === "loading"}
                   className="w-full neo-inset bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 outline-none transition-all font-medium text-slate-800 disabled:opacity-50"
@@ -832,6 +844,7 @@ export default function Home() {
                   required
                   value={formData.message}
                   onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                   placeholder="Number of members, current challenges, what you are looking for..."
                   rows={4}
                   disabled={status.type === "loading"}
