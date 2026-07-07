@@ -72,12 +72,9 @@ export async function POST(request: Request) {
     // Specific error messages for common failures
     let errorMsg = "Failed to send email. Please try again.";
 
-    if (err.code === "EAUTH" || err.message?.includes("534") || err.message?.includes("535")) {
+    if (err.code === "EAUTH" || err.message?.includes("534") || err.message?.includes("535") || err.code === "ECONNECTION" || err.code === "ETIMEDOUT") {
       errorMsg =
-        "Gmail authentication failed. To fix this: Go to myaccount.google.com → Security → 2-Step Verification → App Passwords, create a new app password for Mail, and update GMAIL_PASS in Vercel Environment Variables.";
-    } else if (err.code === "ECONNECTION" || err.code === "ETIMEDOUT") {
-      errorMsg =
-        "Could not connect to Gmail servers. Vercel may be blocking outbound SMTP. Contact support or use an email API like Resend.";
+        "We are currently experiencing a technical issue with our email service. Please contact us directly at Admin@cllero.com or try again later.";
     }
 
     return NextResponse.json({ error: errorMsg }, { status: 500 });
