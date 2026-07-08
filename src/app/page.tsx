@@ -277,6 +277,7 @@ export default function Home() {
               icon={<BarChart3 />}
               title="Gym Admin"
               description="Full business command centre — live revenue dashboard, automated billing, staff shift management, multi-location control, lead tracking, and retention flags all in one view."
+              bgImage="/gym_admin_bg.png"
             />
             {/* Trainer */}
             <FeatureCard
@@ -284,6 +285,7 @@ export default function Home() {
               icon={<Dumbbell />}
               title="Trainer"
               description="Build personalised workout plans, schedule PT sessions, track client performance week-over-week, and chat directly with members — no third-party apps needed."
+              bgImage="/trainer_bg.png"
             />
             {/* Dietitian */}
             <FeatureCard
@@ -291,6 +293,7 @@ export default function Home() {
               icon={<UtensilsCrossed />}
               title="Dietitian"
               description="Create macro-specific meal plans, assign them to individual members or cohorts, monitor nutrition adherence, and consult via in-app messaging."
+              bgImage="/dietitian_bg.png"
             />
             {/* Member */}
             <FeatureCard
@@ -298,6 +301,7 @@ export default function Home() {
               icon={<UserCheck />}
               title="Member"
               description="QR check-in, class booking, diet plan viewer, progress tracker, renewal reminders, and direct chat with their trainer — everything a member needs in one app."
+              bgImage="/member_bg.png"
             />
           </div>
         </div>
@@ -551,9 +555,10 @@ interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
+  bgImage?: string;
 }
 
-function FeatureCard({ id, icon, title, description }: FeatureCardProps) {
+function FeatureCard({ id, icon, title, description, bgImage }: FeatureCardProps) {
   return (
     <Link href={`/panels/${id}`}>
       <motion.div
@@ -561,20 +566,32 @@ function FeatureCard({ id, icon, title, description }: FeatureCardProps) {
         whileInView={{ opacity: 1, y: 0 }}
         whileHover={{ y: -10 }}
         viewport={{ once: true }}
-        className="overflow-hidden group hover:border-cyan-500/30 transition-all h-full flex flex-col neo-card p-8 bg-white border-slate-200 cursor-pointer"
+        className="overflow-hidden group hover:border-cyan-500/30 transition-all h-full flex flex-col neo-card bg-white border-slate-200 cursor-pointer relative"
       >
-        <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all bg-cyan-500/10 text-cyan-500">
-          {icon}
+        {bgImage && (
+          <>
+            <div 
+              className="absolute top-0 left-0 right-0 h-[220px] bg-cover bg-top z-0 opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+              style={{ backgroundImage: `url(${bgImage})` }} 
+            />
+            <div className="absolute top-0 left-0 right-0 h-[220px] bg-gradient-to-b from-white/10 via-white/80 to-white z-0" />
+          </>
+        )}
+        
+        <div className={`relative z-10 flex flex-col h-full px-8 pb-8 ${bgImage ? 'pt-24' : 'pt-8'}`}>
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all bg-white text-cyan-500 shadow-sm border border-cyan-100">
+            {icon}
+          </div>
+          <h3 className="text-xl font-black mb-3 group-hover:text-cyan-500 transition-colors text-slate-900 tracking-tight">
+            {title}
+          </h3>
+          <p className="text-slate-500 leading-relaxed text-sm flex-1 font-medium">
+            {description}
+          </p>
+          <span className="mt-4 text-[10px] font-bold text-cyan-500 uppercase tracking-wider group-hover:underline">
+            View All Modules →
+          </span>
         </div>
-        <h3 className="text-xl font-black mb-3 group-hover:text-cyan-500 transition-colors text-slate-900 tracking-tight">
-          {title}
-        </h3>
-        <p className="text-slate-500 leading-relaxed text-sm flex-1 font-medium">
-          {description}
-        </p>
-        <span className="mt-4 text-[10px] font-bold text-cyan-500 uppercase tracking-wider group-hover:underline">
-          View All Modules →
-        </span>
       </motion.div>
     </Link>
   );
