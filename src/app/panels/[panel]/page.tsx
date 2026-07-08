@@ -32,11 +32,65 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 /* ── panel accent helpers ── */
-const ACCENT: Record<string, { border: string; text: string; bg: string; btnBg: string }> = {
-  cyan:    { border: "border-cyan-200",    text: "text-cyan-600",    bg: "bg-cyan-500/10",    btnBg: "bg-cyan-500" },
-  violet:  { border: "border-violet-200",  text: "text-violet-600",  bg: "bg-violet-500/10",  btnBg: "bg-violet-500" },
-  emerald: { border: "border-emerald-200", text: "text-emerald-600", bg: "bg-emerald-500/10", btnBg: "bg-emerald-500" },
-  amber:   { border: "border-amber-200",   text: "text-amber-600",   bg: "bg-amber-500/10",   btnBg: "bg-amber-500" },
+const ACCENT: Record<string, { border: string; borderHover: string; text: string; bg: string; btnBg: string }> = {
+  cyan:    { border: "border-cyan-200",    borderHover: "rgba(6, 182, 212, 0.3)",   text: "text-cyan-600",    bg: "bg-cyan-500/10",    btnBg: "bg-cyan-500" },
+  violet:  { border: "border-violet-200",  borderHover: "rgba(124, 58, 237, 0.3)", text: "text-violet-600",  bg: "bg-violet-500/10",  btnBg: "bg-violet-500" },
+  emerald: { border: "border-emerald-200", borderHover: "rgba(5, 150, 105, 0.3)",  text: "text-emerald-600", bg: "bg-emerald-500/10", btnBg: "bg-emerald-500" },
+  amber:   { border: "border-amber-200",   borderHover: "rgba(217, 119, 6, 0.3)",   text: "text-amber-600",   bg: "bg-amber-500/10",   btnBg: "bg-amber-500" },
+};
+
+/* ── Animation variants ── */
+const pageContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const headerTextVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 90, damping: 14 }
+  }
+};
+
+const illustrationVariants = {
+  hidden: { opacity: 0, scale: 0.92, x: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: { type: "spring", stiffness: 70, damping: 14, delay: 0.15 }
+  }
+};
+
+const gridContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
+};
+
+const gridItemVariants = {
+  hidden: { opacity: 0, y: 25, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 90,
+      damping: 14,
+    },
+  },
 };
 
 export default function PanelPage() {
@@ -46,14 +100,19 @@ export default function PanelPage() {
 
   if (!panel) return notFound();
 
-  const accent = ACCENT.cyan;
+  const accent = ACCENT[panel.color as keyof typeof ACCENT] || ACCENT.cyan;
 
   const labelParts = panel.label.split(" ");
   const firstPart = labelParts.slice(0, -1).join(" ");
   const lastPart = labelParts[labelParts.length - 1];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <motion.div 
+      variants={pageContainerVariants} 
+      initial="hidden" 
+      animate="visible" 
+      className="min-h-screen bg-slate-50"
+    >
 
       <section className={`pt-12 pb-20 px-6 md:px-12 lg:px-16 bg-gradient-to-br ${panel.bgGradient} border-b border-slate-200 relative overflow-hidden`}>
         {/* Subtle background glow */}
@@ -70,7 +129,7 @@ export default function PanelPage() {
               <ArrowLeft className="w-3.5 h-3.5" /> Back to Feature Ecosystem
             </Link>
 
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div variants={headerTextVariants}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight mb-4">
                 {firstPart ? (
                   <>
@@ -81,7 +140,7 @@ export default function PanelPage() {
                   <span>{lastPart}</span>
                 )}
               </h1>
-              <p className="text-slate-500 text-lg font-medium max-w-xl">
+              <p className="text-slate-550 dark:text-slate-500 text-lg font-medium max-w-xl">
                 {panel.tagline}
               </p>
               <p className={`mt-6 inline-block py-1.5 px-4 rounded-lg bg-white border border-slate-200 shadow-sm text-xs font-bold ${accent.text} uppercase tracking-widest`}>
@@ -92,9 +151,7 @@ export default function PanelPage() {
 
           {/* Right Column (Dashboard Widget Illustration) */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9, x: 30 }} 
-            animate={{ opacity: 1, scale: 1, x: 0 }} 
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            variants={illustrationVariants}
             className="hidden lg:flex justify-end"
           >
             <div className="relative w-full max-w-md bg-white/60 backdrop-blur-xl rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-white p-6 overflow-hidden transform hover:-translate-y-2 transition-transform duration-500">
@@ -192,17 +249,23 @@ export default function PanelPage() {
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            variants={gridContainerVariants}
             initial="hidden"
             animate="visible"
-            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
           >
             {panel.modules.map((mod) => (
               <motion.button
                 key={mod.id}
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                whileHover={{ y: -6, scale: 1.01 }}
+                variants={gridItemVariants}
+                whileHover={{ 
+                  y: -8, 
+                  scale: 1.02,
+                  boxShadow: "0 20px 45px rgba(0,0,0,0.05)",
+                  borderColor: accent.borderHover
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 onClick={() => setSelectedModule(mod)}
-                className="text-left bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300 group flex flex-col gap-4 cursor-pointer"
+                className="text-left bg-white border border-slate-200 rounded-2xl p-6 shadow-sm group flex flex-col gap-4 cursor-pointer outline-none"
               >
                 <div className={`w-11 h-11 rounded-xl ${accent.bg} ${accent.border} border flex items-center justify-center ${accent.text} group-hover:scale-110 transition-transform shrink-0`}>
                   {ICONS[mod.icon] ?? <BarChart3 className="w-6 h-6" />}
@@ -284,6 +347,6 @@ export default function PanelPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
