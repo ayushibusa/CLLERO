@@ -96,51 +96,55 @@ const statCards = [
 
 export function HeroOrbitAnimation() {
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Central Premium Soft Glow */}
-      <div className="absolute w-64 h-64 bg-cyan-500/8 blur-[100px] rounded-full z-0" />
+    <div className="relative w-full h-full flex items-center justify-center overflow-visible">
+      {/* Scaled wrapper to keep aspect ratio and card positioning exact on all devices */}
+      <div className="w-[540px] h-[540px] shrink-0 relative flex items-center justify-center scale-[0.6] min-[400px]:scale-[0.68] sm:scale-[0.8] md:scale-[0.95] lg:scale-100 origin-center transition-transform duration-300 select-none">
+        
+        {/* Central Premium Soft Glow */}
+        <div className="absolute w-64 h-64 bg-cyan-500/8 blur-[100px] rounded-full z-0" />
 
-      {/* Inner Circle Track */}
-      <div className="absolute w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] lg:w-[260px] lg:h-[260px] rounded-full border border-cyan-500/10 z-0" />
+        {/* Inner Circle Track */}
+        <div className="absolute w-[260px] h-[260px] rounded-full border border-cyan-500/10 z-0" />
 
-      {/* Middle Circle Track with Orbiting Orange Dot */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[400px] lg:h-[400px] rounded-full border border-cyan-500/8 z-0"
-      >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-orange-500 rounded-full shadow-[0_0_15px_#F97316]" />
-      </motion.div>
+        {/* Middle Circle Track with Orbiting Orange Dot */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[400px] h-[400px] rounded-full border border-cyan-500/8 z-0"
+        >
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-orange-500 rounded-full shadow-[0_0_15px_#F97316]" />
+        </motion.div>
 
-      {/* Outer Circle Track with Orbiting Cyan Dot */}
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[380px] h-[380px] sm:w-[460px] sm:h-[460px] lg:w-[540px] lg:h-[540px] rounded-full border border-cyan-500/6 z-0"
-      >
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-[0_0_12px_#00F2FF]" />
-      </motion.div>
+        {/* Outer Circle Track with Orbiting Cyan Dot */}
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[540px] h-[540px] rounded-full border border-cyan-500/6 z-0"
+        >
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-[0_0_12px_#00F2FF]" />
+        </motion.div>
 
-      {/* Center Person Image */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        className="relative z-10 w-[200px] h-[240px] sm:w-[230px] sm:h-[280px] lg:w-[280px] lg:h-[340px] mix-blend-multiply"
-      >
-        <Image
-          src="/gym_hero_person.png"
-          alt="Fitness professional using CLLERO"
-          fill
-          className="object-contain object-bottom"
-          priority
-        />
-      </motion.div>
+        {/* Center Person Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          className="relative z-10 w-[280px] h-[340px] mix-blend-multiply"
+        >
+          <Image
+            src="/gym_hero_person.png"
+            alt="Fitness professional using CLLERO"
+            fill
+            className="object-contain object-bottom"
+            priority
+          />
+        </motion.div>
 
-      {/* Floating Stat Cards */}
-      {statCards.map((card) => (
-        <FloatingStatCard key={card.id} card={card} />
-      ))}
+        {/* Floating Stat Cards */}
+        {statCards.map((card) => (
+          <FloatingStatCard key={card.id} card={card} />
+        ))}
+      </div>
     </div>
   );
 }
