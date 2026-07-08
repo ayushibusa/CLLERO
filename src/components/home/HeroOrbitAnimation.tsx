@@ -96,9 +96,9 @@ const statCards = [
 
 export function HeroOrbitAnimation() {
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-visible">
+    <div className="w-[300px] h-[300px] sm:w-[430px] sm:h-[430px] lg:w-[540px] lg:h-[540px] relative flex items-center justify-center overflow-visible select-none">
       {/* Scaled wrapper to keep aspect ratio and card positioning exact on all devices */}
-      <div className="w-[540px] h-[540px] shrink-0 relative flex items-center justify-center scale-[0.6] min-[400px]:scale-[0.68] sm:scale-[0.8] md:scale-[0.95] lg:scale-100 origin-center transition-transform duration-300 select-none">
+      <div className="w-[540px] h-[540px] shrink-0 absolute flex items-center justify-center scale-[0.55] sm:scale-[0.8] lg:scale-100 origin-center transition-transform duration-300">
         
         {/* Central Premium Soft Glow */}
         <div className="absolute w-64 h-64 bg-cyan-500/8 blur-[100px] rounded-full z-0" />
