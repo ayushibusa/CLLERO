@@ -128,19 +128,7 @@ export default function Home() {
               <Link href="#contact" className="btn-cyan flex items-center gap-2 text-sm font-bold font-display uppercase tracking-wider">
                 Request Demo <ArrowRight size={18} />
               </Link>
-              <button
-                onClick={() =>
-                  openModal(
-                    "Neural Core V2",
-                    "Our proprietary neural engine processing 33-point skeletal data at sub-millisecond latency. Engineered for zero-error form analysis.",
-                    <Activity />,
-                    "#00F2FF"
-                  )
-                }
-                className="px-6 py-3 rounded-xl border border-slate-200 hover:bg-slate-100 transition-all font-bold text-slate-600 flex items-center gap-2"
-              >
-                Explore Neural Tech <Zap size={18} className="text-cyan-500" />
-              </button>
+
             </div>
           </motion.div>
 

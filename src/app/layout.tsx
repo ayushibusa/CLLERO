@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { GlassNavbar } from "@/components/ui/GlassNavbar";
 import { Footer } from "@/components/ui/Footer";
-import NextTopLoader from "nextjs-toploader";
+
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -23,14 +23,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col justify-between selection:bg-cyan-500/30 selection:text-cyan-600`}>
-        <NextTopLoader
-          color="#00D1FF"
-          height={2.5}
-          showSpinner={false}
-          easing="ease"
-          speed={200}
-          shadow="0 0 10px #00D1FF,0 0 5px #00D1FF"
-        />
         <GlassNavbar />
         <main className="flex-grow pt-20 md:pt-24">{children}</main>
         <Footer />

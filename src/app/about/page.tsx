@@ -22,6 +22,8 @@ export default function AboutPage() {
             Opening Statement
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight uppercase font-display text-slate-900 dark:text-slate-100">
+            EVERY REP COUNTED.<br />
+            EVERY SECOND RECOVERED.<br />
             EVERY OUNCE OF<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500">
               FRICTION ENGINEERED OUT.
