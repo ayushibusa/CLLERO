@@ -261,14 +261,20 @@ export default function Home() {
       {/* 2. Features Preview Section */}
       <section id="features" className="py-24 px-6 md:px-12 lg:px-16 bg-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-3xl md:text-5xl font-black mb-4 text-slate-900 tracking-tight">
               Feature <span className="text-cyan-500">Ecosystem</span>
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
               Four dedicated panels — each role gets exactly the tools they need, unified in one intelligent platform.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Gym Admin */}
@@ -314,7 +320,13 @@ export default function Home() {
       <section id="about" className="py-24 px-6 md:px-12 lg:px-16 bg-slate-50 dark:bg-slate-955 border-t border-slate-100 dark:border-slate-900 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <div className="text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-widest text-xs mb-4">
               Who We Are
             </div>
@@ -324,11 +336,17 @@ export default function Home() {
             <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg font-medium">
               Our mission is simple: eliminate friction, unify operations, and empower gym businesses to scale with intelligence.
             </p>
-          </div>
+          </motion.div>
           
           <div className="grid lg:grid-cols-12 gap-8 items-stretch">
             {/* Left Column: Opening Statement */}
-            <div className="lg:col-span-7 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 relative overflow-hidden flex flex-col justify-center shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 relative overflow-hidden flex flex-col justify-center shadow-sm"
+            >
               <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none" />
               <div className="relative z-10 space-y-6">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-none uppercase font-display text-slate-900 dark:text-slate-100">
@@ -342,15 +360,21 @@ export default function Home() {
                   CLLERO exists for operators who refuse to accept friction as the cost of scale.
                 </p>
               </div>
-            </div>
-
+            </motion.div>
+ 
             {/* Right Column: Why We Exist */}
-            <div className="lg:col-span-5 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-6"
+            >
               <div className="space-y-6">
                 <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 font-display">
                   Most gyms run on borrowed tools.
                 </h3>
-                <div className="space-y-3 bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-100 dark:border-slate-850">
+                <div className="space-y-3 bg-slate-50 dark:bg-slate-955 p-6 rounded-2xl border border-slate-150 dark:border-slate-850">
                   <div className="flex items-center gap-2.5 text-xs font-bold text-slate-650 dark:text-slate-450">
                     <span className="text-rose-500 text-base">•</span> Spreadsheets for members
                   </div>
@@ -368,10 +392,16 @@ export default function Home() {
                   CLLERO closed that gap — one platform, five panels, zero friction.
                 </p>
               </div>
-            </div>
-
+            </motion.div>
+ 
             {/* Row 2: Built for Scale / Our Standard (Card 3) */}
-            <div className="lg:col-span-12 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-12 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8"
+            >
               <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
               <div className="relative z-10 space-y-4 max-w-3xl text-left">
                 <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 font-display">
@@ -389,7 +419,7 @@ export default function Home() {
                   View More
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -398,7 +428,13 @@ export default function Home() {
       <section id="pricing" className="py-32 px-6 md:px-12 lg:px-16 bg-white overflow-hidden relative border-t border-slate-100">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="max-w-4xl mx-auto relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto relative z-10 text-center"
+        >
           <h2 className="text-3xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">
             Billing as per <span className="text-cyan-500">Demand</span>
           </h2>
@@ -413,12 +449,18 @@ export default function Home() {
               Book Your Demo
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
-
+ 
       {/* 8. Contact Form Section */}
       <section id="contact" className="py-24 px-6 md:px-12 lg:px-16 bg-slate-50 border-t border-slate-100">
-        <div className="max-w-3xl mx-auto text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mb-12"
+        >
           <div className="text-cyan-600 font-bold uppercase tracking-widest text-xs mb-4">
             Get In Touch
           </div>
@@ -428,9 +470,15 @@ export default function Home() {
           <p className="text-slate-500 mb-4 text-lg font-medium">
             Tell us about your gym and we will craft a personalized AI solution for your business.
           </p>
-        </div>
-
-        <div className="max-w-2xl mx-auto neo-card p-8 lg:p-12 bg-white">
+        </motion.div>
+ 
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="max-w-2xl mx-auto neo-card p-8 lg:p-12 bg-white"
+        >
           {status.type === "success" ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -460,7 +508,7 @@ export default function Home() {
                   <span>{status.message}</span>
                 </div>
               )}
-
+ 
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                   Full Name
@@ -526,23 +574,36 @@ export default function Home() {
               </button>
             </form>
           )}
-        </div>
+        </motion.div>
       </section>
-
-
+ 
+ 
       {/* 7.5 FAQ Section */}
       <section id="faq" className="py-24 px-6 md:px-12 lg:px-16 bg-white border-t border-slate-100 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
             <div className="text-cyan-600 font-bold uppercase tracking-widest text-xs mb-4">
               Frequently Asked Questions
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
               Got <span className="text-cyan-500">Questions</span>? We've Got Answers
             </h2>
-          </div>
-          <HomeFAQ />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <HomeFAQ />
+          </motion.div>
         </div>
       </section>
     </div>
