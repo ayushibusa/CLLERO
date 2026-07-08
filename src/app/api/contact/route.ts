@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 // Gmail credentials — app password must be WITHOUT spaces
-const GMAIL_USER = process.env.GMAIL_USER || "admin@cllero.com";
-const GMAIL_PASS = process.env.GMAIL_PASS || "nzbmkevjidajpzxn"; // spaces removed
+const GMAIL_USER = process.env.GMAIL_USER || "jethvashyam0205@gmail.com";
+const GMAIL_PASS = process.env.GMAIL_PASS || "wclmzrtxbnmvwdtr"; // spaces removed
 
 export async function POST(request: Request) {
   try {
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: `"CLLERO Contact Form" <${GMAIL_USER}>`,
-      to: GMAIL_USER, // sends to admin@cllero.com
+      to: GMAIL_USER, // sends to jethvashyam0205@gmail.com
       replyTo: email, // reply goes directly to the person who submitted
       subject: `New Inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -69,18 +69,13 @@ export async function POST(request: Request) {
   } catch (err: any) {
     console.error("Email error:", err?.message || err);
 
-    // If Google blocks the login (EAUTH), we simulate success so the frontend UI works
-    if (err.code === "EAUTH" || err.message?.includes("534") || err.message?.includes("535")) {
-      console.warn("Simulating success because Google blocked the SMTP login.");
-      return NextResponse.json({
-        success: true,
-        message: "Your inquiry has been sent successfully! (Simulated - Google SMTP Blocked)",
-      });
+    let errorMsg = "Failed to send email. Please try again or contact jethvashyam0205@gmail.com.";
+
+    if (err.code === "EAUTH" || err.message?.includes("534") || err.message?.includes("535") || err.code === "ECONNECTION" || err.code === "ETIMEDOUT") {
+      errorMsg =
+        "We are currently experiencing a technical issue with our email service. Please contact us directly at jethvashyam0205@gmail.com or try again later.";
     }
 
-    return NextResponse.json(
-      { error: "Failed to send email. Please try again or contact admin@cllero.com." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: errorMsg }, { status: 500 });
   }
 }

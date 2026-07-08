@@ -41,7 +41,7 @@ export default function ContactPage() {
       console.error("Contact error:", err);
       setStatus({
         type: "error",
-        message: "Failed to send your message. Please try again or email us directly at admin@cllero.com",
+        message: "Failed to send your message. Please try again or email us directly at jethvashyam0205@gmail.com",
       });
     }
   };
