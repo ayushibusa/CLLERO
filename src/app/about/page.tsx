@@ -61,56 +61,68 @@ export default function AboutPage() {
 
       {/* SECTION 03 — What We Believe */}
       <section className="py-16 md:py-20 px-6 md:px-12 lg:px-16 bg-slate-50 dark:bg-slate-955 border-t border-slate-100 dark:border-slate-800">
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="max-w-4xl mx-auto space-y-6"
-        >
-          <div className="text-xs md:text-sm font-mono font-black uppercase tracking-widest text-cyan-550 dark:text-cyan-400">
-            What We Believe
-          </div>
-          <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100 font-display">
-            We sell the removal of everything standing between ambition and scale.
-          </h3>
+        <div className="max-w-4xl mx-auto space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4"
+          >
+            <div className="text-xs md:text-sm font-mono font-black uppercase tracking-widest text-cyan-555 dark:text-cyan-400">
+              What We Believe
+            </div>
+            <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100 font-display">
+              We sell the removal of everything standing between ambition and scale.
+            </h3>
+          </motion.div>
+
           <div className="grid md:grid-cols-3 gap-6 pt-4">
-            <div className="space-y-3">
-              <h4 className="font-extrabold text-cyan-600 dark:text-cyan-400 text-sm uppercase tracking-wider">
-                Real-time over batch
-              </h4>
-              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-medium">
-                A member checks in, a trainer sees it, an admin's dashboard updates — instantly, not eventually.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h4 className="font-extrabold text-cyan-600 dark:text-cyan-400 text-sm uppercase tracking-wider">
-                One login over five tools
-              </h4>
-              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-medium">
-                Every role — member, trainer, dietitian, admin, platform owner — works inside one architecture, not five bolted-together apps.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h4 className="font-extrabold text-cyan-600 dark:text-cyan-400 text-sm uppercase tracking-wider">
-                Ownership over lock-in
-              </h4>
-              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-medium">
-                Your data, your source code, your brand. CLLERO is infrastructure you own, not a subscription you're trapped in.
-              </p>
-            </div>
+            {[
+              {
+                title: "Real-time over batch",
+                desc: "A member checks in, a trainer sees it, an admin's dashboard updates — instantly, not eventually."
+              },
+              {
+                title: "One login over five tools",
+                desc: "Every role — member, trainer, dietitian, admin, platform owner — works inside one architecture, not five bolted-together apps."
+              },
+              {
+                title: "Ownership over lock-in",
+                desc: "Your data, your source code, your brand. CLLERO is infrastructure you own, not a subscription you're trapped in."
+              }
+            ].map((card, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.5, delay: idx * 0.1, ease: "easeOut" }}
+                className="p-6 rounded-2xl border border-slate-150/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:border-cyan-500/30 hover:shadow-[0_10px_30px_rgba(6,182,212,0.08)] transition-all cursor-default space-y-3"
+              >
+                <h4 className="font-extrabold text-cyan-600 dark:text-cyan-400 text-sm uppercase tracking-wider">
+                  {card.title}
+                </h4>
+                <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-medium">
+                  {card.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* SECTION 04 — The Platform, In One Paragraph */}
       <section className="py-16 md:py-20 px-6 md:px-12 lg:px-16 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto space-y-4"
         >
-          <div className="text-xs md:text-sm font-mono font-black uppercase tracking-widest text-cyan-550 dark:text-cyan-400">
+          <div className="text-xs md:text-sm font-mono font-black uppercase tracking-widest text-cyan-555 dark:text-cyan-400">
             The Platform, In One Paragraph
           </div>
           <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 font-display">
@@ -124,14 +136,15 @@ export default function AboutPage() {
 
       {/* SECTION 05 — Why CLLERO Is Built Differently */}
       <section className="py-16 md:py-20 px-6 md:px-12 lg:px-16 bg-slate-50 dark:bg-slate-955 border-t border-slate-100 dark:border-slate-800">
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="max-w-5xl mx-auto space-y-8"
-        >
-          <div className="space-y-4 max-w-4xl">
-            <div className="text-xs md:text-sm font-mono font-black uppercase tracking-widest text-cyan-550 dark:text-cyan-400">
+        <div className="max-w-5xl mx-auto space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4 max-w-4xl"
+          >
+            <div className="text-xs md:text-sm font-mono font-black uppercase tracking-widest text-cyan-555 dark:text-cyan-400">
               Why CLLERO Is Built Differently
             </div>
             <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100 font-display">
@@ -140,11 +153,18 @@ export default function AboutPage() {
             <p className="text-slate-600 dark:text-slate-350 text-sm leading-relaxed font-medium">
               Most gym software wasn't built as one system. It was built as a core product, with everything else added later as a plugin or workaround. CLLERO was engineered the other way around.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 pt-4">
             {/* Legacy */}
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="p-8 rounded-3xl border-l-4 border-l-red-500 border border-slate-150 dark:border-slate-800 bg-white dark:bg-slate-900/80 shadow-[0_4px_30px_rgba(0,0,0,0.02)] hover:shadow-md transition-all space-y-6"
+            >
               <div className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                 <h4 className="font-extrabold text-slate-900 dark:text-slate-100 text-sm uppercase tracking-wider">
@@ -166,10 +186,17 @@ export default function AboutPage() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
             
             {/* Cllero */}
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="p-8 rounded-3xl border-l-4 border-l-cyan-500 border border-slate-150 dark:border-slate-800 bg-gradient-to-br from-white to-cyan-50/10 dark:from-slate-900 dark:to-cyan-950/10 shadow-[0_4px_30px_rgba(0,0,0,0.02)] hover:border-cyan-500/20 hover:shadow-[0_10px_30px_rgba(6,182,212,0.05)] transition-all space-y-6"
+            >
               <div className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                 <h4 className="font-extrabold text-slate-900 dark:text-slate-100 text-sm uppercase tracking-wider">
@@ -191,12 +218,12 @@ export default function AboutPage() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
           <p className="text-slate-500 dark:text-slate-400 text-xs italic font-medium text-center pt-4">
             We didn't set out to build "another gym app." We set out to close the gaps every operator eventually runs into.
           </p>
-        </motion.div>
+        </div>
       </section>
 
       {/* SECTION 06 — Who We Build For */}
