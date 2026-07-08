@@ -18,9 +18,7 @@ export default function AboutPage() {
           transition={{ duration: 0.6 }}
           className="max-w-5xl mx-auto text-center relative z-10 space-y-6"
         >
-          <div className="text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">
-            Opening Statement
-          </div>
+
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight uppercase font-display text-slate-900 dark:text-slate-100">
             EVERY REP COUNTED.<br />
             EVERY SECOND RECOVERED.<br />
