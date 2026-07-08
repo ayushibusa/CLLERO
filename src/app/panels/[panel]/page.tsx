@@ -100,7 +100,7 @@ export default function PanelPage() {
 
   if (!panel) return notFound();
 
-  const accent = ACCENT[panel.color as keyof typeof ACCENT] || ACCENT.cyan;
+  const accent = ACCENT.cyan;
 
   const labelParts = panel.label.split(" ");
   const firstPart = labelParts.slice(0, -1).join(" ");
@@ -114,7 +114,7 @@ export default function PanelPage() {
       className="min-h-screen bg-slate-50"
     >
 
-      <section className={`pt-12 pb-20 px-6 md:px-12 lg:px-16 bg-gradient-to-br ${panel.bgGradient} border-b border-slate-200 relative overflow-hidden`}>
+      <section className="pt-12 pb-20 px-6 md:px-12 lg:px-16 bg-gradient-to-br from-cyan-50 to-sky-50 border-b border-slate-200 relative overflow-hidden">
         {/* Subtle background glow */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/5 blur-[100px] rounded-full pointer-events-none" />
         
