@@ -144,7 +144,7 @@ export default function Home() {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* 1. Hero Section */}
-      <section className="pt-20 pb-20 lg:pt-24 lg:pb-32 px-6 md:px-12 lg:px-16 overflow-hidden relative">
+      <section className="pt-0 pb-20 lg:pt-0 lg:pb-32 px-6 md:px-12 lg:px-16 overflow-hidden relative">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 items-center relative z-10">
           {/* Left Column: Copy */}
           <motion.div
