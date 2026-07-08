@@ -1,10 +1,28 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="pt-24 pb-20 bg-background transition-colors duration-300">
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="pt-20 pb-20 bg-background transition-colors duration-300"
+    >
       <div className="max-w-4xl mx-auto px-6 md:px-12 text-left">
         
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-text-heading mb-8 leading-tight">
@@ -12,9 +30,6 @@ export default function PrivacyPolicyPage() {
         </h1>
 
         <div className="space-y-6 text-sm md:text-base text-slate-650 leading-relaxed">
-          <p>
-            <strong>Last Updated: July 6, 2026</strong>
-          </p>
           
           <h3 className="font-bold text-lg text-slate-800 mt-6 mb-2">1. Information We Collect</h3>
           <p>
@@ -38,6 +53,6 @@ export default function PrivacyPolicyPage() {
         </div>
 
       </div>
-    </div>
+    </motion.div>
   );
 }
