@@ -36,9 +36,48 @@ import { HeroOrbitAnimation } from "@/components/home/HeroOrbitAnimation";
 
 
 
-// 2D Hero Animation components will be rendered inline
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 15,
+    },
+  },
+};
 
+const listContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, x: -15 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { type: "spring", stiffness: 100 },
+  },
+};
 
 interface ModalState {
   isOpen: boolean;
@@ -276,7 +315,13 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {/* Gym Admin */}
             <FeatureCard
               id="gym-admin"
@@ -309,7 +354,7 @@ export default function Home() {
               description="Class booking, diet plan viewer, progress tracker, renewal reminders, and direct chat with their trainer — everything a member needs in one app."
               bgImage="/member_bg.png"
             />
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -344,8 +389,13 @@ export default function Home() {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-7 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 relative overflow-hidden flex flex-col justify-center shadow-sm"
+              whileHover={{ y: -5, scale: 1.01, boxShadow: "0 20px 40px rgba(6,182,212,0.04)", borderColor: "rgba(6,182,212,0.2)" }}
+              transition={{ 
+                x: { type: "spring", stiffness: 70, damping: 15 },
+                y: { type: "spring", stiffness: 300, damping: 20 },
+                scale: { type: "spring", stiffness: 300, damping: 20 }
+              }}
+              className="lg:col-span-7 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 relative overflow-hidden flex flex-col justify-center shadow-sm cursor-default"
             >
               <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none" />
               <div className="relative z-10 space-y-6">
@@ -367,24 +417,35 @@ export default function Home() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-5 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-6"
+              whileHover={{ y: -5, scale: 1.01, boxShadow: "0 20px 40px rgba(6,182,212,0.04)", borderColor: "rgba(6,182,212,0.2)" }}
+              transition={{ 
+                x: { type: "spring", stiffness: 70, damping: 15 },
+                y: { type: "spring", stiffness: 300, damping: 20 },
+                scale: { type: "spring", stiffness: 300, damping: 20 }
+              }}
+              className="lg:col-span-5 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-6 cursor-default"
             >
               <div className="space-y-6">
                 <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 font-display">
                   Most gyms run on borrowed tools.
                 </h3>
-                <div className="space-y-3 bg-slate-50 dark:bg-slate-955 p-6 rounded-2xl border border-slate-150 dark:border-slate-850">
-                  <div className="flex items-center gap-2.5 text-xs font-bold text-slate-650 dark:text-slate-450">
+                <motion.div 
+                  variants={listContainerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="space-y-3 bg-slate-50 dark:bg-slate-955 p-6 rounded-2xl border border-slate-150 dark:border-slate-850"
+                >
+                  <motion.div variants={listItemVariants} className="flex items-center gap-2.5 text-xs font-bold text-slate-650 dark:text-slate-450">
                     <span className="text-rose-500 text-base">•</span> Spreadsheets for members
-                  </div>
-                  <div className="flex items-center gap-2.5 text-xs font-bold text-slate-655 dark:text-slate-450">
+                  </motion.div>
+                  <motion.div variants={listItemVariants} className="flex items-center gap-2.5 text-xs font-bold text-slate-655 dark:text-slate-450">
                     <span className="text-rose-500 text-base">•</span> WhatsApp groups for trainers
-                  </div>
-                  <div className="flex items-center gap-2.5 text-xs font-bold text-slate-660 dark:text-slate-450">
+                  </motion.div>
+                  <motion.div variants={listItemVariants} className="flex items-center gap-2.5 text-xs font-bold text-slate-660 dark:text-slate-450">
                     <span className="text-rose-500 text-base">•</span> Generic booking apps
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
                 <p className="text-slate-550 dark:text-slate-400 text-xs md:text-sm leading-relaxed font-medium">
                   That gap is friction. And friction is expensive: missed renewals, disconnected trainers, and plans stuck in notes apps.
                 </p>
@@ -399,8 +460,12 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="lg:col-span-12 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8"
+              whileHover={{ y: -4, scale: 1.005, boxShadow: "0 20px 40px rgba(6,182,212,0.03)", borderColor: "rgba(6,182,212,0.15)" }}
+              transition={{ 
+                y: { type: "spring", stiffness: 300, damping: 20 },
+                scale: { type: "spring", stiffness: 300, damping: 20 }
+              }}
+              className="lg:col-span-12 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8 cursor-default"
             >
               <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
               <div className="relative z-10 space-y-4 max-w-3xl text-left">
@@ -623,11 +688,15 @@ function FeatureCard({ id, icon, title, description, bgImage }: FeatureCardProps
   return (
     <Link href={`/panels/${id}`}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -10 }}
-        viewport={{ once: true }}
-        className="overflow-hidden group hover:border-cyan-500/30 transition-all h-full flex flex-col neo-card bg-white border-slate-200 cursor-pointer relative"
+        variants={cardVariants}
+        whileHover={{
+          y: -8,
+          scale: 1.02,
+          boxShadow: "0 25px 50px rgba(6,182,212,0.08)",
+          borderColor: "rgba(6,182,212,0.3)"
+        }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+        className="overflow-hidden group h-full flex flex-col neo-card bg-white border-slate-200 cursor-pointer relative"
       >
         {bgImage && (
           <>
