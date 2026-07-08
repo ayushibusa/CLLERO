@@ -300,7 +300,7 @@ export default function Home() {
               id="member"
               icon={<UserCheck />}
               title="Member"
-              description="QR check-in, class booking, diet plan viewer, progress tracker, renewal reminders, and direct chat with their trainer — everything a member needs in one app."
+              description="Class booking, diet plan viewer, progress tracker, renewal reminders, and direct chat with their trainer — everything a member needs in one app."
               bgImage="/member_bg.png"
             />
           </div>
@@ -571,10 +571,14 @@ function FeatureCard({ id, icon, title, description, bgImage }: FeatureCardProps
         {bgImage && (
           <>
             <div 
-              className="absolute top-0 left-0 right-0 h-[220px] bg-cover bg-top z-0 opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-              style={{ backgroundImage: `url(${bgImage})` }} 
+              className="absolute top-0 left-0 right-0 h-[300px] bg-cover bg-top z-0"
+              style={{ 
+                backgroundImage: `url(${bgImage})`,
+                maskImage: 'linear-gradient(to bottom, black 0%, transparent 80%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 80%)'
+              }} 
             />
-            <div className="absolute top-0 left-0 right-0 h-[220px] bg-gradient-to-b from-white/10 via-white/80 to-white z-0" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white z-0" />
           </>
         )}
         
