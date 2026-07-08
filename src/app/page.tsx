@@ -150,7 +150,7 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="lg:col-span-5 relative h-[350px] sm:h-[450px] lg:h-[550px] flex items-center justify-center overflow-hidden"
+            className="lg:col-span-5 relative h-[380px] sm:h-[480px] lg:h-[600px] flex items-center justify-center"
           >
             <HeroOrbitAnimation />
           </motion.div>

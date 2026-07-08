@@ -126,13 +126,13 @@ export function HeroOrbitAnimation() {
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        className="relative z-10 w-[200px] h-[240px] sm:w-[230px] sm:h-[280px] lg:w-[280px] lg:h-[340px]"
+        className="relative z-10 w-[200px] h-[240px] sm:w-[230px] sm:h-[280px] lg:w-[280px] lg:h-[340px] mix-blend-multiply"
       >
         <Image
           src="/gym_hero_person.png"
           alt="Fitness professional using CLLERO"
           fill
-          className="object-contain object-bottom drop-shadow-2xl"
+          className="object-contain object-bottom"
           priority
         />
       </motion.div>
