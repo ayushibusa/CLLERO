@@ -64,7 +64,7 @@ export default function FAQPage() {
   });
 
   return (
-    <div className="py-20 md:py-32 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <div className="pt-10 pb-20 md:pt-12 md:pb-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-6 md:px-12 text-left">
         
         {/* Header */}

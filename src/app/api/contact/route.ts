@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 // Gmail credentials — app password must be WITHOUT spaces
-const GMAIL_USER = process.env.GMAIL_USER || "Admin@cllero.com";
+const GMAIL_USER = process.env.GMAIL_USER || "admin@cllero.com";
 const GMAIL_PASS = process.env.GMAIL_PASS || "nzbmkevjidajpzxn"; // spaces removed
 
 export async function POST(request: Request) {
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: `"CLLERO Contact Form" <${GMAIL_USER}>`,
-      to: GMAIL_USER, // sends to Admin@cllero.com
+      to: GMAIL_USER, // sends to admin@cllero.com
       replyTo: email, // reply goes directly to the person who submitted
       subject: `New Inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
 
     if (err.code === "EAUTH" || err.message?.includes("534") || err.message?.includes("535") || err.code === "ECONNECTION" || err.code === "ETIMEDOUT") {
       errorMsg =
-        "We are currently experiencing a technical issue with our email service. Please contact us directly at Admin@cllero.com or try again later.";
+        "We are currently experiencing a technical issue with our email service. Please contact us directly at admin@cllero.com or try again later.";
     }
 
     return NextResponse.json({ error: errorMsg }, { status: 500 });

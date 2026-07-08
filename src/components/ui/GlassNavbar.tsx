@@ -14,7 +14,7 @@ export function GlassNavbar() {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "Features", path: "/features" },
+    { name: "Features", path: "/#features" },
     { name: "Pricing", path: "/#pricing" },
     { name: "About", path: "/#about" },
     { name: "FAQ", path: "/#faq" },
@@ -33,29 +33,31 @@ export function GlassNavbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-white/50 backdrop-blur-2xl backdrop-saturate-150 border-b border-white/60 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
       <div className="max-w-7xl mx-auto">
         <div className="px-6 py-3 flex justify-between items-center">
           {/* Logo and Brand */}
-          <Link
-            href="/"
-            onClick={() => handleLinkClick("/")}
-            className="flex items-center gap-3 group"
-          >
-            <Image
-              src={clleroLogoSide}
-              alt="Cllero Logo"
-              className="w-12 h-12 md:w-14 md:h-14 object-contain group-hover:scale-115 transition-transform"
-            />
-            <Image
-              src={clleroLogo}
-              alt="Cllero"
-              className="h-5 md:h-6 w-auto object-contain"
-            />
-          </Link>
+          <div className="flex items-center lg:flex-1">
+            <Link
+              href="/"
+              onClick={() => handleLinkClick("/")}
+              className="flex items-center gap-3 group"
+            >
+              <Image
+                src={clleroLogoSide}
+                alt="Cllero Logo"
+                className="w-12 h-12 md:w-14 md:h-14 object-contain group-hover:scale-115 transition-transform"
+              />
+              <Image
+                src={clleroLogo}
+                alt="Cllero"
+                className="h-5 md:h-6 w-auto object-contain"
+              />
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+          <div className="hidden lg:flex items-center justify-center gap-8 text-sm font-medium text-slate-600 lg:flex-none">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -66,6 +68,10 @@ export function GlassNavbar() {
                 {link.name}
               </Link>
             ))}
+          </div>
+          
+          {/* Desktop CTA Button */}
+          <div className="hidden lg:flex items-center justify-end lg:flex-1">
             <Link
               href="/#contact"
               onClick={() => handleLinkClick("/#contact")}

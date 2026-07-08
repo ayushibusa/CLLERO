@@ -31,13 +31,10 @@ import {
   BarChart3
 } from "lucide-react";
 import { HomeFAQ } from "@/components/home/HomeFAQ";
-import emailjs from "@emailjs/browser";
+import { HeroOrbitAnimation } from "@/components/home/HeroOrbitAnimation";
 
-// ─── EmailJS Configuration ────────────────────────────────────────────────────
-const EMAILJS_SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID  || "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY  || "YOUR_PUBLIC_KEY";
-// ─────────────────────────────────────────────────────────────────────────────
+
+
 
 // 2D Hero Animation components will be rendered inline
 
@@ -90,22 +87,18 @@ export default function Home() {
     setStatus({ type: "loading" });
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name:  formData.name,
-          from_email: formData.email,
-          message:    formData.message,
-          reply_to:   formData.email,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to send");
       setStatus({ type: "success" });
       setFormData({ name: "", email: "", message: "" });
     } catch (err: any) {
-      console.error("EmailJS error:", err);
-      setStatus({ type: "error", message: "Failed to send your message. Please try again or email us directly at Admin@cllero.com" });
+      console.error("Contact error:", err);
+      setStatus({ type: "error", message: "Failed to send your message. Please try again or email us directly at admin@cllero.com" });
     }
   };
 
@@ -113,13 +106,14 @@ export default function Home() {
     <div className="bg-slate-50 min-h-screen">
       {/* 1. Hero Section */}
       <section className="pt-20 pb-32 px-6 md:px-12 lg:px-16 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 items-center relative z-10">
           {/* Left Column: Copy */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="lg:col-span-7"
           >
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[100px] font-black leading-[0.9] mb-8 text-slate-900 tracking-tighter font-display uppercase">
@@ -128,7 +122,7 @@ export default function Home() {
               Intelligence.
             </h1>
             <p className="text-lg lg:text-xl text-slate-500 mb-10 max-w-xl leading-relaxed font-medium">
-              CLLERO FIT AI is a stock-terminal style SaaS engineered to bridge the accuracy gap. We are building the most advanced gym management ecosystem ever conceived.
+              CLLERO is a stock-terminal style SaaS engineered to bridge the accuracy gap. We are building the most advanced gym management ecosystem ever conceived.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="#contact" className="btn-cyan flex items-center gap-2 text-sm font-bold font-display uppercase tracking-wider">
@@ -150,55 +144,15 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Right Column: Flat Concentric Orbit Animation (2D) */}
+          {/* Right Column: Hero Orbit Animation with Person & Floating Cards */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="relative h-[300px] sm:h-[400px] lg:h-[600px] flex items-center justify-center overflow-hidden"
+            className="lg:col-span-5 relative h-[350px] sm:h-[450px] lg:h-[550px] flex items-center justify-center overflow-hidden"
           >
-            <div className="relative w-full h-full flex items-center justify-center">
-              {/* Central Premium Soft Glow */}
-              <div className="absolute w-48 h-48 bg-cyan-500/10 blur-[80px] rounded-full" />
-
-              {/* Inner Circle Track (200px) */}
-              <div className="absolute w-[200px] h-[200px] rounded-full border border-cyan-500/10" />
-
-              {/* Middle Circle Track (350px) with Orbiting Orange Dot */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[350px] h-[350px] rounded-full border border-cyan-500/10 flex items-center justify-center"
-              >
-                <div className="absolute top-0 w-3.5 h-3.5 bg-orange-500 rounded-full shadow-[0_0_15px_#F97316]" />
-              </motion.div>
-
-              {/* Outer Circle Track (500px) with Orbiting Cyan Dot */}
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[500px] h-[500px] rounded-full border border-cyan-500/10 flex items-center justify-center"
-              >
-                <div className="absolute bottom-0 w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_12px_#00F2FF]" />
-              </motion.div>
-
-              {/* Orbiting blurred ambient cyan background blobs */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 55, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[580px] h-[580px] flex items-center justify-center pointer-events-none"
-              >
-                <div className="absolute top-10 left-10 w-32 h-32 bg-cyan-500/12 blur-[65px] rounded-full" />
-              </motion.div>
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[580px] h-[580px] flex items-center justify-center pointer-events-none"
-              >
-                <div className="absolute bottom-10 right-10 w-36 h-36 bg-blue-500/8 blur-[75px] rounded-full" />
-              </motion.div>
-            </div>
+            <HeroOrbitAnimation />
           </motion.div>
         </div>
       </section>
@@ -320,7 +274,7 @@ export default function Home() {
       <section id="features" className="py-24 px-6 md:px-12 lg:px-16 bg-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black mb-4 text-slate-900 tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-black mb-4 text-slate-900 tracking-tight">
               Feature <span className="text-cyan-500">Ecosystem</span>
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
@@ -361,328 +315,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Superiority of Precision Section */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 bg-white overflow-hidden border-t border-slate-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black mb-8 leading-tight tracking-tight text-slate-900">
-                The <span className="text-cyan-500">Superiority</span> of Precision.
-              </h2>
-              <p className="text-slate-500 text-lg mb-12 leading-relaxed font-medium">
-                Traditional gym management is reactive. CLLERO FIT AI is predictive. We don't just manage your gym; we engineer its growth through 21 specialized AI modules that work in perfect harmony.
-              </p>
-              <div className="space-y-6">
-                <div className="flex gap-6">
-                  <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500 shrink-0">
-                    <Zap size={28} />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2 text-slate-900">21 Specialized Modules</h4>
-                    <p className="text-slate-500 text-sm font-medium">
-                      From skeletal tracking to financial leakage detection, every aspect of your business is covered by dedicated AI intelligence.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-6">
-                  <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500 shrink-0">
-                    <Shield size={28} />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2 text-slate-900">Guaranteed Retention</h4>
-                    <p className="text-slate-500 text-sm font-medium">
-                      Our behavioral AI identifies churn risks 14 days in advance, allowing you to rescue members before they even think of quitting.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Neural Stats Dashboard Mockup */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
-              <div className="neo-card p-8 bg-white border-slate-200 relative z-10">
-                <div className="space-y-6">
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-                    <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px] font-mono">
-                      AI Accuracy
-                    </span>
-                    <span className="text-cyan-600 font-mono font-bold">99.2%</span>
-                  </div>
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-                    <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px] font-mono">
-                      Processing Speed
-                    </span>
-                    <span className="text-cyan-600 font-mono font-bold">&lt; 50ms</span>
-                  </div>
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-                    <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px] font-mono">
-                      Data Points / Sec
-                    </span>
-                    <span className="text-cyan-600 font-mono font-bold">12,400</span>
-                  </div>
-                  <div className="pt-4">
-                    <div className="text-[10px] text-slate-400 uppercase mb-2 font-bold font-mono">
-                      Neural Network Load
-                    </div>
-                    <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                      <motion.div
-                        animate={{
-                          width: ["20%", "80%", "40%", "90%", "30%"],
-                        }}
-                        transition={{
-                          duration: 10,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                        className="h-full bg-cyan-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
 
-      {/* 3.5. Dashboard Panels Section */}
-      <section id="panels" className="py-24 px-6 md:px-12 lg:px-16 bg-slate-50 border-t border-slate-100 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-black mb-6 text-slate-900 tracking-tight">
-              Unified <span className="text-cyan-500">Dashboard</span> Ecosystem
-            </h2>
-            <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
-              Tailored interfaces built for every role in your gym ecosystem, ensuring seamless cooperation and zero admin friction.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-8">
-            {/* Member Panel */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
-              viewport={{ once: true }}
-              className="neo-card p-8 bg-white border-slate-200 flex flex-col justify-between h-full hover:border-cyan-500/20 transition-all duration-300 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
-            >
-              <div>
-                <span className="text-xs font-mono font-black text-cyan-600 uppercase tracking-[0.2em] block mb-3">
-                  Member Panel
-                </span>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-4 font-display">
-                  "Everything a member needs, in their pocket."
-                </h3>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "Class schedule viewer",
-                    "QR check-in",
-                    "Diet/workout plan viewer",
-                    "Payment history & renewal alerts",
-                    "Online trial booking",
-                  ].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-slate-500 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 text-cyan-500 font-black text-[11px] uppercase tracking-[0.2em] hover:text-cyan-600 transition-colors"
-              >
-                See Member App →
-              </Link>
-            </motion.div>
-
-            {/* Trainer Panel */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
-              viewport={{ once: true }}
-              className="neo-card p-8 bg-white border-slate-200 flex flex-col justify-between h-full hover:border-cyan-500/20 transition-all duration-300 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
-            >
-              <div>
-                <span className="text-xs font-mono font-black text-cyan-600 uppercase tracking-[0.2em] block mb-3">
-                  Trainer Panel
-                </span>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-4 font-display">
-                  "Coaching, without the admin work."
-                </h3>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "Attendance marking",
-                    "Diet/workout assignment",
-                    "Member progress tracking",
-                    "In-app chat",
-                    "Salary & fee tracking",
-                  ].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-slate-500 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 text-cyan-500 font-black text-[11px] uppercase tracking-[0.2em] hover:text-cyan-600 transition-colors"
-              >
-                See Trainer App →
-              </Link>
-            </motion.div>
-
-            {/* Dietitian Panel */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
-              viewport={{ once: true }}
-              className="neo-card p-8 bg-white border-slate-200 flex flex-col justify-between h-full hover:border-cyan-500/20 transition-all duration-300 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
-            >
-              <div>
-                <span className="text-xs font-mono font-black text-cyan-600 uppercase tracking-[0.2em] block mb-3">
-                  Dietitian Panel
-                </span>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-4 font-display">
-                  "Diet plans that build themselves."
-                </h3>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "Calorie/macro calculator",
-                    "Drag-build diet plans",
-                    "Template library (weight loss, keto, diabetic, muscle gain)",
-                    "Progress charts",
-                    "Adherence reports",
-                  ].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-slate-500 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 text-cyan-500 font-black text-[11px] uppercase tracking-[0.2em] hover:text-cyan-600 transition-colors"
-              >
-                See Dietitian App →
-              </Link>
-            </motion.div>
-
-            {/* Gym Owner Panel */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
-              viewport={{ once: true }}
-              className="neo-card p-8 bg-white border-slate-200 flex flex-col justify-between h-full hover:border-cyan-500/20 transition-all duration-300 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
-            >
-              <div>
-                <span className="text-xs font-mono font-black text-cyan-600 uppercase tracking-[0.2em] block mb-3">
-                  Gym Owner Panel
-                </span>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-4 font-display">
-                  "Complete control over your gym's growth and operations."
-                </h3>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "MRR & revenue dashboards",
-                    "Automated billing retry",
-                    "Staff shift scheduling",
-                    "Lead & enquiry tracking",
-                    "AI retention flagging",
-                  ].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-slate-500 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 text-cyan-500 font-black text-[11px] uppercase tracking-[0.2em] hover:text-cyan-600 transition-colors"
-              >
-                See Owner Panel →
-              </Link>
-            </motion.div>
-
-            {/* Cllero Hub */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
-              viewport={{ once: true }}
-              className="neo-card p-8 bg-white border-slate-200 flex flex-col justify-between h-full hover:border-cyan-500/20 transition-all duration-300 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
-            >
-              <div>
-                <span className="text-xs font-mono font-black text-cyan-600 uppercase tracking-[0.2em] block mb-3">
-                  Cllero Hub
-                </span>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-4 font-display">
-                  "The central operating system for multi-location brands."
-                </h3>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "Global template manager (workout/diet)",
-                    "Cross-location unified analytics",
-                    "White-label branding kit",
-                    "Multi-tenant Super Admin access",
-                    "Single login across all devices",
-                  ].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-slate-500 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 text-cyan-500 font-black text-[11px] uppercase tracking-[0.2em] hover:text-cyan-600 transition-colors"
-              >
-                See Cllero Hub →
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* 6. Subscription Matrix Pricing */}
-      <section id="pricing" className="py-32 px-6 md:px-12 lg:px-16 bg-white overflow-hidden relative border-t border-slate-100">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="max-w-4xl mx-auto relative z-10 text-center">
-          <h2 className="text-4xl lg:text-7xl font-black mb-6 text-slate-900 tracking-tight">
-            Elite <span className="text-cyan-500">Modular</span> Pricing
-          </h2>
-          <p className="text-slate-500 text-lg leading-relaxed font-medium mb-12">
-            No fixed packages or high overheads. Choose only the modules your gym requires and scale on your own terms.
-          </p>
-          <div className="flex justify-center">
-            <Link
-              href="#contact"
-              className="btn-cyan py-5 px-12 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all duration-500 bg-cyan-500 text-slate-900 hover:shadow-[0_0_50px_rgba(0,242,255,0.5)] hover:scale-[1.02] block"
-            >
-              Book Your Demo
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* 7. About Section */}
       <section id="about" className="py-24 px-6 md:px-12 lg:px-16 bg-slate-50 dark:bg-slate-955 border-t border-slate-100 dark:border-slate-900 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
+          
+          <div className="text-center mb-16">
+            <div className="text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-widest text-xs mb-4">
+              Who We Are
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black mb-4 text-slate-900 dark:text-slate-100 tracking-tight">
+              About <span className="text-cyan-500">Cllero</span>
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg font-medium">
+              Our mission is simple: eliminate friction, unify operations, and empower gym businesses to scale with intelligence.
+            </p>
+          </div>
           
           <div className="grid lg:grid-cols-12 gap-8 items-stretch">
             {/* Left Column: Opening Statement */}
@@ -726,12 +376,23 @@ export default function Home() {
                   CLLERO closed that gap — one platform, five panels, zero friction.
                 </p>
               </div>
-              
-              <div className="pt-4 flex justify-start">
+            </div>
+
+            {/* Row 2: Built for Scale / Our Standard (Card 3) */}
+            <div className="lg:col-span-12 bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8">
+              <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
+              <div className="relative z-10 space-y-4 max-w-3xl text-left">
+                <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 font-display">
+                  Engineered to scale from single gyms to multi-brand platforms.
+                </h3>
+                <p className="text-slate-550 dark:text-slate-400 text-xs md:text-sm leading-relaxed font-medium">
+                  Whether you operate a boutique strength box or a nation-wide fitness chain, CLLERO's modular architecture handles the load. Get full customization, a dedicated database instance, and true white-label branding from day one.
+                </p>
+              </div>
+              <div className="relative z-10 shrink-0">
                 <Link
                   href="/about"
-                  target="_blank"
-                  className="btn-cyan py-3 px-8 rounded-xl font-bold uppercase text-[10px] tracking-wider transition-all duration-300 shadow-md shadow-cyan-500/10 hover:shadow-cyan-500/20"
+                  className="btn-cyan py-3 px-8 rounded-xl font-bold uppercase text-[10px] tracking-wider transition-all duration-300 shadow-md shadow-cyan-500/10 hover:shadow-cyan-500/20 whitespace-nowrap block"
                 >
                   View More
                 </Link>
@@ -741,25 +402,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7.5 FAQ Section */}
-      <section id="faq" className="py-24 px-6 md:px-12 lg:px-16 bg-white border-t border-slate-100 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 blur-[150px] rounded-full pointer-events-none" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="text-cyan-600 font-bold uppercase tracking-widest text-xs mb-4">
-              Frequently Asked Questions
-            </div>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
-              Got <span className="text-cyan-500">Questions</span>? We've Got Answers
-            </h2>
-            <p className="text-slate-500 text-lg leading-relaxed font-medium">
-              Everything you need to know about Cllero modules, billing, setup times, and hardware compatibility.
-            </p>
+      {/* 6. Subscription Matrix Pricing */}
+      <section id="pricing" className="py-32 px-6 md:px-12 lg:px-16 bg-white overflow-hidden relative border-t border-slate-100">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h2 className="text-3xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">
+            Billing as per <span className="text-cyan-500">Demand</span>
+          </h2>
+          <p className="text-slate-500 text-lg leading-relaxed font-medium mb-12">
+            Pay only for what you use. No lock-in contracts, no hidden fees — transparent billing that scales with your gym.
+          </p>
+          <div className="flex justify-center">
+            <Link
+              href="#contact"
+              className="btn-cyan py-5 px-12 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all duration-500 bg-cyan-500 text-slate-900 hover:shadow-[0_0_50px_rgba(0,242,255,0.5)] hover:scale-[1.02] block"
+            >
+              Book Your Demo
+            </Link>
           </div>
-          <HomeFAQ />
         </div>
       </section>
-
 
       {/* 8. Contact Form Section */}
       <section id="contact" className="py-24 px-6 md:px-12 lg:px-16 bg-slate-50 border-t border-slate-100">
@@ -767,7 +430,7 @@ export default function Home() {
           <div className="text-cyan-600 font-bold uppercase tracking-widest text-xs mb-4">
             Get In Touch
           </div>
-          <h2 className="text-4xl lg:text-6xl font-black mb-6 text-slate-900 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">
             Ready to <span className="text-cyan-500 underline decoration-cyan-500/30 underline-offset-8">Power Up</span>?
           </h2>
           <p className="text-slate-500 mb-4 text-lg font-medium">
@@ -819,7 +482,7 @@ export default function Home() {
                   onKeyDown={handleKeyDown}
                   placeholder="John Doe"
                   disabled={status.type === "loading"}
-                  className="w-full neo-inset bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 outline-none transition-all font-medium text-slate-800 disabled:opacity-50"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all font-medium text-slate-800 disabled:opacity-50"
                 />
               </div>
               <div className="space-y-2">
@@ -835,7 +498,7 @@ export default function Home() {
                   onKeyDown={handleKeyDown}
                   placeholder="you@yourgym.com"
                   disabled={status.type === "loading"}
-                  className="w-full neo-inset bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 outline-none transition-all font-medium text-slate-800 disabled:opacity-50"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all font-medium text-slate-800 disabled:opacity-50"
                 />
               </div>
               <div className="space-y-2">
@@ -851,7 +514,7 @@ export default function Home() {
                   placeholder="Number of members, current challenges, what you are looking for..."
                   rows={4}
                   disabled={status.type === "loading"}
-                  className="w-full neo-inset bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 outline-none transition-all resize-none font-medium text-slate-800 disabled:opacity-50"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all resize-none font-medium text-slate-800 disabled:opacity-50"
                 />
               </div>
               <button
@@ -873,11 +536,28 @@ export default function Home() {
           )}
         </div>
       </section>
+
+
+      {/* 7.5 FAQ Section */}
+      <section id="faq" className="py-24 px-6 md:px-12 lg:px-16 bg-white border-t border-slate-100 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 blur-[150px] rounded-full pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="text-cyan-600 font-bold uppercase tracking-widest text-xs mb-4">
+              Frequently Asked Questions
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
+              Got <span className="text-cyan-500">Questions</span>? We've Got Answers
+            </h2>
+          </div>
+          <HomeFAQ />
+        </div>
+      </section>
     </div>
   );
 }
 
-// ── Feature Card Component ──
+// ── Feature Card Component ── (links to /panels/[id])
 interface FeatureCardProps {
   id: string;
   icon: React.ReactNode;
@@ -886,18 +566,8 @@ interface FeatureCardProps {
 }
 
 function FeatureCard({ id, icon, title, description }: FeatureCardProps) {
-  // Original routing overrides
-  const path =
-    id === "cctv"
-      ? "/feature/cctv"
-      : id === "meal-scanner"
-      ? "/feature/meal-scanner"
-      : id === "trainer"
-      ? "/feature/trainer"
-      : `/feature/${id}`;
-
   return (
-    <Link href={path}>
+    <Link href={`/panels/${id}`}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -914,11 +584,10 @@ function FeatureCard({ id, icon, title, description }: FeatureCardProps) {
         <p className="text-slate-500 leading-relaxed text-sm flex-1 font-medium">
           {description}
         </p>
+        <span className="mt-4 text-[10px] font-bold text-cyan-500 uppercase tracking-wider group-hover:underline">
+          View All Modules →
+        </span>
       </motion.div>
     </Link>
   );
 }
-
-
-
-

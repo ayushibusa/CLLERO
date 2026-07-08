@@ -121,7 +121,7 @@ export default function EcosystemPage() {
     <div className="bg-slate-50 min-h-screen text-slate-900 font-sans">
 
       {/* ── HERO ── */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-[radial-gradient(circle_at_50%_-20%,rgba(6,182,212,0.12),transparent_75%)]">
+      <section className="relative pt-10 pb-20 md:pt-14 md:pb-28 overflow-hidden bg-[radial-gradient(circle_at_50%_-20%,rgba(6,182,212,0.12),transparent_75%)]">
         <div className="absolute inset-0 bg-[radial-gradient(rgba(14,165,196,0.05)_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center flex flex-col items-center">
