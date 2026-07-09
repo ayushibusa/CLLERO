@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
 
           <h3 className="font-bold text-lg text-slate-800 mt-6 mb-2">4. Contact Information</h3>
           <p>
-            For questions regarding data records suspension or accounts frozen status, please contact support@cllero.com.
+            For questions regarding data records suspension or accounts frozen status, please contact admin@cllero.com.
           </p>
         </div>
 
