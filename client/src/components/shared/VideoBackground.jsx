@@ -8,18 +8,9 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const [hasError, setHasError] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(false);
-
   useEffect(() => {
-    let ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: 'top bottom+=1500',
-        once: true,
-        onEnter: () => setShouldLoad(true)
-      });
-    }, containerRef);
-    return () => ctx.revert();
+    // Rely purely on the scroll enter/leave to play/pause.
+    // preload="none" will prevent network choking.
   }, []);
 
   useEffect(() => {
@@ -48,7 +39,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
         }
       };
     }
-  }, [autoPlay, hoverPlay, src, shouldLoad]);
+  }, [autoPlay, hoverPlay, src]);
 
   const handleMouseEnter = () => {
     if (hoverPlay && videoRef.current && !hasError) {
@@ -72,9 +63,9 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
       {!hasError && (
         <video
           ref={videoRef}
-          className={`video-bg absolute inset-0 w-full h-full z-0 transition-opacity duration-1000 ${shouldLoad ? 'opacity-100' : 'opacity-0'} ${videoClassName}`}
+          className={`video-bg absolute inset-0 w-full h-full z-0 transition-opacity duration-300 ${videoClassName}`}
           style={{ objectFit, objectPosition: 'center' }}
-          src={shouldLoad ? src : ''}
+          src={src}
           muted
           loop
           playsInline

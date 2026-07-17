@@ -10,11 +10,11 @@ const LazyVideo = ({ src, className, style, ...props }) => {
   useEffect(() => {
     let ctx = gsap.context(() => {
       // Use ScrollTrigger just to pause/play the video to save CPU/GPU,
-      // without completely unloading the src (which causes lag and reloading).
+      // Rely on native preload="none" to prevent network choking.
       ScrollTrigger.create({
         trigger: videoRef.current,
-        start: 'top bottom+=500',
-        end: 'bottom top-=500',
+        start: 'top bottom+=1500',
+        end: 'bottom top-=1500',
         onEnter: () => {
           if (videoRef.current) {
             videoRef.current.play().catch(e => console.log('Auto-play prevented:', e));
@@ -45,9 +45,9 @@ const LazyVideo = ({ src, className, style, ...props }) => {
     <video
       ref={videoRef}
       src={src}
-      className={className}
+      className={`transition-opacity duration-300 ${className || ''}`}
       style={style}
-      preload="auto"
+      preload="none"
       muted
       loop
       playsInline
