@@ -52,7 +52,7 @@ const FinalCTASection = ({ openDemoModal }) => {
 
   return (
     <div ref={containerRef} className="w-full h-full min-h-[80vh]">
-      <VideoBackground src="/src/assets/videos/16.mp4" className="min-h-[80vh]">
+      <VideoBackground src="/src/assets/videos/16.mp4" className="min-h-[80vh]" objectFit="fill">
         <div className="flex flex-col items-center md:items-start justify-center h-full text-center md:text-left max-w-4xl px-6 md:pr-12 md:pl-[300px] lg:pl-[380px] mx-auto md:mx-0">
           <h2 ref={textRef} className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tighter text-white mb-10 md:mb-12 leading-[0.9]">
             <div className="overflow-hidden"><span className="block">Your Gym Deserves</span></div>
