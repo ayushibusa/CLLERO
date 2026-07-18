@@ -109,7 +109,7 @@ const EcosystemSection = () => {
       </div>
 
       {/* ── Massive Reveal Typography ── */}
-      <div ref={textRef} className="relative z-20 pointer-events-none text-center px-4 w-full md:pl-[300px] lg:pl-[380px]">
+      <div ref={textRef} className="relative z-20 pointer-events-none text-center px-4 w-full lg:pl-[380px]">
         <p className="text-[10px] md:text-xs font-semibold tracking-[0.4em] uppercase text-white/70 mb-6 drop-shadow-md">
           VI — Unification
         </p>
@@ -122,7 +122,7 @@ const EcosystemSection = () => {
       {/* ── Descriptive Subtext (Appears below the shrunk video) ── */}
       <div
         ref={subtextRef}
-        className="absolute z-0 bottom-[6%] md:bottom-[8%] lg:bottom-[10%] text-center max-w-3xl px-6 md:pl-[320px] lg:pl-[400px] flex flex-col items-center"
+        className="absolute z-0 bottom-[6%] lg:bottom-[10%] text-center max-w-3xl px-6 lg:pl-[400px] flex flex-col items-center"
       >
         <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/40 mb-4">
           VI — Unification

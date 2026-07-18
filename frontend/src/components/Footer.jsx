@@ -18,7 +18,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative z-[60] w-full bg-[#0a0a0a] text-white py-12 px-6 md:px-12 md:pl-[300px] lg:pl-[380px] border-t border-white/5">
+    <footer className="relative z-[60] w-full bg-[#0a0a0a] text-white py-12 px-6 lg:px-12 lg:pl-[380px] border-t border-white/5">
       <div className="max-w-[1400px] mx-auto flex flex-col xl:flex-row justify-between items-center gap-8">
         
         {/* Navigation Links */}

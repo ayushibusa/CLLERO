@@ -54,13 +54,14 @@ const FinalCTASection = ({ openDemoModal }) => {
     <div ref={containerRef} className="relative w-full h-[100dvh]">
       {/* Background Videos */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        <VideoBackground src="/videos/16.mp4" className="hidden md:block w-full h-full" objectFit="cover" />
-        <VideoBackground src="/videos/download (1).mp4" className="block md:hidden w-full h-full" objectFit="cover" />
+        <VideoBackground src="/videos/16.mp4" className="hidden lg:block w-full h-full" objectFit="cover" />
+        <VideoBackground src="/videos/download (1).mp4" className="block lg:hidden w-full h-full" objectFit="cover" />
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 flex flex-col items-center md:items-start justify-center h-full text-center md:text-left max-w-4xl px-6 md:pr-12 md:pl-[300px] lg:pl-[380px] mx-auto md:mx-0">
-        <h2 ref={textRef} className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tighter text-white mb-10 md:mb-12 leading-[0.9]">
+      <div className="relative z-10 flex flex-col items-center lg:items-start justify-center h-full text-center lg:text-left max-w-4xl px-6 lg:pr-12 lg:pl-[380px] mx-auto lg:mx-0">
+        <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-white/50 mb-4 lg:mb-6">Cllero Software</p>
+        <h2 ref={textRef} className="text-4xl lg:text-7xl font-serif font-bold tracking-tighter text-white mb-10 lg:mb-12 leading-[0.9]">
           <div className="overflow-hidden"><span className="block">Your Gym Deserves</span></div>
           <div className="overflow-hidden"><span className="block">More Than Software.</span></div>
           <div className="overflow-hidden mt-4"><span className="block italic text-accent">It Deserves Cllero.</span></div>

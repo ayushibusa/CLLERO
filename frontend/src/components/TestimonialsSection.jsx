@@ -87,7 +87,7 @@ const TestimonialsSection = () => {
 
   return (
     <section ref={sectionRef} className="relative z-40 w-full bg-[#f5f5f7] overflow-hidden min-h-[100dvh] flex items-center">
-      <div className="w-full flex flex-col md:pl-[300px] lg:pl-[380px] px-6 py-12 lg:py-20">
+      <div className="w-full flex flex-col lg:pl-[380px] px-6 py-12 lg:py-20">
 
         {/* Header */}
         <div className="max-w-3xl mb-12 relative z-20">
@@ -95,7 +95,7 @@ const TestimonialsSection = () => {
             VI — Real Stories
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-black tracking-tight leading-[1.05]">
-            Don't just take <br className="hidden md:block" />
+            Don't just take <br className="hidden lg:block" />
             <span className="italic text-black/70">our word for it.</span>
           </h2>
         </div>

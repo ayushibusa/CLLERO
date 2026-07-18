@@ -40,7 +40,7 @@ const PartnershipSection = () => {
         }
       });
 
-      const isMobile = window.innerWidth < 768;
+      const isMobile = window.innerWidth < 1024;
       const initialClipPath = isMobile 
         ? 'inset(65% 25% 15% 25% round 100px)' 
         : 'inset(40% 10% 40% 60% round 100px)';
@@ -68,26 +68,26 @@ const PartnershipSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative z-20 w-full min-h-[100dvh] bg-[#f5f5f7] overflow-hidden flex flex-col justify-start pt-[130px] md:pt-0 md:justify-center">
+    <section ref={sectionRef} className="relative z-20 w-full min-h-[100dvh] bg-[#f5f5f7] overflow-hidden flex flex-col justify-start pt-[130px] lg:pt-0 lg:justify-center">
 
       {/* Expanding Video Layer */}
       <div ref={videoWrapperRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">
         {/* Desktop Video */}
-        <VideoBackground className="hidden md:block" src="/videos/07-handshake.mp4" isPlaying={isVisible} />
+        <VideoBackground className="hidden lg:block" src="/videos/07-handshake.mp4" isPlaying={isVisible} />
         {/* Mobile Video */}
-        <VideoBackground className="block md:hidden" src="/videos/download.mp4" isPlaying={isVisible} />
+        <VideoBackground className="block lg:hidden" src="/videos/download.mp4" isPlaying={isVisible} />
       </div>
 
       {/* Text Layer — visible before video expands */}
-      <div ref={textRef} className="relative z-0 w-full px-6 md:px-12 md:pl-[300px] lg:pl-[380px] text-center md:text-left">
+      <div ref={textRef} className="relative z-0 w-full px-6 lg:px-12 lg:pl-[380px] text-center lg:text-left">
         <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/60 mb-6">
           VII — Unification
         </p>
-        <h2 className="text-5xl md:text-[6vw] leading-[0.9] font-serif font-bold text-black tracking-tighter mb-8">
+        <h2 className="text-5xl lg:text-[6vw] leading-[0.9] font-serif font-bold text-black tracking-tighter mb-8">
           The Power of <br />
           <span className="italic opacity-90">Unification.</span>
         </h2>
-        <p className="text-xl md:text-2xl font-light text-black/80 max-w-xl mx-auto md:mx-0">
+        <p className="text-xl lg:text-2xl font-light text-black/80 max-w-xl mx-auto lg:mx-0">
           Bring your trainers, members, and management together into a single, cohesive ecosystem.
         </p>
       </div>

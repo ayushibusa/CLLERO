@@ -133,7 +133,7 @@ const PanelShowcase = () => {
       <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full pt-20 lg:pt-0">
 
         {/* Left Side / Top: Sticky Text */}
-        <div className="w-full flex-1 lg:w-[45%] lg:h-full flex flex-col justify-center px-6 md:pl-[300px] lg:pl-[380px] relative z-20 pb-4 lg:pb-0">
+        <div className="w-full flex-1 lg:w-[45%] lg:h-full flex flex-col justify-center px-6 lg:pl-[380px] relative z-20 pb-4 lg:pb-0">
           <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-2 lg:mb-4">
             V — Ecosystem
           </p>

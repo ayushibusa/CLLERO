@@ -63,7 +63,7 @@ const StickyNav = () => {
     <>
       {/* ── Mobile: top bar with hamburger ── */}
       <div
-        className={`md:hidden fixed top-0 left-0 w-full px-5 py-4 flex items-center justify-between z-50 transition-colors duration-300 backdrop-blur-lg border-b ${isLight ? 'bg-[#f5f5f7]/85 border-black/5' : 'bg-black/50 border-white/5'
+        className={`lg:hidden fixed top-0 left-0 w-full px-5 py-4 flex items-center justify-between z-50 transition-colors duration-300 backdrop-blur-lg border-b ${isLight ? 'bg-[#f5f5f7]/85 border-black/5' : 'bg-black/50 border-white/5'
           }`}
       >
         <div
@@ -97,7 +97,7 @@ const StickyNav = () => {
       </div>
 
       {/* ── Mobile: full-screen overlay menu ── */}
-      <div className={`md:hidden fixed inset-0 z-[55] bg-black/95 backdrop-blur-xl transition-all duration-300 flex flex-col ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`lg:hidden fixed inset-0 z-[55] bg-black/95 backdrop-blur-xl transition-all duration-300 flex flex-col ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex-1 flex flex-col justify-center px-8 py-20">
           <nav>
             <ul className="space-y-5">
@@ -125,7 +125,7 @@ const StickyNav = () => {
       </div>
 
       {/* ── Desktop: permanent left sidebar ── */}
-      <aside className="hidden md:flex fixed top-0 left-0 h-screen w-[280px] lg:w-[340px] flex-col px-10 lg:px-12 py-10 z-50 pointer-events-none transition-colors duration-500">
+      <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[280px] lg:w-[340px] flex-col px-10 lg:px-12 py-10 z-50 pointer-events-none transition-colors duration-500">
 
         {/* Brand */}
         <div className={`pointer-events-auto transition-colors duration-500 ${textColor}`}>
