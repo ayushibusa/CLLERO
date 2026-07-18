@@ -47,7 +47,7 @@ const LazyVideo = ({ src, className, style, ...props }) => {
       src={src}
       className={`transition-opacity duration-300 ${className || ''}`}
       style={style}
-      preload="none"
+      preload="auto"
       muted
       loop
       playsInline

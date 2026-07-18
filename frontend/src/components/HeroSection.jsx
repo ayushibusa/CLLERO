@@ -29,58 +29,37 @@ const HeroSection = ({ openDemoModal }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      const mm = gsap.matchMedia();
+      // Entrance animation applied to all sizes
+      gsap.fromTo(
+        [headlineRef.current, subtextRef.current],
+        { opacity: 0, y: 50, filter: 'blur(6px)' },
+        {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 1.3,
+          ease: 'power3.out',
+          stagger: 0.25,
+          delay: 0.2,
+        }
+      );
 
-      // Desktop: entrance + scroll-scrub to side
-      mm.add('(min-width: 768px)', () => {
-        // Entrance animation
-        gsap.fromTo(
-          [headlineRef.current, subtextRef.current],
-          { opacity: 0, y: 50, filter: 'blur(6px)' },
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            duration: 1.3,
-            ease: 'power3.out',
-            stagger: 0.25,
-            delay: 0.2,
-          }
-        );
-
-        // Scroll animation: move to side and fade out
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top top',
-            end: '+=1000', // scroll for 1000px to complete
-            pin: true,
-            scrub: 1,
-          },
-        });
-
-        tl.to(contentGroupRef.current, {
-          x: '-25vw', // move to left side
-          scale: 0.7,
-          opacity: 0, // "and then gone"
-          ease: 'power1.inOut',
-        });
+      // Scroll animation: move to side and fade out applied to all sizes
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: '+=1000', // scroll for 1000px to complete
+          pin: true,
+          scrub: 1,
+        },
       });
 
-      // Mobile: just entrance animation, no pinning/complex scroll
-      mm.add('(max-width: 767px)', () => {
-        gsap.fromTo(
-          [headlineRef.current, subtextRef.current],
-          { opacity: 0, y: 40, filter: 'blur(4px)' },
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            duration: 1,
-            ease: 'power3.out',
-            stagger: 0.2,
-          }
-        );
+      tl.to(contentGroupRef.current, {
+        x: '-25vw', // move to left side
+        scale: 0.7,
+        opacity: 0, // "and then gone"
+        ease: 'power1.inOut',
       });
 
     }, containerRef);
