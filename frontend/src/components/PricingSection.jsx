@@ -17,6 +17,30 @@ const modules = [
 const PricingSection = () => {
   const containerRef = useRef(null);
 
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      // Animate the module cards sliding up as you scroll down
+      gsap.utils.toArray('.module-card').forEach((card) => {
+        gsap.fromTo(card,
+          { y: 60, opacity: 0, scale: 0.95 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%',
+            }
+          }
+        );
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div ref={containerRef} id="pricing" className="py-12 lg:py-32 px-6 md:px-12 lg:pl-[380px] max-w-[1800px] mx-auto min-h-screen bg-[#f5f5f7]">
 
