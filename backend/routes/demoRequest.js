@@ -29,7 +29,7 @@ router.post(
         <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Message:</strong> ${message || 'N/A'}</p>
       `;
-      
+
       const emailSent = await sendEmail({
         subject: `New Demo Request from ${name} - ${gymName}`,
         html: htmlContent

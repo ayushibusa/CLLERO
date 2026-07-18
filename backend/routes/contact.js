@@ -28,7 +28,7 @@ router.post(
         <p><strong>Subject:</strong> ${subject}</p>
         <p><strong>Message:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
       `;
-      
+
       const emailSent = await sendEmail({
         subject: `New Contact Message: ${subject}`,
         html: htmlContent
