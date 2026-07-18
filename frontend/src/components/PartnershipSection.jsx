@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import VideoBackground from './shared/VideoBackground';
@@ -9,6 +9,23 @@ const PartnershipSection = () => {
   const sectionRef = useRef(null);
   const videoWrapperRef = useRef(null);
   const textRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Master observer for the section to control video playback
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -56,9 +73,9 @@ const PartnershipSection = () => {
       {/* Expanding Video Layer */}
       <div ref={videoWrapperRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">
         {/* Desktop Video */}
-        <VideoBackground className="hidden md:block" src="/videos/07-handshake.mp4" />
+        <VideoBackground className="hidden md:block" src="/videos/07-handshake.mp4" isPlaying={isVisible} />
         {/* Mobile Video */}
-        <VideoBackground className="block md:hidden" src="/videos/download.mp4" />
+        <VideoBackground className="block md:hidden" src="/videos/download.mp4" isPlaying={isVisible} />
       </div>
 
       {/* Text Layer — visible before video expands */}

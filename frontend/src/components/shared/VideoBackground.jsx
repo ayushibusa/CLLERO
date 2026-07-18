@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const VideoBackground = ({ src, children, className = '', videoClassName = '', autoPlay = true, hoverPlay = false, objectFit = 'cover', overlayStyle }) => {
+const VideoBackground = ({ src, children, className = '', videoClassName = '', autoPlay = true, hoverPlay = false, objectFit = 'cover', overlayStyle, isPlaying }) => {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const [hasError, setHasError] = useState(false);
@@ -28,6 +28,15 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
       video.setAttribute('autoplay', 'true');
       video.setAttribute('playsinline', 'true');
       video.setAttribute('muted', 'true');
+
+      if (isPlaying !== undefined) {
+        if (isPlaying) {
+          video.play().catch(e => console.warn('Auto-play prevented:', e));
+        } else {
+          video.pause();
+        }
+        return;
+      }
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -53,7 +62,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
     return () => {
       video.removeEventListener('error', handleError);
     };
-  }, [autoPlay, hoverPlay, src]);
+  }, [autoPlay, hoverPlay, src, isPlaying]);
 
   const handleMouseEnter = () => {
     if (hoverPlay && videoRef.current && !hasError) {
