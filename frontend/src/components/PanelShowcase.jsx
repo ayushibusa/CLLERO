@@ -113,18 +113,18 @@ const PanelShowcase = () => {
       <div className="flex flex-col lg:flex-row h-screen w-full pt-16 lg:pt-0">
 
         {/* Left Side / Top: Sticky Text */}
-        <div className="w-full lg:w-[45%] h-1/2 lg:h-full flex flex-col justify-center px-6 md:pl-[300px] lg:pl-[380px] relative z-20">
+        <div className="w-full lg:w-[45%] h-[45%] lg:h-full flex flex-col justify-center px-6 md:pl-[300px] lg:pl-[380px] relative z-20">
           <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-2 lg:mb-4">
             V — Ecosystem
           </p>
-          <h2 className="text-4xl lg:text-7xl font-serif font-bold text-black tracking-tighter leading-none mb-8 lg:mb-16">
+          <h2 className="text-4xl lg:text-7xl font-serif font-bold text-black tracking-tighter leading-none mb-6 lg:mb-16">
             Cllero <span className="italic font-light text-black/60">in Action.</span>
           </h2>
 
           <div className="relative w-full h-40 lg:h-48">
             {panels.map((panel, i) => (
               <div key={i} ref={addToTexts} className="absolute inset-0 w-full flex flex-col will-change-transform">
-                <h3 className="text-2xl lg:text-4xl font-bold mb-2 lg:mb-4 flex items-center gap-2 lg:gap-4">
+                <h3 className="text-2xl lg:text-4xl font-bold text-black mb-2 lg:mb-4 flex items-center gap-2 lg:gap-4">
                   <span className="text-xs lg:text-sm font-mono" style={{ color: panel.accent }}>0{i + 1}</span>
                   {panel.role}
                 </h3>
@@ -138,10 +138,10 @@ const PanelShowcase = () => {
         </div>
 
         {/* Right Side / Bottom: 3D Spiral Carousel */}
-        <div className="w-full lg:w-[55%] h-1/2 lg:h-full flex items-center justify-center perspective-[2000px] z-10 px-6 lg:pl-12">
+        <div className="w-full lg:w-[55%] h-[55%] lg:h-full flex items-start lg:items-center justify-center perspective-[2000px] z-10 px-6 lg:pl-12 pb-10 lg:pb-0">
           <div
             ref={carouselRef}
-            className="relative w-[80vw] lg:w-[35vw] max-w-[500px] aspect-video transform-style-3d will-change-transform"
+            className="relative w-[85vw] lg:w-[35vw] max-w-[500px] aspect-video transform-style-3d will-change-transform"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {panels.map((panel, i) => (

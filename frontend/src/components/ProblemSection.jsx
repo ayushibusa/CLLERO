@@ -88,12 +88,12 @@ const ProblemSection = () => {
         </div>
 
         {/* Central Stage */}
-        <div className="flex w-full h-[55%] lg:h-[60%] mt-24 lg:mt-20 items-center justify-between gap-4 lg:gap-10 lg:pr-12">
+        <div className="flex flex-col lg:flex-row w-full h-[75%] lg:h-[60%] mt-20 lg:mt-20 items-center justify-start lg:justify-between gap-6 lg:gap-10 lg:pr-12">
 
-          {/* 1. Left Sticky Index */}
-          <div className="w-[12%] lg:w-[18%] flex flex-col gap-6 lg:gap-8 border-l border-black/10 pl-3 lg:pl-6">
+          {/* 1. Sticky Index */}
+          <div className="w-full lg:w-[18%] flex flex-row lg:flex-col justify-center lg:justify-start gap-6 lg:gap-8 border-b lg:border-b-0 lg:border-l border-black/10 pb-4 lg:pb-0 lg:pl-6 order-1">
             {problems.map((prob, i) => (
-              <div key={i} ref={el => indexRefs.current[i] = el} className="flex flex-col gap-1 will-change-transform">
+              <div key={i} ref={el => indexRefs.current[i] = el} className="flex flex-col items-center lg:items-start gap-1 will-change-transform">
                 <span className="text-[10px] font-mono text-[#FF6B35]">0{i + 1}</span>
                 <span className="hidden lg:block text-xs lg:text-sm font-semibold tracking-wide uppercase text-black">
                   {prob.label}
@@ -103,7 +103,7 @@ const ProblemSection = () => {
           </div>
 
           {/* 2. Central 3D Canvas (Videos) */}
-          <div className="flex-1 max-w-[700px] h-full relative rounded-2xl lg:rounded-[2rem] overflow-hidden bg-black shadow-[0_40px_80px_rgba(0,0,0,0.15)] border border-black/5">
+          <div className="w-full lg:flex-1 max-w-[700px] h-[35vh] lg:h-full relative rounded-2xl lg:rounded-[2rem] overflow-hidden bg-black shadow-[0_40px_80px_rgba(0,0,0,0.15)] border border-black/5 order-2">
             {problems.map((prob, i) => (
               <div key={i} ref={el => videosRef.current[i] = el} className="absolute inset-0 w-full h-full will-change-transform">
                 <LazyVideo src={prob.video} className="w-full h-full object-cover opacity-90" />
@@ -114,9 +114,9 @@ const ProblemSection = () => {
           </div>
 
           {/* 3. Right Description Text */}
-          <div className="w-[30%] lg:w-[28%] relative h-40 lg:h-40 flex items-center">
+          <div className="w-full lg:w-[28%] relative h-32 lg:h-40 flex items-center justify-center lg:justify-start order-3">
             {problems.map((prob, i) => (
-              <div key={i} ref={el => textsRef.current[i] = el} className="absolute inset-0 w-full flex flex-col justify-center will-change-transform">
+              <div key={i} ref={el => textsRef.current[i] = el} className="absolute inset-0 w-full flex flex-col justify-center items-center lg:items-start text-center lg:text-left will-change-transform">
                 <p className="text-sm md:text-lg lg:text-2xl font-serif font-light leading-[1.4] lg:leading-[1.6] text-black/85">
                   "{prob.desc}"
                 </p>
