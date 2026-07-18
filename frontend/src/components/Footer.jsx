@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Twitter, Instagram, Linkedin, Github } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -42,12 +42,10 @@ const Footer = () => {
             <p className="text-white/50 text-sm leading-relaxed mb-8 max-w-xs">
               The all-in-one platform built for how modern gyms actually run. From the front desk to the boardroom, we power your growth.
             </p>
-            <div className="flex items-center gap-4">
-              {[Twitter, Instagram, Linkedin, Github].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white hover:bg-white/5 transition-all duration-300">
-                  <Icon size={16} />
-                </a>
-              ))}
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-white/50 hover:text-white transition-colors text-sm">Twitter</a>
+              <a href="#" className="text-white/50 hover:text-white transition-colors text-sm">LinkedIn</a>
+              <a href="#" className="text-white/50 hover:text-white transition-colors text-sm">Instagram</a>
             </div>
           </div>
 
