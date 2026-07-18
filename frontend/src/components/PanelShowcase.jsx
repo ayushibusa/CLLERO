@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LazyVideo from './shared/LazyVideo';
@@ -41,6 +41,24 @@ const PanelShowcase = () => {
   const carouselRef = useRef(null);
   const textsRef = useRef([]);
   textsRef.current = [];
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Observe the main container to play/pause videos safely
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+    
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   const addToTexts = (el) => {
     if (el && !textsRef.current.includes(el)) textsRef.current.push(el);
@@ -155,7 +173,7 @@ const PanelShowcase = () => {
                   backfaceVisibility: 'hidden', // Hides the back of cards perfectly
                 }}
               >
-                <LazyVideo src={panel.video} className="w-full h-full object-cover opacity-90" />
+                <LazyVideo src={panel.video} className="w-full h-full object-cover opacity-90" isPlaying={isVisible} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                 {/* Subtle border glow based on accent color */}
                 <div className="absolute inset-0 rounded-[2rem] pointer-events-none" style={{ boxShadow: `inset 0 0 40px ${panel.accent}30` }} />

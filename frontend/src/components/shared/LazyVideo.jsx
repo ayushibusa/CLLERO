@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LazyVideo = ({ src, className, style, ...props }) => {
+const LazyVideo = ({ src, className, style, isPlaying, ...props }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -15,6 +15,15 @@ const LazyVideo = ({ src, className, style, ...props }) => {
     video.setAttribute('autoplay', 'true');
     video.setAttribute('playsinline', 'true');
     video.setAttribute('muted', 'true');
+
+    if (isPlaying !== undefined) {
+      if (isPlaying) {
+        video.play().catch(e => console.log('Auto-play prevented:', e));
+      } else {
+        video.pause();
+      }
+      return;
+    }
 
     // Use IntersectionObserver to pause off-screen videos (fixes extreme lag)
     const observer = new IntersectionObserver(
@@ -27,7 +36,7 @@ const LazyVideo = ({ src, className, style, ...props }) => {
           }
         });
       },
-      { threshold: 0.1 } // Trigger when at least 10% visible
+      { threshold: 0 } // Trigger immediately when entering screen
     );
 
     observer.observe(video);
@@ -35,7 +44,7 @@ const LazyVideo = ({ src, className, style, ...props }) => {
     return () => {
       observer.disconnect();
     };
-  }, [src]);
+  }, [src, isPlaying]);
 
   return (
     <video
