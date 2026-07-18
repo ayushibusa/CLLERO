@@ -51,7 +51,7 @@ const FinalCTASection = ({ openDemoModal }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-full min-h-[80vh]">
+    <div ref={containerRef} className="relative w-full h-[100dvh]">
       {/* Background Videos */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <VideoBackground src="/videos/16.mp4" className="hidden md:block w-full h-full" objectFit="cover" />
@@ -59,7 +59,7 @@ const FinalCTASection = ({ openDemoModal }) => {
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 flex flex-col items-center md:items-start justify-center h-full min-h-[80vh] text-center md:text-left max-w-4xl px-6 md:pr-12 md:pl-[300px] lg:pl-[380px] mx-auto md:mx-0">
+      <div className="relative z-10 flex flex-col items-center md:items-start justify-center h-full text-center md:text-left max-w-4xl px-6 md:pr-12 md:pl-[300px] lg:pl-[380px] mx-auto md:mx-0">
         <h2 ref={textRef} className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tighter text-white mb-10 md:mb-12 leading-[0.9]">
           <div className="overflow-hidden"><span className="block">Your Gym Deserves</span></div>
           <div className="overflow-hidden"><span className="block">More Than Software.</span></div>
