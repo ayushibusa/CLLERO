@@ -23,9 +23,14 @@ const PartnershipSection = () => {
         }
       });
 
-      // Initial state: small pill on the right side
+      const isMobile = window.innerWidth < 768;
+      const initialClipPath = isMobile 
+        ? 'inset(65% 25% 15% 25% round 100px)' 
+        : 'inset(40% 10% 40% 60% round 100px)';
+
+      // Initial state: small pill
       gsap.set(videoWrapperRef.current, {
-        clipPath: 'inset(40% 10% 40% 60% round 100px)',
+        clipPath: initialClipPath,
       });
 
       // Expand clip-path to reveal the full video and fade out text
