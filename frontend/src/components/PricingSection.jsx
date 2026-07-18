@@ -22,8 +22,8 @@ const PricingSection = () => {
 
       <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 relative w-full items-start">
 
-        {/* ── Left: Core Platform (Sticky Native) ── */}
-        <div className="w-full lg:w-[45%] lg:sticky lg:top-32 flex flex-col gap-10 z-10">
+        {/* ── Left: Core Platform ── */}
+        <div className="w-full lg:w-[45%] flex flex-col gap-10 z-10">
 
           <div>
             <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-6">
@@ -65,8 +65,8 @@ const PricingSection = () => {
           </div>
         </div>
 
-        {/* ── Right: Add-on Modules (Scrollable Stacker) ── */}
-        <div className="w-full lg:w-[55%] flex flex-col lg:pt-[250px] pb-12 lg:pb-32">
+        {/* ── Right: Add-on Modules ── */}
+        <div className="w-full lg:w-[55%] flex flex-col pb-12 lg:pb-32">
 
           <div className="mb-8">
             <div className="text-black/40 font-bold uppercase tracking-widest text-xs">Add-on Modules</div>
