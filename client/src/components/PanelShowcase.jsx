@@ -91,12 +91,12 @@ const PanelShowcase = () => {
             duration: 0.7,
             ease: 'power2.inOut'
           }, `${stepLabel}`)
-          .to(textsRef.current[i], {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power2.out'
-          }, `${stepLabel}+=0.5`);
+            .to(textsRef.current[i], {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: 'power2.out'
+            }, `${stepLabel}+=0.5`);
 
           // Pause so user can read
           tl.to({}, { duration: 0.8 });
@@ -106,18 +106,18 @@ const PanelShowcase = () => {
       // ── MOBILE: Fade up ──
       mm.add('(max-width: 1023px)', () => {
         gsap.utils.toArray('.mobile-panel').forEach((el) => {
-          gsap.fromTo(el, 
+          gsap.fromTo(el,
             { opacity: 0, y: 40 },
-            { 
-              opacity: 1, 
-              y: 0, 
+            {
+              opacity: 1,
+              y: 0,
               duration: 1,
               ease: 'power3.out',
-              scrollTrigger: { 
-                trigger: el, 
+              scrollTrigger: {
+                trigger: el,
                 start: 'top 85%',
                 toggleActions: 'play none none reverse'
-              } 
+              }
             }
           );
         });
@@ -130,10 +130,10 @@ const PanelShowcase = () => {
 
   return (
     <section ref={containerRef} id="panels" className="relative w-full bg-[#f5f5f7] overflow-hidden">
-      
+
       {/* ── DESKTOP LAYOUT ── */}
       <div className="hidden lg:flex h-screen w-full">
-        
+
         {/* Left Side: Sticky Text */}
         <div className="w-[45%] h-full flex flex-col justify-center px-12 md:pl-[300px] lg:pl-[380px] relative z-20">
           <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-4">
@@ -161,17 +161,17 @@ const PanelShowcase = () => {
 
         {/* Right Side: 3D Spiral Carousel */}
         <div className="w-[55%] h-full flex items-center justify-center perspective-[2000px] z-10 pl-12">
-          <div 
-            ref={carouselRef} 
+          <div
+            ref={carouselRef}
             className="relative w-[35vw] max-w-[500px] aspect-video transform-style-3d will-change-transform"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {panels.map((panel, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="absolute inset-0 rounded-[2rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.3)] bg-black border border-white/5"
-                style={{ 
-                  transform: `rotateY(${i * 90}deg) translateZ(350px)`, 
+                style={{
+                  transform: `rotateY(${i * 90}deg) translateZ(350px)`,
                   backfaceVisibility: 'hidden', // Hides the back of cards perfectly
                 }}
               >
@@ -188,33 +188,33 @@ const PanelShowcase = () => {
 
       {/* ── MOBILE LAYOUT ── */}
       <div className="lg:hidden flex flex-col px-6 md:pl-[320px] md:pr-12 py-12 lg:py-24 w-full">
-         <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-4">
-           V — Ecosystem
-         </p>
-         <h2 className="text-5xl font-serif font-bold text-black tracking-tight mb-16 leading-none">
-           Cllero <br/><span className="italic font-light text-black/60">in Action.</span>
-         </h2>
-         
-         <div className="flex flex-col gap-20">
-           {panels.map((panel, i) => (
-             <div key={i} className="mobile-panel flex flex-col gap-6">
-               <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl bg-black">
-                 <LazyVideo src={panel.video} className="absolute inset-0 w-full h-full object-cover opacity-90" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-               </div>
-               <div>
-                 <h3 className="text-2xl font-bold mb-3 flex items-center gap-3">
-                   <span className="text-xs font-mono" style={{ color: panel.accent }}>0{i + 1}</span>
-                   {panel.role}
-                 </h3>
-                 <h4 className="text-xl font-bold text-black mb-2">{panel.title}</h4>
-                 <p className="text-black/70 text-base font-serif leading-relaxed">
-                   {panel.description}
-                 </p>
-               </div>
-             </div>
-           ))}
-         </div>
+        <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-4">
+          V — Ecosystem
+        </p>
+        <h2 className="text-5xl font-serif font-bold text-black tracking-tight mb-16 leading-none">
+          Cllero <br /><span className="italic font-light text-black/60">in Action.</span>
+        </h2>
+
+        <div className="flex flex-col gap-20">
+          {panels.map((panel, i) => (
+            <div key={i} className="mobile-panel flex flex-col gap-6">
+              <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl bg-black">
+                <LazyVideo src={panel.video} className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3 flex items-center gap-3">
+                  <span className="text-xs font-mono" style={{ color: panel.accent }}>0{i + 1}</span>
+                  {panel.role}
+                </h3>
+                <h4 className="text-xl font-bold text-black mb-2">{panel.title}</h4>
+                <p className="text-black/70 text-base font-serif leading-relaxed">
+                  {panel.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
     </section>

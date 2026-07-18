@@ -19,16 +19,16 @@ const DemoModal = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
-    
+
     try {
       const response = await fetch('http://localhost:5000/api/demo-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
+
       const data = await response.json();
-      
+
       if (response.ok) {
         setStatus('success');
       } else {
@@ -51,7 +51,7 @@ const DemoModal = ({ onClose }) => {
           onClick={onClose}
           className="absolute inset-0 bg-background/80 backdrop-blur-sm"
         />
-        
+
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -66,10 +66,10 @@ const DemoModal = ({ onClose }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-          
+
           <h2 className="text-3xl font-bold text-text mb-2">Book a Demo</h2>
           <p className="text-text/60 mb-8">See how Cllero can transform your gym's operations.</p>
-          
+
           {status === 'success' ? (
             <div className="bg-accent/10 border border-accent/20 rounded-xl p-6 text-center">
               <svg className="w-12 h-12 text-accent mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,7 +77,7 @@ const DemoModal = ({ onClose }) => {
               </svg>
               <h3 className="text-xl font-bold text-text mb-2">Request Received!</h3>
               <p className="text-text/70">Our team will contact you shortly to schedule your demo.</p>
-              <button 
+              <button
                 onClick={onClose}
                 className="mt-6 w-full py-3 bg-surface border border-text/20 rounded-full font-medium hover:bg-surface/80"
               >
@@ -110,7 +110,7 @@ const DemoModal = ({ onClose }) => {
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-1">
                 <label className="text-sm text-text/70 font-medium">Gym Name</label>
                 <input
@@ -122,7 +122,7 @@ const DemoModal = ({ onClose }) => {
                   className="w-full bg-background border border-text/10 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent/50 transition-colors"
                 />
               </div>
-              
+
               <div className="space-y-1">
                 <label className="text-sm text-text/70 font-medium">Phone Number</label>
                 <input
@@ -134,7 +134,7 @@ const DemoModal = ({ onClose }) => {
                   className="w-full bg-background border border-text/10 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent/50 transition-colors"
                 />
               </div>
-              
+
               <div className="space-y-1">
                 <label className="text-sm text-text/70 font-medium">Message (Optional)</label>
                 <textarea
@@ -145,11 +145,11 @@ const DemoModal = ({ onClose }) => {
                   className="w-full bg-background border border-text/10 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent/50 transition-colors resize-none"
                 ></textarea>
               </div>
-              
+
               {status === 'error' && (
                 <p className="text-red-400 text-sm">{errorMsg}</p>
               )}
-              
+
               <button
                 type="submit"
                 disabled={status === 'loading'}

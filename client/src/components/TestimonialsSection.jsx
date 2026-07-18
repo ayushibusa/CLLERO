@@ -41,11 +41,11 @@ const TestimonialsSection = () => {
       mm.add('(min-width: 1024px)', () => {
         // Desktop Stacking Animation
         cards.forEach((card, i) => {
-          gsap.set(card, { 
+          gsap.set(card, {
             zIndex: i + 10,
-            y: i === 0 ? 0 : '100%', 
+            y: i === 0 ? 0 : '100%',
             scale: 1,
-            opacity: i === 0 ? 1 : 0 
+            opacity: i === 0 ? 1 : 0
           });
         });
 
@@ -72,14 +72,14 @@ const TestimonialsSection = () => {
             duration: 1,
             ease: 'power2.inOut'
           }, `step${i}`)
-          
-          // Slide next card up from bottom
-          .to(next, {
-            y: '0%',
-            opacity: 1,
-            duration: 1,
-            ease: 'power3.out'
-          }, `step${i}`);
+
+            // Slide next card up from bottom
+            .to(next, {
+              y: '0%',
+              opacity: 1,
+              duration: 1,
+              ease: 'power3.out'
+            }, `step${i}`);
         }
       });
 
@@ -116,7 +116,7 @@ const TestimonialsSection = () => {
             VI — Real Stories
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-black tracking-tight leading-[1.05]">
-            Don't just take <br className="hidden md:block"/>
+            Don't just take <br className="hidden md:block" />
             <span className="italic text-black/70">our word for it.</span>
           </h2>
         </div>

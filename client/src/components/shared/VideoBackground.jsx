@@ -24,7 +24,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
           }
         }
       };
-      
+
       const handleError = (e) => {
         console.warn(`Video 404 or failed to load: ${src}`, e);
         setHasError(true);
@@ -54,7 +54,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className={`video-bg-wrapper relative w-[100vw] h-[100dvh] overflow-hidden bg-black m-0 p-0 ${className}`}
       onMouseEnter={handleMouseEnter}
@@ -77,7 +77,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
           Video unavailable
         </div>
       )}
-      <div 
+      <div
         className="video-overlay absolute inset-0 z-[1] pointer-events-none"
         style={overlayStyle || {
           background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.35) 100%)'

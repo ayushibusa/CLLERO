@@ -74,7 +74,7 @@ const AnalyticsSection = () => {
 
   return (
     <div ref={sectionRef} className="py-40 bg-surface overflow-hidden relative">
-      
+
       <div className="absolute top-[20%] whitespace-nowrap opacity-5 pointer-events-none" ref={titleRef}>
         <h2 className="text-[15vw] font-serif font-bold text-white tracking-tighter uppercase pl-[20vw]">
           Know Your Gym.
@@ -92,8 +92,8 @@ const AnalyticsSection = () => {
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#FF6B00" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#FF6B00" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#FF6B00" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#FF6B00" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <Area type="monotone" dataKey="revenue" stroke="#FF6B00" strokeWidth={4} fillOpacity={1} fill="url(#colorRevenue)" />

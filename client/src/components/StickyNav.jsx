@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
 const sections = [
-  { roman: 'I',    id: 'hero',         label: 'Vision',       theme: 'dark'  },
-  { roman: 'II',   id: 'problem',      label: 'Problem',      theme: 'light' },
-  { roman: 'III',  id: 'logo',         label: 'Identity',     theme: 'dark'  },
-  { roman: 'IV',   id: 'partnership',  label: 'Partnership',  theme: 'light' },
-  { roman: 'V',    id: 'panels',       label: 'Ecosystem',    theme: 'light' },
-  { roman: 'VI',   id: 'testimonials', label: 'Testimonials', theme: 'light' },
-  { roman: 'VII',  id: 'pricing',      label: 'Pricing',      theme: 'light' },
-  { roman: 'VIII', id: 'contact',      label: 'Demo',         theme: 'dark'  },
+  { roman: 'I', id: 'hero', label: 'Vision', theme: 'dark' },
+  { roman: 'II', id: 'problem', label: 'Problem', theme: 'light' },
+  { roman: 'III', id: 'logo', label: 'Identity', theme: 'dark' },
+  { roman: 'IV', id: 'partnership', label: 'Partnership', theme: 'light' },
+  { roman: 'V', id: 'panels', label: 'Ecosystem', theme: 'light' },
+  { roman: 'VI', id: 'testimonials', label: 'Testimonials', theme: 'light' },
+  { roman: 'VII', id: 'pricing', label: 'Pricing', theme: 'light' },
+  { roman: 'VIII', id: 'contact', label: 'Demo', theme: 'dark' },
 ];
 
 const StickyNav = () => {
@@ -53,19 +53,18 @@ const StickyNav = () => {
   }, []);
 
   // Dynamic colour tokens based on current section theme
-  const textColor      = isLight ? 'text-black'      : 'text-white';
-  const dotActive      = isLight ? 'bg-black'        : 'bg-white';
-  const dotInactive    = isLight ? 'bg-black/30'     : 'bg-white/40';
-  const opacityActive  = 'opacity-100';
-  const opacityInact   = isLight ? 'opacity-40 hover:opacity-70' : 'opacity-35 hover:opacity-75';
+  const textColor = isLight ? 'text-black' : 'text-white';
+  const dotActive = isLight ? 'bg-black' : 'bg-white';
+  const dotInactive = isLight ? 'bg-black/30' : 'bg-white/40';
+  const opacityActive = 'opacity-100';
+  const opacityInact = isLight ? 'opacity-40 hover:opacity-70' : 'opacity-35 hover:opacity-75';
 
   return (
     <>
       {/* ── Mobile: top bar with hamburger ── */}
-      <div 
-        className={`md:hidden fixed top-0 left-0 w-full px-5 py-4 flex items-center justify-between z-50 transition-colors duration-300 backdrop-blur-lg border-b ${
-          isLight ? 'bg-[#f5f5f7]/85 border-black/5' : 'bg-black/50 border-white/5'
-        }`}
+      <div
+        className={`md:hidden fixed top-0 left-0 w-full px-5 py-4 flex items-center justify-between z-50 transition-colors duration-300 backdrop-blur-lg border-b ${isLight ? 'bg-[#f5f5f7]/85 border-black/5' : 'bg-black/50 border-white/5'
+          }`}
       >
         <div
           className="pointer-events-auto transition-colors duration-300"
@@ -143,14 +142,12 @@ const StickyNav = () => {
                 <li key={sec.id}>
                   <button
                     onClick={() => scrollTo(sec.id)}
-                    className={`group flex items-center gap-3 w-full text-left transition-all duration-300 ${
-                      isActive ? opacityActive : opacityInact
-                    }`}
+                    className={`group flex items-center gap-3 w-full text-left transition-all duration-300 ${isActive ? opacityActive : opacityInact
+                      }`}
                   >
                     {/* Active indicator dot */}
-                    <span className={`shrink-0 rounded-full transition-all duration-300 ${
-                      isActive ? `w-1.5 h-1.5 ${dotActive}` : `w-1 h-1 ${dotInactive}`
-                    }`} />
+                    <span className={`shrink-0 rounded-full transition-all duration-300 ${isActive ? `w-1.5 h-1.5 ${dotActive}` : `w-1 h-1 ${dotInactive}`
+                      }`} />
                     {/* Roman numeral */}
                     <span className="w-7 shrink-0 text-[10px] font-serif italic opacity-70">
                       {sec.roman}

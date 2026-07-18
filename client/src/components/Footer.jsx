@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="max-w-sm w-full">
           <h2 className="text-3xl font-serif font-bold text-white mb-4 tracking-tighter">Cllero.</h2>
           <p className="text-white/60 font-light mb-8">
-            The all-in-one platform built for how modern gyms actually run. 
+            The all-in-one platform built for how modern gyms actually run.
             From the front desk to the boardroom, we power your growth.
           </p>
           <div className="text-white/40 text-sm">
@@ -26,7 +26,7 @@ const Footer = () => {
               <li><a href="#" className="text-white/60 hover:text-accent transition-colors">Pricing</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-6">Company</h4>
             <ul className="space-y-4">

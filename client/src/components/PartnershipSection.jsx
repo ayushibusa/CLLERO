@@ -34,11 +34,11 @@ const PartnershipSection = () => {
         ease: 'power2.inOut',
         duration: 1,
       }, 0)
-      .to(textRef.current, {
-        opacity: 0,
-        y: -50,
-        duration: 0.5,
-      }, 0);
+        .to(textRef.current, {
+          opacity: 0,
+          y: -50,
+          duration: 0.5,
+        }, 0);
 
     }, sectionRef);
 

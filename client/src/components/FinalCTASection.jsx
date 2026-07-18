@@ -12,7 +12,7 @@ const FinalCTASection = ({ openDemoModal }) => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      
+
       // Reveal animation for the text and button on scroll
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -23,8 +23,8 @@ const FinalCTASection = ({ openDemoModal }) => {
 
       // Split the text manually for a line-by-line stagger effect
       const lines = textRef.current.children;
-      
-      tl.fromTo(lines, 
+
+      tl.fromTo(lines,
         { y: 50, opacity: 0 },
         {
           y: 0,
@@ -34,16 +34,16 @@ const FinalCTASection = ({ openDemoModal }) => {
           ease: 'power3.out'
         }
       )
-      .fromTo(buttonRef.current,
-        { scale: 0.8, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.5,
-          ease: 'back.out(1.5)'
-        },
-        '-=0.4'
-      );
+        .fromTo(buttonRef.current,
+          { scale: 0.8, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: 'back.out(1.5)'
+          },
+          '-=0.4'
+        );
 
     }, containerRef);
 
@@ -59,7 +59,7 @@ const FinalCTASection = ({ openDemoModal }) => {
             <div className="overflow-hidden"><span className="block">More Than Software.</span></div>
             <div className="overflow-hidden mt-4"><span className="block italic text-accent">It Deserves Cllero.</span></div>
           </h2>
-          
+
           <div ref={buttonRef}>
             <button
               onClick={openDemoModal}

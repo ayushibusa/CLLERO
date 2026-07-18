@@ -7,10 +7,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = ({ openDemoModal }) => {
   const containerRef = useRef(null);
-  const headlineRef  = useRef(null);
-  const subtextRef   = useRef(null);
+  const headlineRef = useRef(null);
+  const subtextRef = useRef(null);
   const contentGroupRef = useRef(null);
-  
+
   const [videoSrc, setVideoSrc] = React.useState('/src/assets/videos/01-hero-enter-gym.mp4');
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const HeroSection = ({ openDemoModal }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      
+
       const mm = gsap.matchMedia();
 
       // Desktop: entrance + scroll-scrub to side
@@ -94,10 +94,10 @@ const HeroSection = ({ openDemoModal }) => {
       className="hero-section relative w-screen overflow-hidden m-0 p-0 h-[100dvh]"
     >
       <VideoBackground src={videoSrc} objectFit="cover">
-        
+
         {/* Container is dead center initially */}
         <div className="w-full h-full flex flex-col items-center justify-center text-center px-6">
-          
+
           <div ref={contentGroupRef} className="flex flex-col items-center justify-center">
             <h1
               ref={headlineRef}
@@ -119,7 +119,7 @@ const HeroSection = ({ openDemoModal }) => {
               </button>
             </div>
           </div>
-          
+
         </div>
       </VideoBackground>
     </div>
