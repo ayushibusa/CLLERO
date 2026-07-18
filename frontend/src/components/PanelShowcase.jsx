@@ -130,10 +130,10 @@ const PanelShowcase = () => {
       <div className="absolute top-0 left-0 w-full h-[130vh] bg-[#f5f5f7] -z-10 pointer-events-none" />
 
       {/* ── GLOBALLY APPLIED LAYOUT ── */}
-      <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full pt-20 lg:pt-0">
+      <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full justify-center lg:justify-start pt-[120px] pb-[40px] lg:pt-0 lg:pb-0 overflow-hidden">
 
         {/* Left Side / Top: Sticky Text */}
-        <div className="w-full flex-1 lg:w-[45%] lg:h-full flex flex-col justify-center px-6 lg:pl-[380px] relative z-20 pb-4 lg:pb-0">
+        <div className="w-full flex-none lg:flex-1 lg:w-[45%] lg:h-full flex flex-col justify-center px-6 lg:pl-[380px] relative z-20 pb-12 lg:pb-0">
           <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-2 lg:mb-4">
             V — Ecosystem
           </p>
@@ -158,7 +158,7 @@ const PanelShowcase = () => {
         </div>
 
         {/* Right Side / Bottom: 3D Spiral Carousel */}
-        <div className="w-full flex-1 lg:w-[55%] lg:h-full flex items-center justify-center perspective-[2000px] z-10 px-6 lg:pl-12 pb-4 lg:pb-0">
+        <div className="w-full flex-none lg:flex-1 lg:w-[55%] lg:h-full flex items-center justify-center perspective-[2000px] z-10 px-6 lg:pl-12 pb-4 lg:pb-0">
           <div
             ref={carouselRef}
             className="relative w-[90vw] lg:w-[35vw] max-w-[500px] aspect-video transform-style-3d will-change-transform"
