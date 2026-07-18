@@ -8,14 +8,14 @@ const LazyVideo = ({ src, className, style, ...props }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // Explicitly set autoplay attributes for mobile support when component mounts
+    // Explicitly set autoplay attributes for mobile support when component mounts or src changes
     if (videoRef.current) {
       videoRef.current.setAttribute('autoplay', 'true');
       videoRef.current.setAttribute('playsinline', 'true');
       videoRef.current.setAttribute('muted', 'true');
       videoRef.current.play().catch(e => console.log('Auto-play prevented:', e));
     }
-  }, []);
+  }, [src]);
 
   return (
     <video
