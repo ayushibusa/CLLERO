@@ -8,13 +8,33 @@ const LazyVideo = ({ src, className, style, ...props }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // Explicitly set autoplay attributes for mobile support when component mounts or src changes
-    if (videoRef.current) {
-      videoRef.current.setAttribute('autoplay', 'true');
-      videoRef.current.setAttribute('playsinline', 'true');
-      videoRef.current.setAttribute('muted', 'true');
-      videoRef.current.play().catch(e => console.log('Auto-play prevented:', e));
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Explicitly set autoplay attributes for mobile support
+    video.setAttribute('autoplay', 'true');
+    video.setAttribute('playsinline', 'true');
+    video.setAttribute('muted', 'true');
+
+    // Use IntersectionObserver to pause off-screen videos (fixes extreme lag)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(e => console.log('Auto-play prevented:', e));
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.1 } // Trigger when at least 10% visible
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
   }, [src]);
 
   return (
@@ -23,7 +43,7 @@ const LazyVideo = ({ src, className, style, ...props }) => {
       src={src}
       className={`transition-opacity duration-300 ${className || ''}`}
       style={style}
-      preload="auto"
+      preload="metadata"
       muted
       loop
       playsInline

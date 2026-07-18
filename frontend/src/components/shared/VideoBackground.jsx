@@ -14,34 +14,45 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
   }, []);
 
   useEffect(() => {
-    if (videoRef.current) {
-      const handlePlay = async () => {
-        if (autoPlay && !hoverPlay) {
-          try {
-            videoRef.current.setAttribute('autoplay', 'true');
-            videoRef.current.setAttribute('playsinline', 'true');
-            videoRef.current.setAttribute('muted', 'true');
-            await videoRef.current.play();
-          } catch (err) {
-            console.warn('Video auto-play prevented or failed:', err);
-          }
-        }
-      };
+    const video = videoRef.current;
+    if (!video) return;
 
-      const handleError = (e) => {
-        console.warn(`Video 404 or failed to load: ${src}`, e);
-        setHasError(true);
-      };
+    const handleError = (e) => {
+      console.warn(`Video 404 or failed to load: ${src}`, e);
+      setHasError(true);
+    };
 
-      videoRef.current.addEventListener('error', handleError);
-      handlePlay();
+    video.addEventListener('error', handleError);
+
+    if (autoPlay && !hoverPlay) {
+      video.setAttribute('autoplay', 'true');
+      video.setAttribute('playsinline', 'true');
+      video.setAttribute('muted', 'true');
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              video.play().catch(e => console.warn('Auto-play prevented:', e));
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0 } // Pause as soon as it's fully out, play as soon as it enters
+      );
+
+      observer.observe(video);
 
       return () => {
-        if (videoRef.current) {
-          videoRef.current.removeEventListener('error', handleError);
-        }
+        video.removeEventListener('error', handleError);
+        observer.disconnect();
       };
     }
+
+    return () => {
+      video.removeEventListener('error', handleError);
+    };
   }, [autoPlay, hoverPlay, src]);
 
   const handleMouseEnter = () => {
@@ -72,7 +83,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           autoPlay={autoPlay && !hoverPlay}
         />
       )}
