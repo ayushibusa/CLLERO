@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LazyVideo from './shared/LazyVideo';
@@ -7,6 +7,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const LogoRevealSection = () => {
   const sectionRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState('/videos/06-logo-reveal.mp4');
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (window.innerWidth < 768) {
+        setVideoSrc('/videos/06-logo-reveal-mobile.mp4');
+      } else {
+        setVideoSrc('/videos/06-logo-reveal.mp4');
+      }
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -29,7 +43,7 @@ const LogoRevealSection = () => {
 
       {/* Raw video — direct tag with no wrapper to prevent any blur/scale */}
       <LazyVideo
-        src="/videos/06-logo-reveal.mp4"
+        src={videoSrc}
         className="absolute inset-0 w-full h-full object-cover z-0"
         style={{ objectPosition: 'center' }}
       />
