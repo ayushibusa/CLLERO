@@ -69,7 +69,8 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
           muted
           loop
           playsInline
-          preload="none"
+          preload="auto"
+          autoPlay={autoPlay && !hoverPlay}
         />
       )}
       {hasError && (

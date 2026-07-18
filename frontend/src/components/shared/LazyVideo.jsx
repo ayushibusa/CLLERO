@@ -51,6 +51,7 @@ const LazyVideo = ({ src, className, style, ...props }) => {
       muted
       loop
       playsInline
+      autoPlay
       {...props}
     />
   );
