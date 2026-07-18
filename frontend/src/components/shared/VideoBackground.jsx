@@ -18,6 +18,9 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
       const handlePlay = async () => {
         if (autoPlay && !hoverPlay) {
           try {
+            videoRef.current.setAttribute('autoplay', 'true');
+            videoRef.current.setAttribute('playsinline', 'true');
+            videoRef.current.setAttribute('muted', 'true');
             await videoRef.current.play();
           } catch (err) {
             console.warn('Video auto-play prevented or failed:', err);

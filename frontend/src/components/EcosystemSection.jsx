@@ -12,6 +12,12 @@ const EcosystemSection = () => {
   const videoRef = useRef(null);
 
   useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.setAttribute('autoplay', 'true');
+      videoRef.current.setAttribute('playsinline', 'true');
+      videoRef.current.setAttribute('muted', 'true');
+    }
+
     let ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {

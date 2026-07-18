@@ -17,6 +17,8 @@ const LazyVideo = ({ src, className, style, ...props }) => {
         end: 'bottom top-=1500',
         onEnter: () => {
           if (videoRef.current) {
+            videoRef.current.setAttribute('autoplay', 'true');
+            videoRef.current.setAttribute('playsinline', 'true');
             videoRef.current.play().catch(e => console.log('Auto-play prevented:', e));
           }
         },
