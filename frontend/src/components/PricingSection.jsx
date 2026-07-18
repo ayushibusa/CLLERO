@@ -38,7 +38,7 @@ const PricingSection = () => {
             </p>
           </div>
 
-          <div className="p-5 lg:p-6 rounded-[2rem] bg-black text-white shadow-[0_30px_60px_rgba(0,0,0,0.15)] relative overflow-hidden group">
+          <div className="p-5 lg:p-6 rounded-[2rem] bg-black text-white shadow-[0_30px_60px_rgba(0,0,0,0.15)] relative overflow-hidden group h-fit">
             {/* Subtle premium glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
@@ -49,7 +49,7 @@ const PricingSection = () => {
                 Everything you need to run your gym today. Includes the Owner Panel, Trainer App, basic Member App, and robust reporting.
               </p>
 
-              <ul className="space-y-2 mb-2 w-full text-left">
+              <ul className="space-y-2 w-full text-left">
                 {['Unlimited Members', 'Class Scheduling', 'Basic Analytics', '24/7 Priority Support'].map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 text-white/90">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] flex-shrink-0"></span>
