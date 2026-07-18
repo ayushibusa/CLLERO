@@ -77,10 +77,10 @@ const ProblemSection = () => {
       <div className="absolute top-0 left-0 w-full h-[130vh] bg-[#f5f5f7] -z-10 pointer-events-none" />
 
       {/* ── SHOPIFY EDITIONS STYLE LAYOUT APPLIED GLOBALLY ── */}
-      <div ref={stickyRef} className="flex h-[100dvh] w-full flex-col justify-center px-6 lg:px-12 lg:pl-[380px] overflow-hidden pt-[100px] pb-[40px] lg:pt-0 lg:pb-0">
+      <div ref={stickyRef} className="flex h-[100dvh] w-full flex-col justify-center px-6 lg:px-12 lg:pl-[380px] overflow-hidden pt-[100px] md:pt-0 pb-[40px] md:pb-0 lg:pt-0 lg:pb-0">
 
         {/* Editorial Header */}
-        <div className="relative lg:absolute top-0 lg:top-16 left-0 lg:left-[380px] w-full mb-4 lg:mb-0 z-10">
+        <div className="relative lg:absolute top-0 lg:top-16 left-0 lg:left-[380px] w-full mb-4 md:mb-8 lg:mb-0 z-10 text-center lg:text-left">
           <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-2 lg:mb-4">
             II — The Problem
           </p>
@@ -90,7 +90,7 @@ const ProblemSection = () => {
         </div>
 
         {/* Central Stage */}
-        <div className="flex flex-col lg:flex-row w-full flex-1 lg:flex-none lg:h-[60%] mt-6 lg:mt-20 items-center justify-center lg:justify-between gap-6 lg:gap-10 lg:pr-12">
+        <div className="flex flex-col lg:flex-row w-full flex-1 md:flex-none lg:flex-none lg:h-[60%] mt-6 md:mt-12 lg:mt-20 items-center justify-center lg:justify-between gap-6 lg:gap-10 lg:pr-12">
 
           {/* 1. Sticky Index */}
           <div className="w-full lg:w-[18%] flex flex-row lg:flex-col justify-center lg:justify-start gap-8 lg:gap-8 border-b lg:border-b-0 lg:border-l border-black/10 pb-4 lg:pb-0 lg:pl-6 order-1 shrink-0">
@@ -105,7 +105,7 @@ const ProblemSection = () => {
           </div>
 
           {/* 2. Central 3D Canvas (Videos) */}
-          <div className="w-full lg:flex-1 max-w-[700px] h-[35vh] lg:h-full relative rounded-2xl lg:rounded-[2rem] overflow-hidden bg-black shadow-[0_40px_80px_rgba(0,0,0,0.15)] border border-black/5 order-2 shrink-0">
+          <div className="w-full lg:flex-1 max-w-[700px] h-[35vh] md:h-[45vh] lg:h-full relative rounded-2xl lg:rounded-[2rem] overflow-hidden bg-black shadow-[0_40px_80px_rgba(0,0,0,0.15)] border border-black/5 order-2 shrink-0">
             {problems.map((prob, i) => (
               <div key={i} ref={el => videosRef.current[i] = el} className="absolute inset-0 w-full h-full will-change-transform">
                 <LazyVideo src={prob.video} className="w-full h-full object-cover opacity-90" />
@@ -116,7 +116,7 @@ const ProblemSection = () => {
           </div>
 
           {/* 3. Right Description Text */}
-          <div className="w-full lg:w-[28%] relative h-28 lg:h-40 flex items-center justify-center lg:justify-start order-3 overflow-hidden lg:overflow-visible shrink-0">
+          <div className="w-full lg:w-[28%] relative h-28 md:h-40 lg:h-40 flex items-center justify-center lg:justify-start order-3 overflow-hidden lg:overflow-visible shrink-0">
             {problems.map((prob, i) => (
               <div key={i} ref={el => textsRef.current[i] = el} className="absolute inset-0 w-full flex flex-col justify-center items-center lg:items-start text-center lg:text-left will-change-transform">
                 <p className="text-[15px] md:text-lg lg:text-2xl font-serif font-light leading-[1.5] lg:leading-[1.6] text-black/85 px-4 lg:px-0">
