@@ -23,17 +23,17 @@ const PricingSection = () => {
       <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 relative w-full items-start">
 
         {/* ── Left: Core Platform (Sticky) ── */}
-        <div className="w-full lg:w-[45%] lg:sticky lg:top-12 flex flex-col gap-6 lg:gap-8 z-10">
+        <div className="w-full lg:w-[45%] lg:sticky lg:top-4 flex flex-col gap-4 lg:gap-4 z-10">
 
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-6">
+            <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-2">
               VII — Pricing
             </p>
-            <h2 className="text-5xl lg:text-[5.5rem] font-serif font-bold tracking-tighter text-black leading-[0.9] mb-8">
+            <h2 className="text-5xl lg:text-[4.5rem] font-serif font-bold tracking-tighter text-black leading-[0.9] mb-4">
               Build Your <br />
               <span className="italic font-light text-black/60">Ecosystem.</span>
             </h2>
-            <p className="text-lg lg:text-xl text-black/70 max-w-md font-serif font-light leading-relaxed">
+            <p className="text-sm lg:text-base text-black/70 max-w-md font-serif font-light leading-relaxed">
               Stop paying for generic packages. Start with the powerful core platform and snap on only the modules your gym actually needs.
             </p>
           </div>
@@ -43,13 +43,13 @@ const PricingSection = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
             <div className="relative z-10">
-              <div className="text-[#FF6B35] font-mono uppercase tracking-widest text-[10px] mb-3">The Foundation</div>
-              <h3 className="text-2xl font-serif font-bold text-white mb-3">Core Platform</h3>
-              <p className="text-white/60 font-light mb-6 text-sm leading-relaxed">
+              <div className="text-[#FF6B35] font-mono uppercase tracking-widest text-[10px] mb-2">The Foundation</div>
+              <h3 className="text-2xl font-serif font-bold text-white mb-2">Core Platform</h3>
+              <p className="text-white/60 font-light mb-4 text-sm leading-relaxed">
                 Everything you need to run your gym today. Includes the Owner Panel, Trainer App, basic Member App, and robust reporting.
               </p>
 
-              <ul className="space-y-2 mb-6 w-full text-left">
+              <ul className="space-y-2 mb-4 w-full text-left">
                 {['Unlimited Members', 'Class Scheduling', 'Basic Analytics', '24/7 Priority Support'].map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 text-white/90">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] flex-shrink-0"></span>
@@ -58,7 +58,7 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              <button className="w-full py-3 bg-white text-black rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-[#FF6B35] hover:text-white transition-colors duration-300">
+              <button className="w-full py-3 bg-white text-black rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-[#FF6B35] hover:text-white transition-colors duration-300 mt-2">
                 Get Custom Quote
               </button>
             </div>
@@ -66,7 +66,7 @@ const PricingSection = () => {
         </div>
 
         {/* ── Right: Add-on Modules (Scrollable Stacker) ── */}
-        <div className="w-full lg:w-[55%] flex flex-col lg:pt-[120px] pb-12 lg:pb-32">
+        <div className="w-full lg:w-[55%] flex flex-col lg:pt-[80px] pb-12 lg:pb-32">
 
           <div className="mb-8">
             <div className="text-black/40 font-bold uppercase tracking-widest text-xs">Add-on Modules</div>
