@@ -25,9 +25,12 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
     video.addEventListener('error', handleError);
 
     if (autoPlay && !hoverPlay) {
-      video.setAttribute('autoplay', 'true');
-      video.setAttribute('playsinline', 'true');
-      video.setAttribute('muted', 'true');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('muted', '');
+      video.muted = true;
+      video.playsInline = true;
+      video.autoplay = true;
 
       if (isPlaying !== undefined) {
         if (isPlaying) {

@@ -11,10 +11,13 @@ const LazyVideo = ({ src, className, style, isPlaying, ...props }) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Explicitly set autoplay attributes for mobile support
-    video.setAttribute('autoplay', 'true');
-    video.setAttribute('playsinline', 'true');
-    video.setAttribute('muted', 'true');
+    // Explicitly set autoplay attributes and properties for mobile support (iOS Safari strict policies)
+    video.setAttribute('autoplay', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('muted', '');
+    video.muted = true;
+    video.playsInline = true;
+    video.autoplay = true;
 
     if (isPlaying !== undefined) {
       if (isPlaying) {
