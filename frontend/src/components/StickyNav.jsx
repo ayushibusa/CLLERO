@@ -120,7 +120,7 @@ const StickyNav = () => {
           </nav>
         </div>
         <div className="px-8 pb-8">
-          <p className="text-[9px] uppercase tracking-widest opacity-30 text-white">© Cllero Inc.</p>
+          <p className="text-[9px] uppercase tracking-widest opacity-30 text-white">Admin@cllero.com</p>
         </div>
       </div>
 
@@ -165,7 +165,7 @@ const StickyNav = () => {
 
         {/* Copyright */}
         <div className={`pointer-events-auto transition-colors duration-500 ${textColor}`}>
-          <p className="text-[9px] uppercase tracking-widest opacity-40">© Cllero Inc.</p>
+          <p className="text-[9px] uppercase tracking-widest opacity-40">Admin@cllero.com</p>
         </div>
       </aside>
     </>

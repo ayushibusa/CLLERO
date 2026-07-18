@@ -36,7 +36,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-white/30 text-[10px] uppercase tracking-widest text-center xl:text-right shrink-0">
-          © {new Date().getFullYear()} Cllero Inc.
+          Admin@cllero.com
         </div>
         
       </div>
