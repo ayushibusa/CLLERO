@@ -68,7 +68,7 @@ const PartnershipSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative z-20 w-full min-h-[100dvh] bg-[#f5f5f7] overflow-hidden flex flex-col justify-start pt-[130px] lg:pt-0 lg:justify-center">
+    <section ref={sectionRef} className="relative z-20 w-full min-h-[100dvh] bg-[#f5f5f7] overflow-hidden flex flex-col justify-start pt-[130px] md:pt-0 md:justify-center lg:pt-0 lg:justify-center">
 
       {/* Expanding Video Layer */}
       <div ref={videoWrapperRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">

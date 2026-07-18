@@ -130,7 +130,7 @@ const PanelShowcase = () => {
       <div className="absolute top-0 left-0 w-full h-[130vh] bg-[#f5f5f7] -z-10 pointer-events-none" />
 
       {/* ── GLOBALLY APPLIED LAYOUT ── */}
-      <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full justify-center lg:justify-start pt-[120px] pb-[40px] lg:pt-0 lg:pb-0 overflow-hidden">
+      <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full justify-center lg:justify-start pt-[120px] pb-[40px] md:pt-0 md:pb-0 lg:pt-0 lg:pb-0 md:gap-12 lg:gap-0 overflow-hidden">
 
         {/* Left Side / Top: Sticky Text */}
         <div className="w-full flex-none lg:flex-1 lg:w-[45%] lg:h-full flex flex-col justify-center px-6 lg:pl-[380px] relative z-20 pb-12 lg:pb-0">
