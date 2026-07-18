@@ -1,4 +1,4 @@
 {
-  "outputDirectory": "client/dist",
+  "outputDirectory": "frontend/dist",
   "framework": "vite"
 }
