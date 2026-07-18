@@ -6,10 +6,10 @@ import LazyVideo from './shared/LazyVideo';
 gsap.registerPlugin(ScrollTrigger);
 
 const problems = [
-  { video: '/src/assets/videos/02-problem-manual-entry.mp4', label: 'Manual Entry', desc: 'Wasting countless hours typing data into disconnected spreadsheets instead of growing your business.' },
-  { video: '/src/assets/videos/03-problem-phone-calls.mp4', label: 'Endless Calls', desc: 'Constantly interrupting training sessions to answer basic questions that should be automated.' },
-  { video: '/src/assets/videos/04-problem-messages.mp4', label: 'Unanswered Messages', desc: 'Losing high-value leads simply because nobody is actively managing the main inbox.' },
-  { video: '/src/assets/videos/05-problem-confused.mp4', label: 'Fragmented Tools', desc: 'Juggling 5 different expensive subscriptions just to run your daily operations.' },
+  { video: '/videos/02-problem-manual-entry.mp4', label: 'Manual Entry', desc: 'Wasting countless hours typing data into disconnected spreadsheets instead of growing your business.' },
+  { video: '/videos/03-problem-phone-calls.mp4', label: 'Endless Calls', desc: 'Constantly interrupting training sessions to answer basic questions that should be automated.' },
+  { video: '/videos/04-problem-messages.mp4', label: 'Unanswered Messages', desc: 'Losing high-value leads simply because nobody is actively managing the main inbox.' },
+  { video: '/videos/05-problem-confused.mp4', label: 'Fragmented Tools', desc: 'Juggling 5 different expensive subscriptions just to run your daily operations.' },
 ];
 
 const ProblemSection = () => {

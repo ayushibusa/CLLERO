@@ -29,7 +29,7 @@ const LogoRevealSection = () => {
 
       {/* Raw video — direct tag with no wrapper to prevent any blur/scale */}
       <LazyVideo
-        src="/src/assets/videos/06-logo-reveal.mp4"
+        src="/videos/06-logo-reveal.mp4"
         className="absolute inset-0 w-full h-full object-cover z-0"
         style={{ objectPosition: 'center' }}
       />

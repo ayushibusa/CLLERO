@@ -50,7 +50,7 @@ const PartnershipSection = () => {
 
       {/* Expanding Video Layer */}
       <div ref={videoWrapperRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">
-        <VideoBackground src="/src/assets/videos/07-handshake.mp4" />
+        <VideoBackground src="/videos/07-handshake.mp4" />
       </div>
 
       {/* Text Layer — visible before video expands */}

@@ -10,21 +10,21 @@ const testimonials = [
     role: 'Gym Owner',
     name: 'Sarah Jenkins',
     quote: 'Cllero completely transformed how we operate. Everything is just in one place now. It saves us countless hours every single week.',
-    video: '/src/assets/videos/13.mp4',
+    video: '/videos/13.mp4',
     accent: '#FF6B35'
   },
   {
     role: 'Head Trainer',
     name: 'Marcus Thorne',
     quote: 'I spend less time doing paperwork and more time actually training clients. The progress tracking is the best I have ever used.',
-    video: '/src/assets/videos/14.mp4',
+    video: '/videos/14.mp4',
     accent: '#4ECDC4'
   },
   {
     role: 'Member',
     name: 'Elena Rodriguez',
     quote: 'Booking classes and tracking my progress is so seamless. I love the app, it makes going to the gym an absolute pleasure.',
-    video: '/src/assets/videos/15.mp4',
+    video: '/videos/15.mp4',
     accent: '#A29BFE'
   },
 ];

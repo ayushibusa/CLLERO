@@ -11,14 +11,14 @@ const HeroSection = ({ openDemoModal }) => {
   const subtextRef = useRef(null);
   const contentGroupRef = useRef(null);
 
-  const [videoSrc, setVideoSrc] = React.useState('/src/assets/videos/01-hero-enter-gym.mp4');
+  const [videoSrc, setVideoSrc] = React.useState('/videos/01-hero-enter-gym.mp4');
 
   useEffect(() => {
     const checkMobile = () => {
       if (window.innerWidth < 768) {
-        setVideoSrc('/src/assets/videos/01-hero-enter-gym-mobile.mp4');
+        setVideoSrc('/videos/01-hero-enter-gym-mobile.mp4');
       } else {
-        setVideoSrc('/src/assets/videos/01-hero-enter-gym.mp4');
+        setVideoSrc('/videos/01-hero-enter-gym.mp4');
       }
     };
     checkMobile();

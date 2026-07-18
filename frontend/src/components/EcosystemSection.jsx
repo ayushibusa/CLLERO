@@ -92,7 +92,7 @@ const EcosystemSection = () => {
       >
         <video
           ref={videoRef}
-          src="/src/assets/videos/12-ecosystem-merge.mp4"
+          src="/videos/12-ecosystem-merge.mp4"
           className="w-full h-full object-cover opacity-90"
           preload="auto"
           muted
