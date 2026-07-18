@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const VideoBackground = ({ src, children, className = '', videoClassName = '', autoPlay = true, hoverPlay = false, objectFit = 'cover', overlayStyle, isPlaying }) => {
+const VideoBackground = ({ src, children, className = '', videoClassName = '', autoPlay = true, hoverPlay = false, objectFit = 'cover', objectPosition = 'center', overlayStyle, isPlaying }) => {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const [hasError, setHasError] = useState(false);
@@ -87,7 +87,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
         <video
           ref={videoRef}
           className={`video-bg absolute inset-0 w-full h-full z-0 transition-opacity duration-300 ${videoClassName}`}
-          style={{ objectFit, objectPosition: 'center' }}
+          style={{ objectFit, objectPosition }}
           src={src}
           muted
           loop

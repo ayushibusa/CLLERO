@@ -41,12 +41,9 @@ const PartnershipSection = () => {
       });
 
       const isMobile = window.innerWidth < 1024;
-      const isTabletLandscape = window.innerWidth >= 1024 && window.innerWidth < 1280;
       const initialClipPath = isMobile 
         ? 'inset(65% 25% 15% 25% round 100px)' 
-        : isTabletLandscape
-          ? 'inset(35% 5% 35% 68% round 100px)' 
-          : 'inset(40% 10% 40% 60% round 100px)';
+        : 'inset(35% 5% 35% 68% round 100px)';
 
       // Initial state: small pill
       gsap.set(videoWrapperRef.current, {
@@ -58,12 +55,25 @@ const PartnershipSection = () => {
         clipPath: 'inset(0% 0% 0% 0% round 0px)',
         ease: 'power2.inOut',
         duration: 1,
-      }, 0)
-        .to(textRef.current, {
-          opacity: 0,
-          y: -50,
-          duration: 0.5,
-        }, 0);
+      }, 0);
+
+      // Pan the video content back to center as the frame expands (for laptop/desktop)
+      if (!isMobile) {
+        const desktopVideo = videoWrapperRef.current.querySelector('video.hidden.lg\\:block');
+        if (desktopVideo) {
+          tl.to(desktopVideo, {
+            objectPosition: '50% center',
+            ease: 'power2.inOut',
+            duration: 1,
+          }, 0);
+        }
+      }
+
+      tl.to(textRef.current, {
+        opacity: 0,
+        y: -50,
+        duration: 0.5,
+      }, 0);
 
     }, sectionRef);
 
@@ -76,7 +86,7 @@ const PartnershipSection = () => {
       {/* Expanding Video Layer */}
       <div ref={videoWrapperRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">
         {/* Desktop Video */}
-        <VideoBackground className="hidden lg:block" src="/videos/07-handshake.mp4" isPlaying={isVisible} />
+        <VideoBackground className="hidden lg:block" objectPosition="75% center" src="/videos/07-handshake.mp4" isPlaying={isVisible} />
         {/* Mobile Video */}
         <VideoBackground className="block lg:hidden" src="/videos/download.mp4" isPlaying={isVisible} />
       </div>
