@@ -41,9 +41,12 @@ const PartnershipSection = () => {
       });
 
       const isMobile = window.innerWidth < 1024;
+      const isTabletLandscape = window.innerWidth >= 1024 && window.innerWidth < 1280;
       const initialClipPath = isMobile 
         ? 'inset(65% 25% 15% 25% round 100px)' 
-        : 'inset(40% 10% 40% 60% round 100px)';
+        : isTabletLandscape
+          ? 'inset(35% 5% 35% 68% round 100px)' 
+          : 'inset(40% 10% 40% 60% round 100px)';
 
       // Initial state: small pill
       gsap.set(videoWrapperRef.current, {
@@ -83,11 +86,11 @@ const PartnershipSection = () => {
         <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/60 mb-6">
           VII — Unification
         </p>
-        <h2 className="text-5xl lg:text-[6vw] leading-[0.9] font-serif font-bold text-black tracking-tighter mb-8">
+        <h2 className="text-5xl lg:text-[5vw] xl:text-[6vw] leading-[0.9] font-serif font-bold text-black tracking-tighter mb-4 xl:mb-8">
           The Power of <br />
           <span className="italic opacity-90">Unification.</span>
         </h2>
-        <p className="text-xl lg:text-2xl font-light text-black/80 max-w-xl mx-auto lg:mx-0">
+        <p className="text-xl lg:text-lg xl:text-2xl font-light text-black/80 max-w-xl lg:max-w-sm xl:max-w-xl mx-auto lg:mx-0 pr-4 xl:pr-0">
           Bring your trainers, members, and management together into a single, cohesive ecosystem.
         </p>
       </div>
