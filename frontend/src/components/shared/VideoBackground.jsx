@@ -25,47 +25,15 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
     video.addEventListener('error', handleError);
 
     if (autoPlay && !hoverPlay) {
-      video.setAttribute('autoplay', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('muted', '');
       video.muted = true;
       video.playsInline = true;
       video.autoplay = true;
-
-      if (isPlaying !== undefined) {
-        if (isPlaying) {
-          video.play().catch(e => console.warn('Auto-play prevented:', e));
-        } else {
-          video.pause();
-        }
-        return;
-      }
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              video.play().catch(e => console.warn('Auto-play prevented:', e));
-            } else {
-              video.pause();
-            }
-          });
-        },
-        { threshold: 0 } // Pause as soon as it's fully out, play as soon as it enters
-      );
-
-      observer.observe(video);
-
-      return () => {
-        video.removeEventListener('error', handleError);
-        observer.disconnect();
-      };
     }
 
     return () => {
       video.removeEventListener('error', handleError);
     };
-  }, [autoPlay, hoverPlay, src, isPlaying]);
+  }, [autoPlay, hoverPlay, src]);
 
   const handleMouseEnter = () => {
     if (hoverPlay && videoRef.current && !hasError) {

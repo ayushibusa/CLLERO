@@ -11,43 +11,15 @@ const LazyVideo = ({ src, className, style, isPlaying, ...props }) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Explicitly set autoplay attributes and properties for mobile support (iOS Safari strict policies)
-    video.setAttribute('autoplay', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('muted', '');
+    // Explicitly set properties to guarantee mobile autoplay
     video.muted = true;
     video.playsInline = true;
     video.autoplay = true;
 
-    if (isPlaying !== undefined) {
-      if (isPlaying) {
-        video.play().catch(e => console.log('Auto-play prevented:', e));
-      } else {
-        video.pause();
-      }
-      return;
-    }
-
-    // Use IntersectionObserver to pause off-screen videos (fixes extreme lag)
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play().catch(e => console.log('Auto-play prevented:', e));
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0 } // Trigger immediately when entering screen
-    );
-
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [src, isPlaying]);
+    // We rely entirely on the browser's native autoplay policy.
+    // Modern mobile browsers will natively pause off-screen videos to save battery.
+    // Manual IntersectionObservers calling .play() often get rejected by iOS Safari.
+  }, [src]);
 
   return (
     <video
