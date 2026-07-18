@@ -47,7 +47,7 @@ const PricingSection = () => {
       <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 relative w-full items-start">
 
         {/* ── Left: Core Platform (Sticky) ── */}
-        <div className="w-full lg:w-[45%] lg:sticky lg:top-[50dvh] lg:-translate-y-1/2 flex flex-col gap-4 lg:gap-4 z-10">
+        <div className="w-full lg:w-[45%] lg:sticky lg:top-[15vh] flex flex-col gap-4 lg:gap-4 z-10">
 
           <div>
             <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-2">
