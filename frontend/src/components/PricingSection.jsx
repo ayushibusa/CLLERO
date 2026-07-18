@@ -38,18 +38,18 @@ const PricingSection = () => {
             </p>
           </div>
 
-          <div className="p-6 lg:p-8 rounded-[2rem] bg-black text-white shadow-[0_30px_60px_rgba(0,0,0,0.15)] relative overflow-hidden group">
+          <div className="p-5 lg:p-6 rounded-[2rem] bg-black text-white shadow-[0_30px_60px_rgba(0,0,0,0.15)] relative overflow-hidden group">
             {/* Subtle premium glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
             <div className="relative z-10">
               <div className="text-[#FF6B35] font-mono uppercase tracking-widest text-[10px] mb-2">The Foundation</div>
-              <h3 className="text-2xl font-serif font-bold text-white mb-2">Core Platform</h3>
-              <p className="text-white/60 font-light mb-4 text-sm leading-relaxed">
+              <h3 className="text-xl lg:text-2xl font-serif font-bold text-white mb-2">Core Platform</h3>
+              <p className="text-white/60 font-light mb-4 text-xs lg:text-sm leading-relaxed">
                 Everything you need to run your gym today. Includes the Owner Panel, Trainer App, basic Member App, and robust reporting.
               </p>
 
-              <ul className="space-y-2 mb-4 w-full text-left">
+              <ul className="space-y-2 mb-2 w-full text-left">
                 {['Unlimited Members', 'Class Scheduling', 'Basic Analytics', '24/7 Priority Support'].map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 text-white/90">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] flex-shrink-0"></span>
@@ -57,10 +57,6 @@ const PricingSection = () => {
                   </li>
                 ))}
               </ul>
-
-              <button className="w-full py-3 bg-white text-black rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-[#FF6B35] hover:text-white transition-colors duration-300 mt-2">
-                Get Custom Quote
-              </button>
             </div>
           </div>
         </div>
