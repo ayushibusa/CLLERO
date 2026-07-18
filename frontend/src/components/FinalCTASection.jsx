@@ -51,25 +51,30 @@ const FinalCTASection = ({ openDemoModal }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full min-h-[80vh]">
-      <VideoBackground src="/videos/16.mp4" className="min-h-[80vh]" objectFit="fill">
-        <div className="flex flex-col items-center md:items-start justify-center h-full text-center md:text-left max-w-4xl px-6 md:pr-12 md:pl-[300px] lg:pl-[380px] mx-auto md:mx-0">
-          <h2 ref={textRef} className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tighter text-white mb-10 md:mb-12 leading-[0.9]">
-            <div className="overflow-hidden"><span className="block">Your Gym Deserves</span></div>
-            <div className="overflow-hidden"><span className="block">More Than Software.</span></div>
-            <div className="overflow-hidden mt-4"><span className="block italic text-accent">It Deserves Cllero.</span></div>
-          </h2>
+    <div ref={containerRef} className="relative w-full h-full min-h-[80vh]">
+      {/* Background Videos */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <VideoBackground src="/videos/16.mp4" className="hidden md:block min-h-[80vh]" objectFit="fill" />
+        <VideoBackground src="/videos/download (1).mp4" className="block md:hidden min-h-[80vh]" objectFit="fill" />
+      </div>
 
-          <div ref={buttonRef}>
-            <button
-              onClick={openDemoModal}
-              className="px-12 py-6 bg-white text-background text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)]"
-            >
-              Book Your Demo
-            </button>
-          </div>
+      {/* Content Layer */}
+      <div className="relative z-10 flex flex-col items-center md:items-start justify-center h-full min-h-[80vh] text-center md:text-left max-w-4xl px-6 md:pr-12 md:pl-[300px] lg:pl-[380px] mx-auto md:mx-0">
+        <h2 ref={textRef} className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tighter text-white mb-10 md:mb-12 leading-[0.9]">
+          <div className="overflow-hidden"><span className="block">Your Gym Deserves</span></div>
+          <div className="overflow-hidden"><span className="block">More Than Software.</span></div>
+          <div className="overflow-hidden mt-4"><span className="block italic text-accent">It Deserves Cllero.</span></div>
+        </h2>
+
+        <div ref={buttonRef}>
+          <button
+            onClick={openDemoModal}
+            className="px-12 py-6 bg-white text-background text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)]"
+          >
+            Book Your Demo
+          </button>
         </div>
-      </VideoBackground>
+      </div>
     </div>
   );
 };
