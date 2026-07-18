@@ -107,7 +107,9 @@ const PanelShowcase = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="panels" className="relative w-full bg-[#f5f5f7] overflow-hidden">
+    <section ref={containerRef} id="panels" className="relative w-full bg-[#f5f5f7] overflow-visible">
+      {/* Mobile viewport expansion bleed to prevent black gaps at the bottom */}
+      <div className="absolute top-0 left-0 w-full h-[130vh] bg-[#f5f5f7] -z-10 pointer-events-none" />
 
       {/* ── GLOBALLY APPLIED LAYOUT ── */}
       <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full pt-20 lg:pt-0">
@@ -138,7 +140,7 @@ const PanelShowcase = () => {
         </div>
 
         {/* Right Side / Bottom: 3D Spiral Carousel */}
-        <div className="w-full flex-1 lg:w-[55%] lg:h-full flex items-center justify-center perspective-[2000px] z-10 px-6 lg:pl-12 pb-12 lg:pb-0">
+        <div className="w-full flex-1 lg:w-[55%] lg:h-full flex items-center justify-center perspective-[2000px] z-10 px-6 lg:pl-12 pb-4 lg:pb-0">
           <div
             ref={carouselRef}
             className="relative w-[90vw] lg:w-[35vw] max-w-[500px] aspect-video transform-style-3d will-change-transform"

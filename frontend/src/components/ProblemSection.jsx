@@ -72,7 +72,9 @@ const ProblemSection = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[#f5f5f7]">
+    <section ref={containerRef} className="relative w-full bg-[#f5f5f7] overflow-visible">
+      {/* Mobile viewport expansion bleed to prevent black gaps at the bottom */}
+      <div className="absolute top-0 left-0 w-full h-[130vh] bg-[#f5f5f7] -z-10 pointer-events-none" />
 
       {/* ── SHOPIFY EDITIONS STYLE LAYOUT APPLIED GLOBALLY ── */}
       <div ref={stickyRef} className="flex h-[100dvh] w-full flex-col justify-start lg:justify-center px-6 lg:px-12 lg:pl-[380px] overflow-hidden pt-24 pb-8 lg:pt-0 lg:pb-0">
