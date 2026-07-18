@@ -53,9 +53,9 @@ const FinalCTASection = ({ openDemoModal }) => {
   return (
     <div ref={containerRef} className="relative w-full h-full min-h-[80vh]">
       {/* Background Videos */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        <VideoBackground src="/videos/16.mp4" className="hidden md:block min-h-[80vh]" objectFit="fill" />
-        <VideoBackground src="/videos/download (1).mp4" className="block md:hidden min-h-[80vh]" objectFit="fill" />
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        <VideoBackground src="/videos/16.mp4" className="hidden md:block w-full h-full" objectFit="cover" />
+        <VideoBackground src="/videos/download (1).mp4" className="block md:hidden w-full h-full" objectFit="cover" />
       </div>
 
       {/* Content Layer */}

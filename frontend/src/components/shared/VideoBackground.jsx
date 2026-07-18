@@ -70,7 +70,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
   return (
     <div
       ref={containerRef}
-      className={`video-bg-wrapper relative w-[100vw] h-[100dvh] overflow-hidden bg-black m-0 p-0 ${className}`}
+      className={`video-bg-wrapper relative w-full h-full overflow-hidden bg-black m-0 p-0 ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
