@@ -130,10 +130,10 @@ const PanelShowcase = () => {
       <div className="absolute top-0 left-0 w-full h-[130vh] bg-[#f5f5f7] -z-10 pointer-events-none" />
 
       {/* ── GLOBALLY APPLIED LAYOUT ── */}
-      <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full justify-center lg:justify-start pt-[120px] pb-[40px] md:pt-0 md:pb-0 lg:pt-0 lg:pb-0 md:gap-12 lg:gap-0 overflow-hidden">
+      <div className="flex flex-col lg:flex-row h-[100dvh] lg:h-screen w-full justify-center md:justify-evenly lg:justify-start pt-[120px] pb-[40px] md:pt-0 md:pb-0 lg:pt-0 lg:pb-0 md:gap-0 lg:gap-0 overflow-hidden">
 
         {/* Left Side / Top: Sticky Text */}
-        <div className="w-full flex-none lg:flex-1 lg:w-[45%] lg:h-full flex flex-col justify-center px-6 lg:pl-[380px] relative z-20 pb-12 lg:pb-0">
+        <div className="w-full flex-none lg:flex-1 lg:w-[45%] lg:h-full flex flex-col justify-center items-start md:items-center lg:items-start text-left md:text-center lg:text-left px-6 lg:pl-[380px] relative z-20 pb-12 md:pb-0 lg:pb-0">
           <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/50 mb-2 lg:mb-4">
             V — Ecosystem
           </p>
@@ -143,13 +143,13 @@ const PanelShowcase = () => {
 
           <div className="relative w-full h-32 lg:h-48">
             {panels.map((panel, i) => (
-              <div key={i} ref={addToTexts} className="absolute inset-0 w-full flex flex-col will-change-transform">
+              <div key={i} ref={addToTexts} className="absolute inset-0 w-full flex flex-col items-start md:items-center lg:items-start will-change-transform">
                 <h3 className="text-2xl lg:text-4xl font-bold text-black mb-2 lg:mb-4 flex items-center gap-2 lg:gap-4">
                   <span className="text-xs lg:text-sm font-mono" style={{ color: panel.accent }}>0{i + 1}</span>
                   {panel.role}
                 </h3>
                 <h4 className="text-lg lg:text-xl font-bold text-black mb-2 lg:mb-3">{panel.title}</h4>
-                <p className="text-sm lg:text-lg font-serif leading-[1.5] lg:leading-relaxed text-black/70 max-w-sm pr-4 lg:pr-0">
+                <p className="text-sm lg:text-lg font-serif leading-[1.5] lg:leading-relaxed text-black/70 max-w-sm md:max-w-md pr-4 md:pr-0 lg:pr-0">
                   {panel.description}
                 </p>
               </div>
@@ -161,7 +161,7 @@ const PanelShowcase = () => {
         <div className="w-full flex-none lg:flex-1 lg:w-[55%] lg:h-full flex items-center justify-center perspective-[2000px] z-10 px-6 lg:pl-12 pb-4 lg:pb-0">
           <div
             ref={carouselRef}
-            className="relative w-[90vw] lg:w-[35vw] max-w-[500px] aspect-video transform-style-3d will-change-transform"
+            className="relative w-[90vw] md:w-[70vw] lg:w-[35vw] max-w-[500px] md:max-w-[600px] lg:max-w-[500px] aspect-video transform-style-3d will-change-transform"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {panels.map((panel, i) => (
