@@ -25,6 +25,7 @@ function App() {
     });
 
     lenisRef.current = lenis;
+    window.lenis = lenis;
 
     // Sync Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
@@ -45,6 +46,7 @@ function App() {
     return () => {
       gsap.ticker.remove(raf);
       lenis.destroy();
+      window.lenis = null;
       window.removeEventListener('load', handleLoad);
     };
   }, []);

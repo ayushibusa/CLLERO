@@ -36,19 +36,27 @@ const StickyNav = () => {
   }, []);
 
   useEffect(() => {
+    // Prevent background scrolling on iOS when menu is open
+    // without using overflow: hidden which destroys GSAP ScrollTriggers
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
     } else {
-      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => { document.body.style.touchAction = ''; };
   }, [mobileMenuOpen]);
 
   const scrollTo = useCallback((id) => {
     setMobileMenuOpen(false);
     setTimeout(() => {
       const section = document.getElementById(id);
-      if (section) window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
+      if (section) {
+        if (window.lenis) {
+          window.lenis.scrollTo(section, { offset: 0 });
+        } else {
+          window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
+        }
+      }
     }, 100);
   }, []);
 
