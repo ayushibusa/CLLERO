@@ -12,8 +12,24 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
     if (autoPlay && !hoverPlay && containerRef.current) {
       const vid = containerRef.current.querySelector('video');
       if (vid) {
-        // Force play on mount to ensure iOS Safari doesn't just show the poster image
-        vid.play().catch(e => console.warn('Forced autoplay prevented:', e));
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                vid.play().catch(e => console.warn('Auto-play prevented:', e));
+              } else {
+                vid.pause();
+              }
+            });
+          },
+          { threshold: 0, rootMargin: '600px' }
+        );
+
+        observer.observe(containerRef.current);
+
+        return () => {
+          observer.disconnect();
+        };
       }
     }
   }, [src, autoPlay, hoverPlay]);
