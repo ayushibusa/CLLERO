@@ -43,21 +43,25 @@ const DemoModal = ({ onClose }) => {
 
   return (
     <AnimatePresence>
-      <div key="demo-modal" className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div key="demo-modal" className="fixed inset-0 z-[100] overflow-y-auto">
+        
+        {/* Fixed Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm"
         />
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-lg max-h-[90dvh] overflow-y-auto bg-surface border border-text/10 rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-8"
-        >
+        {/* Scrollable Container */}
+        <div className="min-h-full w-full flex items-center justify-center p-4 py-12 relative z-10 pointer-events-none">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative w-full max-w-lg bg-surface border border-text/10 rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-8 pointer-events-auto"
+          >
           <button
             onClick={onClose}
             className="absolute top-4 right-4 md:top-6 md:right-6 text-text/50 hover:text-text transition-colors z-10"
@@ -160,6 +164,7 @@ const DemoModal = ({ onClose }) => {
             </form>
           )}
         </motion.div>
+        </div>
       </div>
     </AnimatePresence>
   );
