@@ -40,7 +40,7 @@ const ProblemSection = () => {
           start: 'top top',
           end: '+=400%', // 400vh of scrolling for 4 steps
           pin: stickyRef.current,
-          scrub: 1,
+          scrub: 0.5,
           anticipatePin: 1,
           onUpdate: (self) => {
             const progress = self.progress;

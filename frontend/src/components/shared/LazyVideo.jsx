@@ -68,7 +68,7 @@ const LazyVideo = ({ src, className, style, isPlaying, ...props }) => {
           <video
             src="${src}"
             class="w-full h-full object-cover transition-opacity duration-300"
-            preload="auto"
+            preload="metadata"
             muted="muted"
             loop="loop"
             playsinline="playsinline"

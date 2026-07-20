@@ -78,7 +78,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
                 loop="loop"
                 playsinline="playsinline"
                 ${(autoPlay && !hoverPlay) ? 'autoplay="autoplay"' : ''}
-                preload="auto"
+                preload="metadata"
               ></video>
             `
           }}

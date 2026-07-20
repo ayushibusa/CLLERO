@@ -82,7 +82,7 @@ const PanelShowcase = () => {
           start: 'top top',
           end: '+=400%',
           pin: true,
-          scrub: 1,
+          scrub: 0.5,
           anticipatePin: 1,
           onUpdate: (self) => {
             const progress = self.progress;
