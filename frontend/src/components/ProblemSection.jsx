@@ -42,6 +42,12 @@ const ProblemSection = () => {
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
+          snap: {
+            snapTo: "labelsDirectional",
+            duration: { min: 0.2, max: 0.6 },
+            delay: 0.1,
+            ease: "power1.inOut"
+          },
           onUpdate: (self) => {
             const progress = self.progress;
             let newIndex = 0;
@@ -71,6 +77,8 @@ const ProblemSection = () => {
       // Build the timeline sequence
       problems.forEach((_, i) => {
         if (i === 0) {
+          // Label for the first card
+          tl.addLabel('card0');
           // Just add a tiny pause at the start
           tl.to({}, { duration: 0.5 });
           return;
@@ -87,6 +95,8 @@ const ProblemSection = () => {
           .to(indexRefs.current[i - 1], { opacity: 0.25, x: 0, duration: 1, ease: 'power2.inOut' }, stepLabel)
           .to(indexRefs.current[i], { opacity: 1, x: 12, duration: 1, ease: 'power2.out' }, stepLabel);
 
+        // Label for snapping precisely to this card
+        tl.addLabel(`card${i}`);
         // Add a pause where the step sits comfortably before moving to the next
         tl.to({}, { duration: 0.8 });
       });

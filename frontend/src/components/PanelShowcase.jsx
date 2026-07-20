@@ -84,6 +84,12 @@ const PanelShowcase = () => {
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
+          snap: {
+            snapTo: "labelsDirectional",
+            duration: { min: 0.2, max: 0.6 },
+            delay: 0.1,
+            ease: "power1.inOut"
+          },
           onUpdate: (self) => {
             const progress = self.progress;
             let newIndex = 0;
@@ -100,6 +106,8 @@ const PanelShowcase = () => {
         }
       });
 
+      // Label for the first card
+      tl.addLabel('card0');
       // Add a tiny pause at the start
       tl.to({}, { duration: 0.5 });
 
@@ -128,6 +136,8 @@ const PanelShowcase = () => {
             ease: 'power2.out'
           }, `${stepLabel}+=0.5`);
 
+        // Label for snapping precisely to this card
+        tl.addLabel(`card${i}`);
         // Pause so user can read
         tl.to({}, { duration: 0.8 });
       });

@@ -67,6 +67,12 @@ const TestimonialsSection = () => {
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
+          snap: {
+            snapTo: "labelsDirectional",
+            duration: { min: 0.2, max: 0.6 },
+            delay: 0.1,
+            ease: "power1.inOut"
+          },
           onUpdate: (self) => {
             const progress = self.progress;
             let newIndex = 0;
@@ -82,9 +88,16 @@ const TestimonialsSection = () => {
         },
       });
 
+      // Label for the first card
+      tl.addLabel('card0');
+      // Tiny pause at start
+      tl.to({}, { duration: 0.5 });
+
       for (let i = 0; i < cards.length - 1; i++) {
         const current = cards[i];
         const next = cards[i + 1];
+
+        const stepLabel = `step${i}`;
 
         // Push current card back and dim it
         tl.to(current, {
@@ -101,7 +114,12 @@ const TestimonialsSection = () => {
             opacity: 1,
             duration: 1,
             ease: 'power3.out'
-          }, `step${i}`);
+          }, stepLabel);
+
+        // Label for snapping precisely to this card
+        tl.addLabel(`card${i + 1}`);
+        // Add a pause where the step sits comfortably before moving to the next
+        tl.to({}, { duration: 0.8 });
       }
 
     }, sectionRef);
