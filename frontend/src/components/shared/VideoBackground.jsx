@@ -16,13 +16,23 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
+                vid.dataset.isVisible = "true";
                 vid.play().catch(e => console.warn('Auto-play prevented:', e));
               } else {
-                vid.pause();
+                vid.dataset.isVisible = "false";
+                if (vid.readyState >= 2) {
+                  vid.pause();
+                } else {
+                  vid.addEventListener('canplay', () => {
+                    if (vid.dataset.isVisible === "false") {
+                      vid.pause();
+                    }
+                  }, { once: true });
+                }
               }
             });
           },
-          { threshold: 0, rootMargin: '600px' }
+          { threshold: 0, rootMargin: '200px' }
         );
 
         observer.observe(containerRef.current);

@@ -32,6 +32,18 @@ const testimonials = [
 const TestimonialsSection = () => {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const activeIndexRef = useRef(0);
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0, rootMargin: '200px' }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -54,7 +66,19 @@ const TestimonialsSection = () => {
           end: '+=2000', // scroll distance
           pin: true,
           scrub: 1,
-          anticipatePin: 1
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            let newIndex = 0;
+            if (progress < 0.33) newIndex = 0;
+            else if (progress < 0.66) newIndex = 1;
+            else newIndex = 2;
+            
+            if (activeIndexRef.current !== newIndex) {
+              activeIndexRef.current = newIndex;
+              setActiveIndex(newIndex);
+            }
+          }
         },
       });
 
@@ -116,6 +140,7 @@ const TestimonialsSection = () => {
                   <LazyVideo
                     src={test.video}
                     className="absolute inset-0 w-full h-full object-cover opacity-90"
+                    isPlaying={isVisible && activeIndex === i}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
 

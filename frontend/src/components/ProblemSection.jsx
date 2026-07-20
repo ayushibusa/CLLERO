@@ -18,6 +18,18 @@ const ProblemSection = () => {
   const videosRef = useRef([]);
   const textsRef = useRef([]);
   const indexRefs = useRef([]);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const activeIndexRef = useRef(0);
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0, rootMargin: '200px' }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -29,7 +41,20 @@ const ProblemSection = () => {
           end: '+=400%', // 400vh of scrolling for 4 steps
           pin: stickyRef.current,
           scrub: 1,
-          anticipatePin: 1
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            let newIndex = 0;
+            if (progress < 0.25) newIndex = 0;
+            else if (progress < 0.5) newIndex = 1;
+            else if (progress < 0.75) newIndex = 2;
+            else newIndex = 3;
+            
+            if (activeIndexRef.current !== newIndex) {
+              activeIndexRef.current = newIndex;
+              setActiveIndex(newIndex);
+            }
+          }
         }
       });
 
@@ -108,7 +133,7 @@ const ProblemSection = () => {
           <div className="w-full lg:flex-1 max-w-[700px] h-[35vh] md:h-[45vh] lg:h-full relative rounded-2xl lg:rounded-[2rem] overflow-hidden bg-black shadow-[0_40px_80px_rgba(0,0,0,0.15)] border border-black/5 order-2 shrink-0">
             {problems.map((prob, i) => (
               <div key={i} ref={el => videosRef.current[i] = el} className="absolute inset-0 w-full h-full will-change-transform">
-                <LazyVideo src={prob.video} className="w-full h-full object-cover opacity-90" />
+                <LazyVideo src={prob.video} className="w-full h-full object-cover opacity-90" isPlaying={isVisible && activeIndex === i} />
                 {/* Subtle gradient overlay to make it look premium */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
               </div>
