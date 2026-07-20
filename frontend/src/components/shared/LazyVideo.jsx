@@ -14,9 +14,19 @@ const LazyVideo = ({ src, className, style, isPlaying, ...props }) => {
         // If the parent explicitly controls playback, override the observer
         if (isPlaying !== undefined) {
           if (isPlaying) {
+            vid.dataset.isVisible = "true";
             vid.play().catch(e => console.warn('Forced play prevented:', e));
           } else {
-            vid.pause();
+            vid.dataset.isVisible = "false";
+            if (vid.readyState >= 2) {
+              vid.pause();
+            } else {
+              vid.addEventListener('canplay', () => {
+                if (vid.dataset.isVisible === "false") {
+                  vid.pause();
+                }
+              }, { once: true });
+            }
           }
           return;
         }

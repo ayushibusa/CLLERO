@@ -39,7 +39,7 @@ const ProblemSection = () => {
           trigger: containerRef.current,
           start: 'top top',
           end: '+=400%', // 400vh of scrolling for 4 steps
-          pin: stickyRef.current,
+          pin: true,
           scrub: 0.5,
           anticipatePin: 1,
           onUpdate: (self) => {
