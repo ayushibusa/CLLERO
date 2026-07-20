@@ -56,11 +56,11 @@ const DemoModal = ({ onClose }) => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-lg bg-surface border border-text/10 rounded-3xl shadow-2xl p-8"
+          className="relative w-full max-w-lg max-h-[90dvh] overflow-y-auto bg-surface border border-text/10 rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-8"
         >
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 text-text/50 hover:text-text transition-colors"
+            className="absolute top-4 right-4 md:top-6 md:right-6 text-text/50 hover:text-text transition-colors z-10"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
