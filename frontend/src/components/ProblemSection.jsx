@@ -38,15 +38,15 @@ const ProblemSection = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=400%', // 400vh of scrolling for 4 steps
+          end: '+=150%', // 150vh of scrolling for 3 transitions (snappier, shorter)
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
           snap: {
-            snapTo: "labelsDirectional",
-            duration: { min: 0.2, max: 0.6 },
-            delay: 0.1,
-            ease: "power1.inOut"
+            snapTo: 1 / (problems.length - 1), // Exactly 0, 0.333, 0.666, 1
+            duration: { min: 0.2, max: 0.4 },
+            delay: 0, // Instant snap on scroll release
+            ease: "power2.inOut"
           },
           onUpdate: (self) => {
             const progress = self.progress;
@@ -74,32 +74,21 @@ const ProblemSection = () => {
       gsap.set(indexRefs.current, { opacity: 0.25, x: 0 });
       gsap.set(indexRefs.current[0], { opacity: 1, x: 12 });
 
-      // Build the timeline sequence
-      problems.forEach((_, i) => {
-        if (i === 0) {
-          // Label for the first card
-          tl.addLabel('card0');
-          // Just add a tiny pause at the start
-          tl.to({}, { duration: 0.5 });
-          return;
-        }
+      // Build a mathematically perfect timeline for exact fraction snapping
+      for (let i = 0; i < problems.length - 1; i++) {
+        // Transition from card i to card i + 1
+        tl.to(videosRef.current[i], { autoAlpha: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, `step${i}`)
+          .to(videosRef.current[i + 1], { autoAlpha: 1, scale: 1, duration: 1, ease: 'power2.out' }, `step${i}`)
 
-        const stepLabel = `step${i}`;
+          .to(textsRef.current[i], { autoAlpha: 0, y: -30, duration: 1, ease: 'power2.inOut' }, `step${i}`)
+          .to(textsRef.current[i + 1], { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out' }, `step${i}`)
 
-        tl.to(videosRef.current[i - 1], { autoAlpha: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, stepLabel)
-          .to(videosRef.current[i], { autoAlpha: 1, scale: 1, duration: 1, ease: 'power2.out' }, stepLabel)
+          .to(indexRefs.current[i], { opacity: 0.25, x: 0, duration: 1, ease: 'power2.inOut' }, `step${i}`)
+          .to(indexRefs.current[i + 1], { opacity: 1, x: 12, duration: 1, ease: 'power2.out' }, `step${i}`);
 
-          .to(textsRef.current[i - 1], { autoAlpha: 0, y: -30, duration: 1, ease: 'power2.inOut' }, stepLabel)
-          .to(textsRef.current[i], { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out' }, stepLabel)
-
-          .to(indexRefs.current[i - 1], { opacity: 0.25, x: 0, duration: 1, ease: 'power2.inOut' }, stepLabel)
-          .to(indexRefs.current[i], { opacity: 1, x: 12, duration: 1, ease: 'power2.out' }, stepLabel);
-
-        // Label for snapping precisely to this card
-        tl.addLabel(`card${i}`);
-        // Add a pause where the step sits comfortably before moving to the next
-        tl.to({}, { duration: 0.8 });
-      });
+        // Even pause duration to create perfect 0.333 fractions in timeline
+        tl.to({}, { duration: 0.5 });
+      }
 
     }, containerRef);
 

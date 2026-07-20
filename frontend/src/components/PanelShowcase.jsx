@@ -80,15 +80,15 @@ const PanelShowcase = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=400%',
+          end: '+=150%', // 150vh for 3 transitions
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
           snap: {
-            snapTo: "labelsDirectional",
-            duration: { min: 0.2, max: 0.6 },
-            delay: 0.1,
-            ease: "power1.inOut"
+            snapTo: 1 / (panels.length - 1), // Exact fractions
+            duration: { min: 0.2, max: 0.4 },
+            delay: 0, // Instant snap on scroll release
+            ease: "power2.inOut"
           },
           onUpdate: (self) => {
             const progress = self.progress;
@@ -111,36 +111,34 @@ const PanelShowcase = () => {
       // Add a tiny pause at the start
       tl.to({}, { duration: 0.5 });
 
-      panels.forEach((_, i) => {
-        if (i === 0) return;
+      // Build a mathematically perfect timeline for exact fraction snapping
+      for (let i = 1; i < panels.length; i++) {
         const stepLabel = `step${i}`;
 
         // Rotate the entire carousel
         tl.to(carouselRef.current, {
           rotationY: -i * 90,
-          duration: 1.5,
-          ease: 'power3.inOut'
+          duration: 1,
+          ease: 'power2.inOut'
         }, stepLabel);
 
         // Crossfade Text
         tl.to(textsRef.current[i - 1], {
           autoAlpha: 0,
           y: -40,
-          duration: 0.7,
+          duration: 1,
           ease: 'power2.inOut'
-        }, `${stepLabel}`)
+        }, stepLabel)
           .to(textsRef.current[i], {
             autoAlpha: 1,
             y: 0,
-            duration: 0.7,
+            duration: 1,
             ease: 'power2.out'
-          }, `${stepLabel}+=0.5`);
+          }, stepLabel);
 
-        // Label for snapping precisely to this card
-        tl.addLabel(`card${i}`);
-        // Pause so user can read
-        tl.to({}, { duration: 0.8 });
-      });
+        // Even pause duration to create perfect fractions in timeline
+        tl.to({}, { duration: 0.5 });
+      }
 
 
 

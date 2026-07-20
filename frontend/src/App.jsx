@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true); // Enables perfectly smooth touch scrolling on mobile without breaking position:fixed pins
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 function App() {

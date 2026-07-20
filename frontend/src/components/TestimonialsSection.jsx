@@ -63,15 +63,15 @@ const TestimonialsSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=2000', // scroll distance
+          end: '+=150%', // 150vh of scroll distance
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
           snap: {
-            snapTo: "labelsDirectional",
-            duration: { min: 0.2, max: 0.6 },
-            delay: 0.1,
-            ease: "power1.inOut"
+            snapTo: 1 / (cards.length - 1), // Exact fractions
+            duration: { min: 0.2, max: 0.4 },
+            delay: 0,
+            ease: "power2.inOut"
           },
           onUpdate: (self) => {
             const progress = self.progress;
@@ -108,18 +108,18 @@ const TestimonialsSection = () => {
           ease: 'power2.inOut'
         }, `step${i}`)
 
-          // Slide next card up from bottom
-          .to(next, {
-            y: '0%',
+        // Slide next card up from bottom
+        tl.fromTo(next,
+          { y: 800, opacity: 0 },
+          {
+            y: 0,
             opacity: 1,
             duration: 1,
             ease: 'power3.out'
           }, stepLabel);
 
-        // Label for snapping precisely to this card
-        tl.addLabel(`card${i + 1}`);
-        // Add a pause where the step sits comfortably before moving to the next
-        tl.to({}, { duration: 0.8 });
+        // Pause for math snapping
+        tl.to({}, { duration: 0.5 });
       }
 
     }, sectionRef);
