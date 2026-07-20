@@ -1,18 +1,17 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState } from 'react';
 import StickyNav from '../components/StickyNav';
 import HeroSection from '../components/HeroSection';
 import DemoModal from '../components/DemoModal';
 
-// Dynamically import components below the fold for code-splitting
-const ProblemSection = lazy(() => import('../components/ProblemSection'));
-const LogoRevealSection = lazy(() => import('../components/LogoRevealSection'));
-const PartnershipSection = lazy(() => import('../components/PartnershipSection'));
-const PanelShowcase = lazy(() => import('../components/PanelShowcase'));
+import ProblemSection from '../components/ProblemSection';
+import LogoRevealSection from '../components/LogoRevealSection';
+import PartnershipSection from '../components/PartnershipSection';
+import PanelShowcase from '../components/PanelShowcase';
 
-const TestimonialsSection = lazy(() => import('../components/TestimonialsSection'));
-const PricingSection = lazy(() => import('../components/PricingSection'));
-const FinalCTASection = lazy(() => import('../components/FinalCTASection'));
-const Footer = lazy(() => import('../components/Footer'));
+import TestimonialsSection from '../components/TestimonialsSection';
+import PricingSection from '../components/PricingSection';
+import FinalCTASection from '../components/FinalCTASection';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
@@ -29,7 +28,6 @@ const Home = () => {
           <HeroSection openDemoModal={() => setIsDemoModalOpen(true)} />
         </section>
 
-        <Suspense fallback={<div className="w-full h-screen bg-[#111]" />}>
           <section id="problem">
             <ProblemSection />
           </section>
@@ -53,7 +51,6 @@ const Home = () => {
             <FinalCTASection openDemoModal={() => setIsDemoModalOpen(true)} />
           </section>
           <Footer />
-        </Suspense>
       </main>
 
       {isDemoModalOpen && (
