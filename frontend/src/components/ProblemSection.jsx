@@ -59,11 +59,11 @@ const ProblemSection = () => {
       });
 
       // Initial setup for the crossfade layers
-      gsap.set(videosRef.current, { opacity: 0, scale: 1.05 });
-      gsap.set(videosRef.current[0], { opacity: 1, scale: 1 });
+      gsap.set(videosRef.current, { autoAlpha: 0, scale: 1.05 });
+      gsap.set(videosRef.current[0], { autoAlpha: 1, scale: 1 });
 
-      gsap.set(textsRef.current, { opacity: 0, y: 30 });
-      gsap.set(textsRef.current[0], { opacity: 1, y: 0 });
+      gsap.set(textsRef.current, { autoAlpha: 0, y: 30 });
+      gsap.set(textsRef.current[0], { autoAlpha: 1, y: 0 });
 
       gsap.set(indexRefs.current, { opacity: 0.25, x: 0 });
       gsap.set(indexRefs.current[0], { opacity: 1, x: 12 });
@@ -78,11 +78,11 @@ const ProblemSection = () => {
 
         const stepLabel = `step${i}`;
 
-        tl.to(videosRef.current[i - 1], { opacity: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, stepLabel)
-          .to(videosRef.current[i], { opacity: 1, scale: 1, duration: 1, ease: 'power2.out' }, stepLabel)
+        tl.to(videosRef.current[i - 1], { autoAlpha: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, stepLabel)
+          .to(videosRef.current[i], { autoAlpha: 1, scale: 1, duration: 1, ease: 'power2.out' }, stepLabel)
 
-          .to(textsRef.current[i - 1], { opacity: 0, y: -30, duration: 1, ease: 'power2.inOut' }, stepLabel)
-          .to(textsRef.current[i], { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }, stepLabel)
+          .to(textsRef.current[i - 1], { autoAlpha: 0, y: -30, duration: 1, ease: 'power2.inOut' }, stepLabel)
+          .to(textsRef.current[i], { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out' }, stepLabel)
 
           .to(indexRefs.current[i - 1], { opacity: 0.25, x: 0, duration: 1, ease: 'power2.inOut' }, stepLabel)
           .to(indexRefs.current[i], { opacity: 1, x: 12, duration: 1, ease: 'power2.out' }, stepLabel);
@@ -132,7 +132,12 @@ const ProblemSection = () => {
           {/* 2. Central 3D Canvas (Videos) */}
           <div className="w-full lg:flex-1 max-w-[700px] h-[35vh] md:h-[45vh] lg:h-full relative rounded-2xl lg:rounded-[2rem] overflow-hidden bg-black shadow-[0_40px_80px_rgba(0,0,0,0.15)] border border-black/5 order-2 shrink-0">
             {problems.map((prob, i) => (
-              <div key={i} ref={el => videosRef.current[i] = el} className="absolute inset-0 w-full h-full will-change-transform">
+              <div 
+                key={i} 
+                ref={el => videosRef.current[i] = el} 
+                className="absolute inset-0 w-full h-full"
+                style={{ willChange: 'transform, opacity, visibility', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+              >
                 <LazyVideo src={prob.video} className="w-full h-full object-cover opacity-90" isPlaying={isVisible && activeIndex === i} />
                 {/* Subtle gradient overlay to make it look premium */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
@@ -143,7 +148,12 @@ const ProblemSection = () => {
           {/* 3. Right Description Text */}
           <div className="w-full lg:w-[28%] relative h-28 md:h-40 lg:h-40 flex items-center justify-center lg:justify-start order-3 overflow-hidden lg:overflow-visible shrink-0">
             {problems.map((prob, i) => (
-              <div key={i} ref={el => textsRef.current[i] = el} className="absolute inset-0 w-full flex flex-col justify-center items-center lg:items-start text-center lg:text-left will-change-transform">
+              <div 
+                key={i} 
+                ref={el => textsRef.current[i] = el} 
+                className="absolute inset-0 w-full flex flex-col justify-center items-center lg:items-start text-center lg:text-left"
+                style={{ willChange: 'transform, opacity, visibility', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+              >
                 <p className="text-[15px] md:text-lg lg:text-2xl font-serif font-light leading-[1.5] lg:leading-[1.6] text-black/85 px-4 lg:px-0">
                   "{prob.desc}"
                 </p>

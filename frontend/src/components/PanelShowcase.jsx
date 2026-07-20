@@ -41,6 +41,8 @@ const PanelShowcase = () => {
   const carouselRef = useRef(null);
   const textsRef = useRef([]);
   textsRef.current = [];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -68,8 +70,8 @@ const PanelShowcase = () => {
     let ctx = gsap.context(() => {
       // ── 3D Spiral Carousel Applied Globally ──
       // Initial Text State
-      gsap.set(textsRef.current, { opacity: 0, y: 40 });
-      gsap.set(textsRef.current[0], { opacity: 1, y: 0 });
+      gsap.set(textsRef.current, { autoAlpha: 0, y: 40 });
+      gsap.set(textsRef.current[0], { autoAlpha: 1, y: 0 });
 
       // Set the carousel back so the front card is perfectly flush and properly sized
       gsap.set(carouselRef.current, { z: -350 });
@@ -81,7 +83,20 @@ const PanelShowcase = () => {
           end: '+=400%',
           pin: true,
           scrub: 1,
-          anticipatePin: 1
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            let newIndex = 0;
+            if (progress < 0.25) newIndex = 0;
+            else if (progress < 0.5) newIndex = 1;
+            else if (progress < 0.75) newIndex = 2;
+            else newIndex = 3;
+            
+            if (activeIndexRef.current !== newIndex) {
+              activeIndexRef.current = newIndex;
+              setActiveIndex(newIndex);
+            }
+          }
         }
       });
 
@@ -101,13 +116,13 @@ const PanelShowcase = () => {
 
         // Crossfade Text
         tl.to(textsRef.current[i - 1], {
-          opacity: 0,
+          autoAlpha: 0,
           y: -40,
           duration: 0.7,
           ease: 'power2.inOut'
         }, `${stepLabel}`)
           .to(textsRef.current[i], {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
             duration: 0.7,
             ease: 'power2.out'
@@ -143,7 +158,7 @@ const PanelShowcase = () => {
 
           <div className="relative w-full h-32 lg:h-48">
             {panels.map((panel, i) => (
-              <div key={i} ref={addToTexts} className="absolute inset-0 w-full flex flex-col items-start md:items-center lg:items-start will-change-transform">
+              <div key={i} ref={addToTexts} className="absolute inset-0 w-full flex flex-col items-start md:items-center lg:items-start" style={{ willChange: 'transform, opacity, visibility' }}>
                 <h3 className="text-2xl lg:text-4xl font-bold text-black mb-2 lg:mb-4 flex items-center gap-2 lg:gap-4">
                   <span className="text-xs lg:text-sm font-mono" style={{ color: panel.accent }}>0{i + 1}</span>
                   {panel.role}
@@ -173,7 +188,7 @@ const PanelShowcase = () => {
                   backfaceVisibility: 'hidden', // Hides the back of cards perfectly
                 }}
               >
-                <LazyVideo src={panel.video} className="w-full h-full object-cover opacity-90" isPlaying={isVisible} />
+                <LazyVideo src={panel.video} className="w-full h-full object-cover opacity-90" isPlaying={isVisible && activeIndex === i} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                 {/* Subtle border glow based on accent color */}
                 <div className="absolute inset-0 rounded-[2rem] pointer-events-none" style={{ boxShadow: `inset 0 0 40px ${panel.accent}30` }} />

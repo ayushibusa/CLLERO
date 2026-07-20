@@ -133,7 +133,8 @@ const TestimonialsSection = () => {
               <div
                 key={i}
                 ref={(el) => (cardsRef.current[i] = el)}
-                className="absolute inset-0 w-full h-full rounded-[2rem] overflow-hidden bg-white border border-black/5 shadow-[0_20px_50px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row items-stretch will-change-transform"
+                className="absolute inset-0 w-full h-full rounded-[2rem] overflow-hidden bg-white border border-black/5 shadow-[0_20px_50px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row items-stretch"
+                style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
               >
                 {/* Left: Video Area (Compact 35% width) */}
                 <div className="w-full lg:w-[35%] h-[240px] lg:h-full relative overflow-hidden bg-black flex-shrink-0">
