@@ -51,7 +51,7 @@ const HeroSection = ({ openDemoModal }) => {
           start: 'top top',
           end: '+=1000', // scroll for 1000px to complete
           pin: true,
-          scrub: 1,
+          scrub: 0.5,
         },
       });
 
