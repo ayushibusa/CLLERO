@@ -4,35 +4,37 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LazyVideo = ({ src, className, style, isPlaying, ...props }) => {
-  const videoRef = useRef(null);
+const LazyVideo = ({ src, className, style, ...props }) => {
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Explicitly set properties to guarantee mobile autoplay
-    video.muted = true;
-    video.playsInline = true;
-    video.autoplay = true;
-
-    // We rely entirely on the browser's native autoplay policy.
-    // Modern mobile browsers will natively pause off-screen videos to save battery.
-    // Manual IntersectionObservers calling .play() often get rejected by iOS Safari.
+    if (containerRef.current) {
+      const vid = containerRef.current.querySelector('video');
+      if (vid) {
+        // Force play on mount to ensure iOS Safari doesn't just show the poster image
+        vid.play().catch(e => console.warn('Forced autoplay prevented:', e));
+      }
+    }
   }, [src]);
 
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      className={`transition-opacity duration-300 ${className || ''}`}
+    <div
+      ref={containerRef}
+      className={`relative ${className || ''}`}
       style={style}
-      preload="metadata"
-      muted
-      loop
-      playsInline
-      autoPlay
-      {...props}
+      dangerouslySetInnerHTML={{
+        __html: `
+          <video
+            src="${src}"
+            class="w-full h-full object-cover transition-opacity duration-300"
+            preload="auto"
+            muted="muted"
+            loop="loop"
+            playsinline="playsinline"
+            autoplay="autoplay"
+          ></video>
+        `
+      }}
     />
   );
 };

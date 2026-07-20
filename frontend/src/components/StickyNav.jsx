@@ -71,7 +71,7 @@ const StickyNav = () => {
           style={{ color: isLight ? '#000' : '#fff' }}
         >
           <p className="text-base font-bold tracking-tight leading-none">Cllero</p>
-          <p className="text-[9px] uppercase tracking-[0.18em] opacity-60 mt-0.5">Management Edition</p>
+          <p className="text-[9px] uppercase tracking-[0.18em] opacity-60 mt-0.5">Frictionless velocity. Absolute clarity.</p>
         </div>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -130,7 +130,7 @@ const StickyNav = () => {
         {/* Brand */}
         <div className={`pointer-events-auto transition-colors duration-500 ${textColor}`}>
           <h2 className="text-2xl font-bold tracking-tight leading-none">Cllero</h2>
-          <p className="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1.5">Management Edition</p>
+          <p className="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1.5">Frictionless velocity. Absolute clarity.</p>
         </div>
 
         {/* Navigation — vertically centered */}

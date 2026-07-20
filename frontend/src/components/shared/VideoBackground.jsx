@@ -1,49 +1,34 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const VideoBackground = ({ src, children, className = '', videoClassName = '', autoPlay = true, hoverPlay = false, objectFit = 'cover', objectPosition = 'center', overlayStyle, isPlaying }) => {
-  const videoRef = useRef(null);
+const VideoBackground = ({ src, children, className = '', videoClassName = '', autoPlay = true, hoverPlay = false, objectFit = 'cover', objectPosition = 'center', overlayStyle }) => {
   const containerRef = useRef(null);
   const [hasError, setHasError] = useState(false);
-  useEffect(() => {
-    // Rely purely on the scroll enter/leave to play/pause.
-    // preload="none" will prevent network choking.
-  }, []);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleError = (e) => {
-      console.warn(`Video 404 or failed to load: ${src}`, e);
-      setHasError(true);
-    };
-
-    video.addEventListener('error', handleError);
-
-    if (autoPlay && !hoverPlay) {
-      video.muted = true;
-      video.playsInline = true;
-      video.autoplay = true;
+    if (autoPlay && !hoverPlay && containerRef.current) {
+      const vid = containerRef.current.querySelector('video');
+      if (vid) {
+        // Force play on mount to ensure iOS Safari doesn't just show the poster image
+        vid.play().catch(e => console.warn('Forced autoplay prevented:', e));
+      }
     }
-
-    return () => {
-      video.removeEventListener('error', handleError);
-    };
-  }, [autoPlay, hoverPlay, src]);
+  }, [src, autoPlay, hoverPlay]);
 
   const handleMouseEnter = () => {
-    if (hoverPlay && videoRef.current && !hasError) {
-      videoRef.current.play().catch(e => console.warn('Hover play failed:', e));
+    if (hoverPlay && containerRef.current && !hasError) {
+      const vid = containerRef.current.querySelector('video');
+      if(vid) vid.play().catch(e => console.warn('Hover play failed:', e));
     }
   };
 
   const handleMouseLeave = () => {
-    if (hoverPlay && videoRef.current && !hasError) {
-      videoRef.current.pause();
+    if (hoverPlay && containerRef.current && !hasError) {
+      const vid = containerRef.current.querySelector('video');
+      if(vid) vid.pause();
     }
   };
 
@@ -55,16 +40,22 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
       onMouseLeave={handleMouseLeave}
     >
       {!hasError && (
-        <video
-          ref={videoRef}
-          className={`video-bg absolute inset-0 w-full h-full z-0 transition-opacity duration-300 ${videoClassName}`}
-          style={{ objectFit, objectPosition }}
-          src={src}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          autoPlay={autoPlay && !hoverPlay}
+        <div 
+          className="absolute inset-0 w-full h-full z-0 pointer-events-none"
+          dangerouslySetInnerHTML={{
+            __html: `
+              <video
+                class="video-bg absolute inset-0 w-full h-full z-0 transition-opacity duration-300 ${videoClassName}"
+                style="object-fit: ${objectFit}; object-position: ${objectPosition};"
+                src="${src}"
+                muted="muted"
+                loop="loop"
+                playsinline="playsinline"
+                ${(autoPlay && !hoverPlay) ? 'autoplay="autoplay"' : ''}
+                preload="auto"
+              ></video>
+            `
+          }}
         />
       )}
       {hasError && (
@@ -78,7 +69,7 @@ const VideoBackground = ({ src, children, className = '', videoClassName = '', a
           background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.35) 100%)'
         }}
       />
-      <div className="content relative z-[2] w-full h-full">
+      <div className="content relative z-[2] w-full h-full pointer-events-auto">
         {children}
       </div>
     </div>
