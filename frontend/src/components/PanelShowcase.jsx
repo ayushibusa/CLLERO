@@ -80,16 +80,10 @@ const PanelShowcase = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=150%', // 150vh for 3 transitions
+          end: '+=1200%', // Significantly increased scroll distance to prevent skipping cards on fast scroll
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
-          snap: {
-            snapTo: 1 / (panels.length - 1), // Exact fractions
-            duration: { min: 0.2, max: 0.4 },
-            delay: 0, // Instant snap on scroll release
-            ease: "power2.inOut"
-          },
           onUpdate: (self) => {
             const progress = self.progress;
             let newIndex = 0;
